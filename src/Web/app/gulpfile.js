@@ -3,29 +3,21 @@ var webpack = require('gulp-webpack');
 var concat = require('gulp-concat');
 var less = require('gulp-less');
 var webpackConf = require('./webpack.config.js');
-var connect = require('gulp-connect');
+var livereload = require('gulp-livereload');
 
 gulp.task("webpack", function() {
     return gulp.src('src/js/main.js')
         .pipe(webpack( webpackConf ))
         .pipe(concat('main.js'))
         .pipe(gulp.dest('dist/js'))
-        .pipe(connect.reload());
-});
-
-gulp.task("connect", function(){
-    connect.server({
-        root: 'dist',
-        livereload: true,
-        port: 8003
-      });
+        .pipe(livereload());
 });
 
 gulp.task('build-less', function(){
     return gulp.src('./src/less/**/*.less')
         .pipe(less())
         .pipe(gulp.dest('./dist/css'))
-        .pipe(connect.reload());
+        .pipe(livereload());
 });
 
 gulp.task('copy', function() {
@@ -39,11 +31,7 @@ gulp.task('copy', function() {
 gulp.task('default', ['build-less', 'webpack', 'copy']);
 
 gulp.task('watch', function() {
-    // connect.server({
-    //    root: 'dist',
-    //    livereload: true,
-    //    port: 8003
-    //  });
+    livereload.listen();
     gulp.watch('src/**/*.less', ['build-less']);
     gulp.watch(['src/**/*.js', 'src/**/*.jsx'], ['webpack']);
 });

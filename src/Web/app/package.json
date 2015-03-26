@@ -23,5 +23,7 @@
     "react": "^0.13.1",
     "webpack": "^1.7.3"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "gulp-livereload": "^3.8.0"
+  }
 }
