@@ -23,7 +23,7 @@ namespace Web {
             base.ConfigureConventions(nancyConventions);
 
             nancyConventions.ViewLocationConventions.Clear();
-            nancyConventions.ViewLocationConventions.Add((view, model, ctx) => "app/" + view);
+            nancyConventions.ViewLocationConventions.Add((view, model, ctx) => "app/dist/" + view);
         }
     }
 }

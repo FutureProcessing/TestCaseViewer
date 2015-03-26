@@ -1,6 +1,8 @@
 bin
 obj
 src/packages
+src/Web/app/dist/
+src/Web/app/node_modules/
 
 *.user
 *.suo
