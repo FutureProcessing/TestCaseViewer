@@ -9,7 +9,7 @@ namespace Web.Modules.Home {
     public class HomeModule : NancyModule {
         public HomeModule()
         {
-            Get["/"] = _ => "Hello World";
+            Get["/"] = _ => View["index"];            
         }
     }
 }
