@@ -1,29 +1,41 @@
 ﻿namespace Web.Modules.Authentication
 {
-    using System.Linq;
     using System.Security.Claims;
     using System.Security.Principal;
     using Microsoft.Owin.Security;
     using Nancy;
     using Nancy.Security;
+    using Tfs;
 
     public class AuthenticationModule : BaseModule
     {
-        public AuthenticationModule()
+        public AuthenticationModule(AuthenticationService authentication)
             : base("/auth")
         {
             Post["login"] = _ =>
             {
-                var props = new AuthenticationProperties { IsPersistent = true };
+                var userName = this.Request.Form.userName;
+                var password = this.Request.Form.password;
 
-                var identity = new ClaimsIdentity(new GenericIdentity("admin", "Forms"), new[]
+                if (authentication.ValidateCredentials(userName, password))
                 {
-                    new Claim(LocalClaims.PasswordType, "password"), 
-                });
+                    var props = new AuthenticationProperties { IsPersistent = true };
 
-                this.OwinContext.Authentication.SignIn(props, identity);
+                    var identity = new ClaimsIdentity(new GenericIdentity(userName, "Forms"), new[]
+                    {
+                        new Claim(LocalClaims.PasswordType, password), 
+                    });
 
-                return Ok;
+                    this.OwinContext.Authentication.SignIn(props, identity);
+
+                    return Ok;
+                }
+                else
+                {
+                    return Negotiate
+                        .WithModel(new {Error = "Authentication failed"})
+                        .WithStatusCode(HttpStatusCode.Forbidden);
+                }
             };
 
             Post["/logout"] = _ =>
