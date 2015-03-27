@@ -1,7 +1,7 @@
 import React from 'react';
-import {Route, ROUTEHandler, Link} from 'react-router';
+import {Route, RouteHandler, Link} from 'react-router';
 import LogIn from './logIn/logIn.jsx';
-import TCViewer from './tcViewer/TCViewer.jsx';
+import TestCaseViewer from './testCaseViewer/testCaseViewer.jsx';
 
 import ViewActionCreators from '../actions/viewActionCreators.js';
 

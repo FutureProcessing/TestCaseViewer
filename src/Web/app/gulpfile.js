@@ -21,7 +21,7 @@ gulp.task('build-less', function(){
 });
 
 gulp.task('copy', function() {
-    gulp.src('src/index.html')
+    gulp.src('src/index.sshtml')
       .pipe(gulp.dest('dist'));
 
     gulp.src('src/font/*.*')

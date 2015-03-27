@@ -6,8 +6,8 @@ var CHANGE_EVENT = 'change';
 class userStore extends EventEmitter{
     constructor(){
         this.state = {
-            name: '',
-            isLoggedIn: false;
+            username: '',
+            isLoggedIn: false
         };
 
         this.dispatchToken = AppDispatcher.register(register.bind(this));
@@ -29,8 +29,8 @@ class userStore extends EventEmitter{
         return this.state;
     }
 
-    handleLoggedIn(user){
-        this.state.name == user.name;
+    handleLoggedIn(username){
+        this.state.username = username;
         this.state.isLoggedIn = true;
     }
 }
@@ -41,10 +41,10 @@ function register(payload){
 
     switch(action.type){
         case actionTypes.LOGGED_IN_SUCCESS:
-            this.handleLoggedIn(action.toAdd);
+            this.handleLoggedIn(action.username);
             this.emitChange();
             break;
     }
 }
 
-export default new accountStore();
+export default new userStore();

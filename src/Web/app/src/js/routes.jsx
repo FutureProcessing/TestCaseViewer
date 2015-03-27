@@ -1,0 +1,13 @@
+import React from 'react';
+import {Route, DefaultRoute} from 'react-router';
+import App from './components/app.jsx';
+import LogIn from './components/logIn/logIn.jsx';
+import TestCaseViewer from './components/testCaseViewer/testCaseViewer.jsx';
+
+
+export default (
+    <Route handler={App}>
+        <DefaultRoute name="LogIn" handler={LogIn} />
+        <Route name="TestCaseViewer" handler={TestCaseViewer} />
+    </Route>
+);

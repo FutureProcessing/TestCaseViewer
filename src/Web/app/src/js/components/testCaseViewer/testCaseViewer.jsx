@@ -1,6 +1,6 @@
 import React from 'react';
 
-class TCViewer extends React.Component {
+class TestCaseViewer extends React.Component {
     render(){
         return(
             <div>TC Viewer</div>
@@ -8,4 +8,4 @@ class TCViewer extends React.Component {
     }
 }
 
-export default TCViewer;
+export default TestCaseViewer;

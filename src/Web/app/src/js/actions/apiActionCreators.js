@@ -3,13 +3,17 @@ import ActionTypes from '../constants/actionTypes.js';
 
 import api from '../api/api.js';
 
-var ViewActionCreators = {
-    logIn: function(user, password){
+var ApiActionCreators = {
+    loggedIn: function(username){
         AppDispatcher.handleViewAction({
-            type: ActionTypes.LOG_IN
+            type: ActionTypes.LOGGED_IN_SUCCESS,
+            username: username
         });
-        api.logIn(user, password);
+    },
+
+    loggedOut: () => {
+
     }
 };
 
-export default ViewActionCreators;
+export default ApiActionCreators;
