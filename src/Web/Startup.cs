@@ -24,6 +24,9 @@ namespace Web {
 
             nancyConventions.ViewLocationConventions.Clear();
             nancyConventions.ViewLocationConventions.Add((view, model, ctx) => "app/dist/" + view);
+
+            nancyConventions.StaticContentsConventions.Clear();
+            nancyConventions.StaticContentsConventions.AddDirectory("/", "app/dist");
         }
     }
 }
