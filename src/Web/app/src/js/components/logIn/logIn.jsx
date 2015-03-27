@@ -30,7 +30,15 @@ class LogIn extends React.Component{
     }
 
     handleLogInClick(){
-        actionCreators.logIn('a', 'a');
+        actionCreators.logIn(this.state.user, this.state.password);
+    }
+
+    handleUserChange(e){
+        this.setState({user: e.target.value});
+    }
+
+    handlePasswordChange(e){
+        this.setState({password: e.target.value});
     }
 
     render(){
@@ -38,10 +46,10 @@ class LogIn extends React.Component{
             <div>
                 <h1>Please log in</h1>
                 <label>user</label>
-                <input type="text"></input>
+                <input type="text" onChange={this.handleUserChange.bind(this)}></input>
 
                 <label>password</label>
-                <input type="text"></input>
+                <input type="password" onChange={this.handlePasswordChange.bind(this)}></input>
 
                 <button onClick={this.handleLogInClick.bind(this)}>Log In</button>
             </div>

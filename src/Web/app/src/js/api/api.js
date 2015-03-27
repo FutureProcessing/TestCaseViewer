@@ -5,7 +5,11 @@ var api = {
     logIn: (user, password) => {
         xhttp({
             url: window.baseUrl + 'auth/login',
-            method: 'post'
+            method: 'post',
+            data: {
+                user: user,
+                password: password
+            }
         }).then(() => {
             return xhttp({ url: window.baseUrl + 'auth/identity'});
         }).then((data) => {
