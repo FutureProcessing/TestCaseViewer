@@ -1,32 +1,24 @@
-﻿using System;
-using System.Threading.Tasks;
-using Microsoft.Owin;
+﻿using Microsoft.Owin;
 using Owin;
 
 [assembly: OwinStartup(typeof(Web.Startup))]
 
 namespace Web {
-    using Nancy;
-    using Nancy.Conventions;
+    using Microsoft.Owin.Security;
+    using Microsoft.Owin.Security.Cookies;
 
-    public class Startup {
-        public void Configuration(IAppBuilder app) {
-            app.UseNancy();
-        }
-    }
-
-
-    public class Bootstraper : DefaultNancyBootstrapper
+    public class Startup
     {
-        protected override void ConfigureConventions(NancyConventions nancyConventions)
+        public void Configuration(IAppBuilder app)
         {
-            base.ConfigureConventions(nancyConventions);
+            app.UseCookieAuthentication(new CookieAuthenticationOptions()
+            {
+                AuthenticationMode = AuthenticationMode.Active,
+                AuthenticationType = "Forms",
+                CookieName = ".TCViewer.Auth",                
+            });
 
-            nancyConventions.ViewLocationConventions.Clear();
-            nancyConventions.ViewLocationConventions.Add((view, model, ctx) => "app/dist/" + view);
-
-            nancyConventions.StaticContentsConventions.Clear();
-            nancyConventions.StaticContentsConventions.AddDirectory("/", "app/dist");
+            app.UseNancy();
         }
     }
 }
