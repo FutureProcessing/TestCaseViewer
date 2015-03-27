@@ -2,10 +2,9 @@ import AppDispatcher from '../dispatchers/appDispatcher.js';
 import ActionTypes from '../constants/actionTypes.js';
 
 var ViewActionCreators = {
-    add: function(toAdd){
+    logIn: function(toAdd){
         AppDispatcher.handleViewAction({
-            type: ActionTypes.ADD,
-            toAdd: toAdd
+            type: ActionTypes.LOG_IN
         });
     }
 };

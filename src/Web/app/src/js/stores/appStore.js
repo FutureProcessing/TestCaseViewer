@@ -3,9 +3,13 @@ import AppDispatcher from '../dispatchers/appDispatcher.js';
 import actionTypes from '../constants/actionTypes.js';
 
 var CHANGE_EVENT = 'change';
-class appStore extends EventEmitter{
+class userStore extends EventEmitter{
     constructor(){
-        this.state = {name: "Test app"};
+        this.state = {
+            name: '',
+            isLoggedIn: false;
+        };
+
         this.dispatchToken = AppDispatcher.register(register.bind(this));
     }
 
@@ -25,8 +29,9 @@ class appStore extends EventEmitter{
         return this.state;
     }
 
-    handleDo(x){
-        this.state.name += x;
+    handleLoggedIn(user){
+        this.state.name == user.name;
+        this.state.isLoggedIn = true;
     }
 }
 
@@ -35,11 +40,11 @@ function register(payload){
     var action = payload.action;
 
     switch(action.type){
-        case actionTypes.ADD:
-            this.handleDo(action.toAdd);
+        case actionTypes.LOGGED_IN_SUCCESS:
+            this.handleLoggedIn(action.toAdd);
             this.emitChange();
             break;
     }
 }
 
-export default new appStore();
+export default new accountStore();

@@ -1,38 +1,37 @@
 import React from 'react';
-import AppStore from '../stores/appStore.js';
+import {Route, ROUTEHandler, Link} from 'react-router';
+import LogIn from './logIn/logIn.jsx';
+import TCViewer from './tcViewer/TCViewer.jsx';
+
 import ViewActionCreators from '../actions/viewActionCreators.js';
 
 class App extends React.Component{
-    constructor(props){
-        super(props);
-        this.state = AppStore.getData();
-    }
+    // constructor(props){
+    //     super(props);
+    //     this.state = AppStore.getData();
+    // }
 
-    componentDidMount(){
-        AppStore.addEventListener(this.handleStoreChange.bind(this));
-    }
+    // componentDidMount(){
+    //     AppStore.addEventListener(this.handleStoreChange.bind(this));
+    // }
+    //
+    // componentWillUnmount() {
+    //     AppStore.removeEventListener(this.handleStoreChange.bind(this));
+    // }
 
-    componentWillUnmount() {
-        AppStore.removeEventListener(this.handleStoreChange.bind(this));
-    }
-
-    handleStoreChange(){
-        var data = AppStore.getData();
-        this.setState({name: data.name});
-    }
-
-    handleButtonClick(){
-        ViewActionCreators.add(':)');
-    }
+    // handleStoreChange(){
+    //     var data = AppStore.getData();
+    //     this.setState({name: data.name});
+    // }
 
     render() {
         return (
-            <div>
-                {this.state.name}
-                <button onClick={this.handleButtonClick}>ADD</button>
-            </div>
+            <RouteHandler />
         );
     }
 }
+
+
+
 
 export default App;
