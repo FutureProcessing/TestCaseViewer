@@ -2,11 +2,14 @@ import React from 'react';
 import actionCreators from '../../actions/viewActionCreators.js';
 import UserStore from '../../stores/userStore.js';
 import {Router} from 'react-router';
+import LogInInput from './logInInput.jsx';
 
 class LogIn extends React.Component{
     constructor(props){
-        this.user = '';
-        this.password = '';
+        this.state = {
+            user: '',
+            password: ''
+        };
     }
 
     static willTransitionTo(transition){
@@ -25,8 +28,12 @@ class LogIn extends React.Component{
     }
 
     handleStoreChange(){
-        var isLoggedIn = UserStore.getData().isLoggedIn;
-        if(isLoggedIn) this.context.router.transitionTo('/testCaseViewer');
+        var data = UserStore.getData();
+        if(data.isLoggedIn) {
+            this.context.router.transitionTo('/testCaseViewer');
+        }else{
+            this.setState({inProgress: data.inProgress, errorMessage: data.errorMessage});
+        }
     }
 
     handleLogInClick(){
@@ -42,16 +49,23 @@ class LogIn extends React.Component{
     }
 
     render(){
+
         return(
             <div>
                 <h1>Please log in</h1>
-                <label>user</label>
-                <input type="text" onChange={this.handleUserChange.bind(this)}></input>
+                
+                <LogInInput onChange={this.handleUserChange.bind(this)}
+                    label="user"
+                    >
+                </LogInInput>
+
 
                 <label>password</label>
                 <input type="password" onChange={this.handlePasswordChange.bind(this)}></input>
 
                 <button onClick={this.handleLogInClick.bind(this)}>Log In</button>
+                {this.state.inProgress? '...': null}
+                {this.state.errorMessage || null}
             </div>
         )
     }

@@ -15,8 +15,9 @@ var api = {
         }).then((data) => {
             console.log('LOGGEDIN AS', data);
             ApiActionCreators.loggedIn(data.userName);
-        }).catch(err => {
-            console.log('ERROR', err);
+        }).catch((err, e1, e2) => {
+            console.log(e1, e2);
+            ApiActionCreators.logInFailed(err);
         });
     },
 

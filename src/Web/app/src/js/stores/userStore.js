@@ -7,7 +7,9 @@ class userStore extends EventEmitter{
     constructor(){
         this.state = {
             username: '',
-            isLoggedIn: false
+            isLoggedIn: false,
+            inProgress: false,
+            errorMessage: ''
         };
 
         this.dispatchToken = AppDispatcher.register(register.bind(this));
@@ -29,9 +31,19 @@ class userStore extends EventEmitter{
         return this.state;
     }
 
+    handleLogIn(){
+        this.state.inProgress = true;
+    }
+
     handleLoggedIn(username){
         this.state.username = username;
         this.state.isLoggedIn = true;
+        this.state.inProgress = false;
+    }
+
+    handleLoggedInFail(error){
+        this.state.errorMessage = error;
+        this.state.inProgress = false;
     }
 }
 
@@ -40,8 +52,16 @@ function register(payload){
     var action = payload.action;
 
     switch(action.type){
+        case actionTypes.LOG_IN:
+            this.handleLogIn();
+            this.emitChange();
+            break;
         case actionTypes.LOGGED_IN_SUCCESS:
             this.handleLoggedIn(action.username);
+            this.emitChange();
+            break;
+        case actionTypes.LOGGED_IN_FAIL:
+            this.handleLoggedInFail(action.error);
             this.emitChange();
             break;
     }

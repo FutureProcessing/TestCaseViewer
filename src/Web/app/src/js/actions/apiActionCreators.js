@@ -5,13 +5,24 @@ import api from '../api/api.js';
 
 var ApiActionCreators = {
     loggedIn: function(username){
-        AppDispatcher.handleViewAction({
+        AppDispatcher.handleApiAction({
             type: ActionTypes.LOGGED_IN_SUCCESS,
             username: username
         });
     },
 
-    loggedOut: () => {
+    logInFailed: function(error){
+        AppDispatcher.handleApiAction({
+            type: ActionTypes.LOGGED_IN_FAIL,
+            error: error
+        });
+    },
+
+    loggedOut: function(){
+
+    },
+
+    loggedOutFail: function(error){
 
     }
 };
