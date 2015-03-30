@@ -53,7 +53,7 @@ class LogIn extends React.Component{
         return(
             <div>
                 <h1>Please log in</h1>
-                
+
                 <LogInInput onChange={this.handleUserChange.bind(this)}
                     label="user"
                     >
@@ -72,7 +72,7 @@ class LogIn extends React.Component{
 }
 
 LogIn.contextTypes = {
-  router: React.PropTypes.func
+    router: React.PropTypes.func
 };
 
 export default LogIn

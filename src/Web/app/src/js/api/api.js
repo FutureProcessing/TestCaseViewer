@@ -6,8 +6,9 @@ var api = {
         xhttp({
             url: window.baseUrl + 'auth/login',
             method: 'post',
+            type: 'form',
             data: {
-                user: user,
+                username: user,
                 password: password
             }
         }).then(() => {

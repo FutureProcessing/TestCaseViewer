@@ -17,7 +17,7 @@ class LogInInput extends React.Component{
         return (
             <div>
                 <label>{this.props.label}</label>
-                <input type="text" value={this.state.value} placeholder={this.props.placeholder} onChange={this.handleValueChange}></input>
+                <input type="text" value={this.state.value} placeholder={this.props.placeholder} onChange={this.props.onChange.bind(this)}></input>
             </div>
         );
     }
