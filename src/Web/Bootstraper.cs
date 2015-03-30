@@ -1,10 +1,13 @@
 ﻿namespace Web
 {
+    using System;
+    using System.Linq;
     using Microsoft.Owin;
     using Nancy;
     using Nancy.Bootstrapper;
     using Nancy.Conventions;
     using Nancy.Owin;
+    using Nancy.Responses;
     using Nancy.TinyIoc;
 
     public class Bootstraper : DefaultNancyBootstrapper
@@ -25,6 +28,31 @@
             base.RequestStartup(container, pipelines, context);
 
             pipelines.BeforeRequest += SetNancyUser;
+            pipelines.OnError += HandleAjaxError;
+        }
+
+        private Response HandleAjaxError(NancyContext context, Exception e)
+        {
+            bool isAjaxRequest = true;
+
+            if (isAjaxRequest)
+            {
+                var response = new
+                {
+                    Type = e.GetType().Name,
+                    Message = e.Message,
+                    StackTrace = e.StackTrace
+                };
+
+                var serializer = this.ApplicationContainer.ResolveAll<ISerializer>().FirstOrDefault(x => x.CanSerialize("application/json"));
+
+                return new JsonResponse(response, serializer)
+                {
+                    StatusCode = HttpStatusCode.InternalServerError
+                };
+            }
+
+            return null;
         }
 
         private Response SetNancyUser(NancyContext ctx)
