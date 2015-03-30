@@ -58,6 +58,10 @@ class LogIn extends React.Component{
             <div className="login-container">
                 <div className="login-header">Please log in</div>
 
+                {this.state.errorMessage?(
+                    <div className="login-error">{this.state.errorMessage}</div>
+                ): null}
+
                 <div className="login-content">
 
                     <LogInInput
@@ -78,9 +82,7 @@ class LogIn extends React.Component{
                     </ProgressButton>
                 </div>
 
-                {this.state.errorMessage?(
-                    <div className="error-message">this.state.errorMessage</div>
-                ): null}
+
             </div>
         )
     }

@@ -14,18 +14,15 @@ var api = {
         }).then(() => {
             return xhttp({ url: window.baseUrl + 'auth/identity'});
         }).then((data) => {
-            console.log('LOGGED AS', data);
             ApiActionCreators.loggedIn(data.userName);
-        }).catch((err, e1, e2) => {
-            console.log(e1, e2);
-            ApiActionCreators.logInFailed(err);
+        }).catch((err) => {
+            ApiActionCreators.logInFailed(err.message);
         });
     },
 
     identify: () => {
         return xhttp({ url: window.baseUrl + 'auth/identity'}).then((data) => {
             if(data.isAuthenticated){
-                console.log('LOGGED AS', data);
                 ApiActionCreators.loggedIn(data.userName);
             }
             return data;
