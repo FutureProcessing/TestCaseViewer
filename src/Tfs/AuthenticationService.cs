@@ -5,6 +5,7 @@
     using Common;
     using Microsoft.TeamFoundation;
     using Microsoft.TeamFoundation.Client;
+    using Microsoft.TeamFoundation.Client.Channels;
 
     public class AuthenticationService 
     {
@@ -16,10 +17,13 @@
         }
 
         public bool ValidateCredentials(string userName, string password)
-        {            
+        {
+            TfsRequestSettings.Default.SendTimeout = TimeSpan.FromSeconds(5);
+
             var credentials = new NetworkCredential(userName, password);
 
-            var tfs = new TfsTeamProjectCollection(this._configuration.TfsServer, credentials);
+            var tfs = new TfsTeamProjectCollection(this._configuration.TfsServer, credentials);            
+
             try
             {
                 tfs.Authenticate();
