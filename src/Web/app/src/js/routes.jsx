@@ -7,7 +7,7 @@ import TestCaseViewer from './components/testCaseViewer/testCaseViewer.jsx';
 
 export default (
     <Route handler={App}>
-        <DefaultRoute name="LogIn" handler={LogIn} />
-        <Route name="TestCaseViewer" handler={TestCaseViewer} />
+        <Route path="/LogIn" name="LogIn" handler={LogIn} />
+        <Route path="/TestCaseViewer" name="TestCaseViewer" handler={TestCaseViewer} />
     </Route>
 );

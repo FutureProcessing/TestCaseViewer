@@ -41,7 +41,22 @@ class userStore extends EventEmitter{
         this.state.inProgress = false;
     }
 
-    handleLoggedInFail(error){
+    handleLogInFail(error){
+        this.state.isLoggedIn = false;
+        this.state.errorMessage = error;
+        this.state.inProgress = false;
+    }
+
+    handleLogOut(){
+        this.state.inProgress = true;
+    }
+
+    handleLoggedOut(){
+        this.state.isLoggedIn = false;
+        this.state.inProgress = false;
+    }
+
+    handleLogOutFail(){
         this.state.errorMessage = error;
         this.state.inProgress = false;
     }
@@ -56,12 +71,24 @@ function register(payload){
             this.handleLogIn();
             this.emitChange();
             break;
-        case actionTypes.LOGGED_IN_SUCCESS:
+        case actionTypes.LOG_IN_SUCCESS:
             this.handleLoggedIn(action.username);
             this.emitChange();
             break;
-        case actionTypes.LOGGED_IN_FAIL:
-            this.handleLoggedInFail(action.error);
+        case actionTypes.LOG_IN_FAIL:
+            this.handleLogInFail(action.error);
+            this.emitChange();
+            break;
+        case actionTypes.LOG_OUT:
+            this.handleLogOut();
+            this.emitChange();
+            break;
+        case actionTypes.LOG_OUT_SUCCESS:
+            this.handleLoggedOut();
+            this.emitChange();
+            break;
+        case actionTypes.LOG_OUT_FAIL:
+            this.handleLogOutFail(action.error);
             this.emitChange();
             break;
     }

@@ -9,11 +9,12 @@
 
 <body>
     <div id="main" class="container"></div>
+    <script>
+        window.baseUrl = "@Path['~/']";
+    </script>
     <script src="@Path['~/js/main.js']"></script>
 </body>
 
-<script>
-    window.baseUrl = "@Path['~/']";
-</script>
+
 
 </html>

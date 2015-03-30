@@ -6,24 +6,29 @@ import api from '../api/api.js';
 var ApiActionCreators = {
     loggedIn: function(username){
         AppDispatcher.handleApiAction({
-            type: ActionTypes.LOGGED_IN_SUCCESS,
+            type: ActionTypes.LOG_IN_SUCCESS,
             username: username
         });
     },
 
     logInFailed: function(error){
         AppDispatcher.handleApiAction({
-            type: ActionTypes.LOGGED_IN_FAIL,
+            type: ActionTypes.LOG_IN_FAIL,
             error: error
         });
     },
 
     loggedOut: function(){
-
+        AppDispatcher.handleApiAction({
+            type: ActionTypes.LOG_OUT_SUCCESS
+        });
     },
 
-    loggedOutFail: function(error){
-
+    logOutFail: function(error){
+        AppDispatcher.handleApiAction({
+            type: ActionTypes.LOG_OUT_FAIL,
+            error: error
+        });
     }
 };
 

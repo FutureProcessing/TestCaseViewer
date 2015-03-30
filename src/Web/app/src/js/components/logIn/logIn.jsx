@@ -1,5 +1,5 @@
 import React from 'react';
-import actionCreators from '../../actions/viewActionCreators.js';
+import ViewActionCreators from '../../actions/viewActionCreators.js';
 import UserStore from '../../stores/userStore.js';
 import {Router} from 'react-router';
 import LogInInput from './logInInput.jsx';
@@ -16,6 +16,8 @@ class LogIn extends React.Component{
         var isLoggedIn = UserStore.getData().isLoggedIn;
         if(isLoggedIn){
             transition.redirect('/testCaseViewer');
+        } else{
+            ViewActionCreators.logIn();
         }
     }
 
@@ -37,7 +39,7 @@ class LogIn extends React.Component{
     }
 
     handleLogInClick(){
-        actionCreators.logIn(this.state.user, this.state.password);
+        ViewActionCreators.logIn(this.state.user, this.state.password);
     }
 
     handleUserChange(e){
@@ -55,15 +57,14 @@ class LogIn extends React.Component{
                 <h1>Please log in</h1>
 
                 <LogInInput onChange={this.handleUserChange.bind(this)}
-                    label="user"
-                    >
-                </LogInInput>
+                    label="user" />
 
 
                 <label>password</label>
                 <input type="password" onChange={this.handlePasswordChange.bind(this)}></input>
 
                 <button onClick={this.handleLogInClick.bind(this)}>Log In</button>
+
                 {this.state.inProgress? '...': null}
                 {this.state.errorMessage || null}
             </div>
