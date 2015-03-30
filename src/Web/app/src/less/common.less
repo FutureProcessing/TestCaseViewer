@@ -1,5 +1,6 @@
 @import 'variables/colors';
 @import 'mixins/lessPrefixer.less';
+@import 'mixins/buttonInProgress.less';
 
 .labeled-input{
     box-sizing: border-box;
@@ -85,24 +86,6 @@
         .in-progress();
     }
 
-}
-
-.in-progress(){
-    &:before{
-        content: '';
-        position: absolute;
-        z-index: 2;
-
-        width: 100%;
-        height: 6px;
-        bottom: 0px;
-        left: 0;
-        background: @CDark;
-        box-sizing: border-box;
-         .animation-name(progressbar);
-         .animation-duration(3s);
-         .animation-iteration-count(infinite);
-    }
 }
 
 .progressbar-frames(){

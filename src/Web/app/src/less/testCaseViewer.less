@@ -1,0 +1,85 @@
+@import 'variables/colors';
+@import 'mixins/lessPrefixer.less';
+@import 'mixins/buttonInProgress.less';
+
+.top-bar{
+    width: 100%;
+    background: @CDark;
+    position: relative;
+    overflow: hidden;
+    color: @CLight;
+
+    .user-button{
+        border-left: 1px solid @CLight2;
+
+        float: right;
+        overflow: visible;
+        position: relative;
+        box-sizing: border-box;
+
+        .name{
+            float: left;
+            color: @CLight;
+            box-sizing: border-box;
+            .logout-button();
+        }
+
+        img{
+            float: left;
+            height: 3em;
+            width: 3em;
+            background: @CBase2;
+        }
+
+        &.in-progress{
+            .in-progress();
+        }
+    }
+
+    .logout-button(){
+        overflow: hidden;
+        vertical-align: middle;
+        position: relative;
+        text-align: center;
+        cursor: pointer;
+        padding: 0.7em 1em;
+
+        font-weight: 300;
+        &:after {
+            content: attr(data-logout);
+            position: absolute;
+        	z-index: 1;
+        	.transition(all 0.3s);
+
+            padding-top: 1.5em;
+            margin: auto;
+
+        	width: 0;
+        	height: 103%;
+        	top: 50%;
+        	left: 50%;
+        	background: @CBase2;
+        	opacity: 0;
+        	.transform(translateX(-50%) translateY(-50%));
+        }
+
+        &:active, &:hover {
+        	color: @CDark;
+        }
+
+        &:hover:after {
+        	width: 90%;
+        	opacity: 1;
+        }
+
+        &:active:after {
+        	width: 101%;
+        	opacity: 1;
+        }
+    }
+}
+
+.left-menu{
+    width: 300px;
+    background: @CBase;
+}

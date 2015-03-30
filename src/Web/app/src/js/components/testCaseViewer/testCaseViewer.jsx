@@ -2,6 +2,7 @@ import React from 'react';
 import UserStore from '../../stores/userStore.js';
 import ViewActionCreators from '../../actions/viewActionCreators.js';
 import {RouteHandler} from 'react-router';
+import TopBar from './topBar.jsx';
 
 class TestCaseViewer extends React.Component {
 
@@ -19,8 +20,7 @@ class TestCaseViewer extends React.Component {
     render(){
         return(
             <div>
-                
-                <div> <a onClick={this.handleLogOffClick.bind(this)} > Log off </a></div>
+                <TopBar onLogOffClick={this.handleLogOffClick.bind(this)} />
                 <RouteHandler/>
             </div>
         );
