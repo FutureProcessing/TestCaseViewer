@@ -5,7 +5,7 @@ import TestCase from './testCase.jsx';
 class TestCases extends React.Component{
     render(){
         return (
-            <div>
+            <div className="content-container">
                 <LeftMenu />
                 <TestCase />
             </div>

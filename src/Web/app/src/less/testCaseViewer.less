@@ -28,7 +28,7 @@
             float: left;
             height: 3em;
             width: 3em;
-            background: @CBase2;
+            background: @CBase;
         }
 
         &.in-progress{
@@ -79,7 +79,22 @@
     }
 }
 
-.left-menu{
-    width: 300px;
-    background: @CBase;
+.content-container{
+    height: 100%;
+    position: relative;
+    display: flex;
+
+    .left-menu{
+        width: 300px;
+        background: @CLight;
+        height: 100%;
+    }
+
+    .right-content{
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        min-height: 100%;
+        position: relative;
+    }
 }
