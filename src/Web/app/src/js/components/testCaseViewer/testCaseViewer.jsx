@@ -19,7 +19,7 @@ class TestCaseViewer extends React.Component {
 
     render(){
         return(
-            <div>
+            <div className="top-bar-layout-container">
                 <TopBar onLogOffClick={this.handleLogOffClick.bind(this)} />
                 <RouteHandler/>
             </div>
