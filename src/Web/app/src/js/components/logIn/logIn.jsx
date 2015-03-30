@@ -41,7 +41,9 @@ class LogIn extends React.Component{
     }
 
     handleLogInClick(){
-        ViewActionCreators.logIn(this.state.user, this.state.password);
+        if(this.state.user && this.state.password){
+            ViewActionCreators.logIn(this.state.user, this.state.password);
+        }
     }
 
     handleUserChange(e){

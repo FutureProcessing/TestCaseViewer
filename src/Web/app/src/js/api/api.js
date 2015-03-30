@@ -16,7 +16,7 @@ var api = {
         }).then((data) => {
             ApiActionCreators.loggedIn(data.userName);
         }).catch((err) => {
-            ApiActionCreators.logInFailed(err.message);
+            ApiActionCreators.logInFailed(err.message || err);
         });
     },
 
