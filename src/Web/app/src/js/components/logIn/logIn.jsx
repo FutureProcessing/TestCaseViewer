@@ -2,7 +2,9 @@ import React from 'react';
 import ViewActionCreators from '../../actions/viewActionCreators.js';
 import UserStore from '../../stores/userStore.js';
 import {Router} from 'react-router';
+
 import LogInInput from './logInInput.jsx';
+import ProgressButton from '../common/progressButton.jsx';
 
 class LogIn extends React.Component{
     constructor(props){
@@ -15,7 +17,7 @@ class LogIn extends React.Component{
     static willTransitionTo(transition){
         var isLoggedIn = UserStore.getData().isLoggedIn;
         if(isLoggedIn){
-            transition.redirect('/testCaseViewer');
+            transition.redirect('/');
         } else{
             ViewActionCreators.logIn();
         }
@@ -32,7 +34,7 @@ class LogIn extends React.Component{
     handleStoreChange(){
         var data = UserStore.getData();
         if(data.isLoggedIn) {
-            this.context.router.transitionTo('/testCaseViewer');
+            this.context.router.transitionTo('/');
         }else{
             this.setState({inProgress: data.inProgress, errorMessage: data.errorMessage});
         }
@@ -53,20 +55,32 @@ class LogIn extends React.Component{
     render(){
 
         return(
-            <div>
-                <h1>Please log in</h1>
+            <div className="login-container">
+                <div className="login-header">Please log in</div>
 
-                <LogInInput onChange={this.handleUserChange.bind(this)}
-                    label="user" />
+                <div className="login-content">
 
+                    <LogInInput
+                        onChange={this.handleUserChange.bind(this)}
+                        label="user"
+                        type="text"/>
 
-                <label>password</label>
-                <input type="password" onChange={this.handlePasswordChange.bind(this)}></input>
+                    <LogInInput
+                        onChange={this.handlePasswordChange.bind(this)}
+                        label="password"
+                        type="password"/>
 
-                <button onClick={this.handleLogInClick.bind(this)}>Log In</button>
+                    <ProgressButton
+                        onClick={this.handleLogInClick.bind(this)}
+                        inProgress={this.state.inProgress}
+                        className="login-button">
+                        Log In
+                    </ProgressButton>
+                </div>
 
-                {this.state.inProgress? '...': null}
-                {this.state.errorMessage || null}
+                {this.state.errorMessage?(
+                    <div className="error-message">this.state.errorMessage</div>
+                ): null}
             </div>
         )
     }

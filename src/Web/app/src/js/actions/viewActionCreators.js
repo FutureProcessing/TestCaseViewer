@@ -15,8 +15,7 @@ var ViewActionCreators = {
         }else{
             api.identify().then((data) => {
                 if(!data.isAuthenticated){
-                    RouterContainer.get().transitionTo('/LogIn');
-                    //payload.transition.redirect('/LogIn', {}, {'nextPath' : transition.path});
+                    RouterContainer.get().transitionTo('/login');
                 }
             });
         }
@@ -27,7 +26,7 @@ var ViewActionCreators = {
             type: ActionTypes.LOG_OFF
         })
         api.logOut().then(() => {
-            RouterContainer.get().transitionTo('/LogIn');
+            RouterContainer.get().transitionTo('/login');
         });
     }
 };

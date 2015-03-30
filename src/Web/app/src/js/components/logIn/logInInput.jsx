@@ -15,9 +15,9 @@ class LogInInput extends React.Component{
 
     render(){
         return (
-            <div>
+            <div className="labeled-input">
+                <input type={this.props.type} value={this.state.value} placeholder={this.props.placeholder} onChange={this.props.onChange.bind(this)}></input>
                 <label>{this.props.label}</label>
-                <input type="text" value={this.state.value} placeholder={this.props.placeholder} onChange={this.props.onChange.bind(this)}></input>
             </div>
         );
     }
@@ -27,7 +27,8 @@ LogInInput.propTypes = {
     onChange: React.PropTypes.func,
     placeholder: React.PropTypes.string,
     value: React.PropTypes.string,
-    label: React.PropTypes.string
+    label: React.PropTypes.string,
+    type: React.PropTypes.string 
 };
 
 export default LogInInput;

@@ -1,7 +1,7 @@
 import React from 'react';
 import UserStore from '../../stores/userStore.js';
 import ViewActionCreators from '../../actions/viewActionCreators.js';
-import {Link} from 'react-router';
+import {RouteHandler} from 'react-router';
 
 class TestCaseViewer extends React.Component {
 
@@ -9,7 +9,6 @@ class TestCaseViewer extends React.Component {
         var isLoggedIn = UserStore.getData().isLoggedIn;
         if (!isLoggedIn) {
             ViewActionCreators.logIn();
-            //transition.redirect('/LogIn', {}, {'nextPath' : transition.path});
         }
     }
 
@@ -20,8 +19,9 @@ class TestCaseViewer extends React.Component {
     render(){
         return(
             <div>
-            <h1>TC Viewer</h1>
-            <a onClick={this.handleLogOffClick.bind(this)} > Log off </a>
+                
+                <div> <a onClick={this.handleLogOffClick.bind(this)} > Log off </a></div>
+                <RouteHandler/>
             </div>
         );
     }

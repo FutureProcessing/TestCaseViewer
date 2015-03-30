@@ -1,0 +1,127 @@
+@import 'variables/colors';
+@import 'mixins/lessPrefixer.less';
+
+.labeled-input{
+    box-sizing: border-box;
+    position: relative;
+    padding: .5em 0;
+    input{
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0.5em;
+        border-top: none;
+        border-left: solid 1px @CDark2;
+        border-right: solid 1px @CDark2;
+        border-bottom: solid 1px @CDark2;
+        background: none;
+
+        &:focus{
+            outline: none;
+        }
+    }
+
+    label{
+        color: @CDark2;
+    }
+}
+
+.button {
+    cursor: pointer;
+	float: left;
+	min-width: 150px;
+	max-width: 250px;
+	display: block;
+	padding: 1em 2em;
+	border: none;
+	background: none;
+	color: @CLight;
+	vertical-align: middle;
+	position: relative;
+	z-index: 1;
+
+    font-weight: 300;
+    border: 1px solid @CLight;
+
+    &:focus {
+    	outline: none;
+    }
+
+    .animated-button();
+}
+
+.animated-button() {
+	overflow: hidden;
+
+    &:after {
+        content: '';
+    	position: absolute;
+    	z-index: -1;
+    	.transition(all 0.3s);
+
+    	width: 0;
+    	height: 103%;
+    	top: 50%;
+    	left: 50%;
+    	background: @CBase2;
+    	opacity: 0;
+    	.transform(translateX(-50%) translateY(-50%));
+    }
+
+    &:active, &:hover {
+    	color: @CDark;
+    }
+
+    &:hover:after {
+    	width: 90%;
+    	opacity: 1;
+    }
+
+    &:active:after {
+    	width: 101%;
+    	opacity: 1;
+    }
+
+    &.in-progress{
+        .in-progress();
+    }
+
+}
+
+.in-progress(){
+    &:before{
+        content: '';
+        position: absolute;
+        z-index: 2;
+
+        width: 100%;
+        height: 6px;
+        bottom: 0px;
+        left: 0;
+        background: @CDark;
+        box-sizing: border-box;
+         .animation-name(progressbar);
+         .animation-duration(3s);
+         .animation-iteration-count(infinite);
+    }
+}
+
+.progressbar-frames(){
+    0%{
+        width: 0;
+        left: 0;
+    }
+    50%{
+        width: 100%;
+        left: 0;
+    }
+    100%{
+        width: 0;
+        left: 100%;
+    }
+}
+
+@-webkit-keyframes progressbar { .progressbar-frames();}
+@-moz-keyframes progressbar {.progressbar-frames();}
+@-ms-keyframes progressbar {.progressbar-frames();}
+@-o-keyframes progressbar {.progressbar-frames();}
+@keyframes progressbar {.progressbar-frames();}
