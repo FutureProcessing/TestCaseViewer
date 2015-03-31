@@ -9,7 +9,6 @@ class userStore extends EventEmitter{
         this.state = {
             username: '',
             displayName: '',
-            photo: '',
             isLoggedIn: false,
             inProgress: false,
             error: new AjaxError()

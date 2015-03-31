@@ -26,9 +26,8 @@ class LogInInput extends React.Component{
 LogInInput.propTypes = {
     onChange: React.PropTypes.func,
     placeholder: React.PropTypes.string,
-    value: React.PropTypes.string,
     label: React.PropTypes.string,
-    type: React.PropTypes.string 
+    type: React.PropTypes.string
 };
 
 export default LogInInput;

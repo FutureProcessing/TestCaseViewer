@@ -1,4 +1,3 @@
-//window.React = require('react'); //TODO: Only for develping. Remove window.
 import React from 'react';
 import routes from './routes.jsx';
 import Router from 'react-router';
