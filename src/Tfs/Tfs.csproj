@@ -48,6 +48,8 @@
     <Compile Include="AuthenticationService.cs" />
     <Compile Include="DI\TfsConnectionModule.cs" />
     <Compile Include="DI\TfsModule.cs" />
+    <Compile Include="ImageData.cs" />
+    <Compile Include="ProfileInfo.cs" />
     <Compile Include="ProfileService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -31,15 +31,27 @@ namespace Tfs
 
             return new ProfileInfo(identity.DisplayName);
         }
-    }
 
-    public class ProfileInfo
-    {
-        public string DisplayName { get; private set; }
-
-        public ProfileInfo(string displayName)
+        public object GetImageFor(string user)
         {
-            this.DisplayName = displayName;
+            var service = this._identityManagementFactory();
+
+            var identity = service.ReadIdentity(IdentitySearchFactor.AccountName, user, MembershipQuery.Direct, ReadIdentityOptions.ExtendedProperties);
+
+            if (identity == null)
+            {
+                return null;
+            }
+
+            object imageType;
+            if (identity.TryGetProperty("Microsoft.TeamFoundation.Identity.Image.Type", out imageType))
+            {
+                var imageData = (byte[])identity.GetProperty("Microsoft.TeamFoundation.Identity.Image.Data");
+
+                return new ImageData((string) imageType, imageData);
+            }
+
+            return null;
         }
     }
 }
