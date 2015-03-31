@@ -9,33 +9,38 @@
     public class TestCaseService
     {
         private readonly Func<ITestManagementService2> _testManagementFactory;
-        private readonly ProfileService _profiles;
 
-        public TestCaseService(Func<ITestManagementService2> testManagementFactory, ProfileService profiles)
+        public TestCaseService(Func<ITestManagementService2> testManagementFactory)
         {
             this._testManagementFactory = testManagementFactory;
-            this._profiles = profiles;
         }
 
         public TestCase GetById(int id)
-        {
-            var service = this._testManagementFactory();
-
-            var teamProject = service.GetTeamProject("AllocateHealthSuite");
-
-            var tc = teamProject.TestCases.Find(id);
-
-            var steps = from step in tc.Actions
-                select InfoForStep(step);
-
-            return new TestCase()
+        {           
+            try
             {
-                Id = tc.Id,
-                Title = tc.Title,
-                State = tc.State,
-                CreatedBy = tc.WorkItem.CreatedBy,
-                Steps = steps.ToList()
-            };
+                var service = this._testManagementFactory();
+
+                var teamProject = service.GetTeamProject("AllocateHealthSuite");
+
+                var tc = teamProject.TestCases.Find(id);
+
+                var steps = from step in tc.Actions
+                            select InfoForStep(step);
+
+                return new TestCase()
+                {
+                    Id = tc.Id,
+                    Title = tc.Title,
+                    State = tc.State,
+                    CreatedBy = tc.WorkItem.CreatedBy,
+                    Steps = steps.ToList()
+                };
+            }
+            catch (DeniedOrNotExistException)
+            {
+                return null;
+            }
         }
 
         private TestStepInfo InfoForStep(ITestAction step)
@@ -43,7 +48,7 @@
             var simpleStep = step as ITestStep;
 
             if (simpleStep != null)
-            {                
+            {
                 return new SimpleTestStep
                 {
                     Action = simpleStep.Title.ToString(),
@@ -61,7 +66,7 @@
                 return new SharedStep
                 {
                     SharedStepId = sharedStep.Id,
-                    Title = sharedStep.Title, 
+                    Title = sharedStep.Title,
                     Steps = steps
                 };
             }

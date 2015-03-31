@@ -31,7 +31,17 @@
             : base(modulePath)
         {
             
-        }   
-            
+        }
+
+
+        protected object NotFound(string reason, params object[] args)
+        {
+            var message = string.Format(reason, args);
+
+            return Negotiate
+                .WithModel(new {error = message})
+                .WithStatusCode(HttpStatusCode.NotFound)
+                .WithReasonPhrase(message);
+        }
     }
 }
