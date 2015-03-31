@@ -7,7 +7,7 @@ class TestCase extends React.Component{
             'user-button': true,
             'in-progress': this.props.inProgress
         });
-        var photoUrl = `${window.baseUrl}/profile/${this.props.username}/image`;
+        var photoUrl = `${window.baseUrl}profile/${this.props.username}/image`;
         var photo = this.props.username? <img src={photoUrl} />: null;
 
         return (
