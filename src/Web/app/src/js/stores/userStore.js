@@ -56,11 +56,11 @@ class userStore extends EventEmitter{
     handleLoggedOut(){
         this.state.isLoggedIn = false;
         this.state.inProgress = false;
-        this.state.errorMessage = '';
+        this.state.error.clear();
     }
 
     handleLogOutFail(){
-        this.state.errorMessage = error;
+        this.state.error = error;
         this.state.inProgress = false;
     }
 }

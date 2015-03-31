@@ -37,8 +37,9 @@ var api = {
             method: 'post'
         }).then(() => {
             ApiActionCreators.loggedOut();
-        }).catch(err => {
-            ApiActionCreators.logOutFailed();
+        }).catch(({data, xhr}) => {
+            var message = data.message || data.error;
+            ApiActionCreators.logOutFailed(new AjaxError(message, xhr.status));
         });
     }
 }
