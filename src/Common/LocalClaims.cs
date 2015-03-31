@@ -1,4 +1,4 @@
-﻿namespace Web
+﻿namespace Common
 {
     public static class LocalClaims
     {

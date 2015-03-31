@@ -2,6 +2,7 @@
 {
     using System.Security.Claims;
     using System.Security.Principal;
+    using Common;
     using Microsoft.Owin.Security;
     using Nancy;
     using Nancy.Security;
@@ -9,7 +10,7 @@
 
     public class AuthenticationModule : BaseModule
     {
-        public AuthenticationModule(AuthenticationService authentication)
+        public AuthenticationModule(AuthenticationService authentication, ProfileService profileService)
             : base("/auth")
         {
             Post["login"] = _ =>
@@ -45,10 +46,16 @@
                 return Ok;
             };
 
-            Get["identity", ctx => ctx.CurrentUser.IsAuthenticated()] = _ => new
+            Get["identity", ctx => ctx.CurrentUser.IsAuthenticated()] = _ =>
             {
-                IsAuthenticated = true,
-                UserName = this.CurrentUser.Identity.Name
+                var profile = profileService.GetProfileFor(this.CurrentUser.Identity.Name);
+
+                return new
+                {
+                    IsAuthenticated = true,
+                    UserName = this.CurrentUser.Identity.Name,
+                    DisplayName = profile.DisplayName
+                };
             };
 
             Get["identity", ctx => !ctx.CurrentUser.IsAuthenticated()] = _ => new
