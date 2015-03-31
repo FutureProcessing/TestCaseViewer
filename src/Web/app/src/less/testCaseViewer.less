@@ -2,18 +2,19 @@
 @import 'mixins/lessPrefixer.less';
 @import 'mixins/buttonInProgress.less';
 
+@topbarHeight: 3em;
 .top-bar{
     width: 100%;
     background: @CDark;
     position: relative;
     overflow: hidden;
     color: @CLight;
+    height: @topbarHeight;
 
     .user-button{
         border-left: 1px solid @CLight2;
-
         float: right;
-        overflow: visible;
+        overflow: hidden;
         position: relative;
         box-sizing: border-box;
 
@@ -21,13 +22,13 @@
             float: left;
             color: @CLight;
             box-sizing: border-box;
+            height: @topbarHeight;
             .logout-button();
         }
 
         img{
             float: left;
-            height: 3em;
-            width: 3em;
+            height: @topbarHeight;
             background: @CBase;
         }
 
@@ -42,6 +43,9 @@
         position: relative;
         text-align: center;
         cursor: pointer;
+        margin: auto;
+        vertical-align: middle;
+        line-height: 1em;
         padding: 1em 1em;
 
         font-weight: 300;
@@ -51,7 +55,7 @@
         	z-index: 1;
         	.transition(all 0.3s);
 
-            padding-top: 1.5em;
+            padding-top: 2em;
             margin: auto;
 
         	width: 0;

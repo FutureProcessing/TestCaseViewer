@@ -7,28 +7,22 @@ class TestCase extends React.Component{
             'user-button': true,
             'in-progress': this.props.inProgress
         });
-        var photo = this.props.photo? <img src={this.props.photo} />: null;
+        var photoUrl = `${window.baseUrl}/profile/${this.props.username}/image`;
+        var photo = this.props.username? <img src={photoUrl} />: null;
 
         return (
             <div className={classes}>
                 {photo}
-                <div className="name " data-logout="Log Out" onClick={this.props.onLogoutClick.bind(this)}>{this.props.username}</div>
+                <div className="name " data-logout="Log Out" onClick={this.props.onLogoutClick.bind(this)}>{this.props.displayName}</div>
             </div>
         );
-
-        // return (
-        //     <div className="user-button">
-        //         <button></button>
-        //
-        //     </div>
-        // );
     }
 }
 
 TestCase.propTypes = {
     onLogoutClick: React.PropTypes.func,
-    photo: React.PropTypes.string,
-    username: React.PropTypes.string
+    username: React.PropTypes.string,
+    displayName: React.PropTypes.string
 };
 
 export default TestCase;

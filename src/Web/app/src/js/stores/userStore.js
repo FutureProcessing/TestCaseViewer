@@ -8,6 +8,8 @@ class userStore extends EventEmitter{
     constructor(){
         this.state = {
             username: '',
+            displayName: '',
+            photo: '',
             isLoggedIn: false,
             inProgress: false,
             error: new AjaxError()
@@ -36,8 +38,9 @@ class userStore extends EventEmitter{
         this.state.inProgress = true;
     }
 
-    handleLoggedIn(username){
+    handleLoggedIn(username, displayName){
         this.state.username = username;
+        this.state.displayName = displayName;
         this.state.isLoggedIn = true;
         this.state.inProgress = false;
         this.state.error.clear();
@@ -75,7 +78,7 @@ function register(payload){
             this.emitChange();
             break;
         case actionTypes.LOG_IN_SUCCESS:
-            this.handleLoggedIn(action.username);
+            this.handleLoggedIn(action.username, action.displayName);
             this.emitChange();
             break;
         case actionTypes.LOG_IN_FAIL:

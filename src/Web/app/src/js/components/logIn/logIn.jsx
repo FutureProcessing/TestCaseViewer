@@ -59,7 +59,7 @@ class LogIn extends React.Component{
         var errorMessage = createErrorMessage(this.state.errorCode, this.state.errorMessage);
 
         return(
-            <div className="login-container">
+            <form className="login-container">
                 <div className="login-header">Please log in</div>
 
                 {errorMessage?(
@@ -87,7 +87,7 @@ class LogIn extends React.Component{
                 </div>
 
 
-            </div>
+            </form>
         )
     }
 }
@@ -109,4 +109,5 @@ function createErrorMessage(errorCode, orginalErrorMessage){
 
     return errorMessage;
 }
-export default LogIn
+
+export default LogIn;

@@ -4,10 +4,11 @@ import ActionTypes from '../constants/actionTypes.js';
 import api from '../api/api.js';
 
 var ApiActionCreators = {
-    loggedIn: function(username){
+    loggedIn: function(username, displayName){
         AppDispatcher.handleApiAction({
             type: ActionTypes.LOG_IN_SUCCESS,
-            username: username
+            username: username,
+            displayName: displayName
         });
     },
 

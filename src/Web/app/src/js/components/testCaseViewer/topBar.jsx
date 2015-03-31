@@ -8,6 +8,7 @@ class TopBar extends React.Component{
         super(props);
         var userData = UserStore.getData();
         this.state = {
+            displayName: userData.displayName,
             username: userData.username
         };
     }
@@ -22,7 +23,7 @@ class TopBar extends React.Component{
 
     handleStoreChange(){
         var userData = UserStore.getData();
-        this.setState({username: userData.username});
+        this.setState({displayName: userData.displayName, username: userData.username});
     }
 
     render(){
@@ -30,6 +31,7 @@ class TopBar extends React.Component{
             <div className="top-bar">
                 <UserButton
                     onLogoutClick={this.props.onLogOffClick.bind(this)}
+                    displayName={this.state.displayName}
                     username={this.state.username}/>
             </div>
         );

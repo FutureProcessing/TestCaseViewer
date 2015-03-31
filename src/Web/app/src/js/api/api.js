@@ -15,7 +15,7 @@ var api = {
         }).then(() => {
             return xhttp({ url: window.baseUrl + 'auth/identity'});
         }).then((data) => {
-            ApiActionCreators.loggedIn(data.userName);
+            ApiActionCreators.loggedIn(data.userName, data.displayName);
         }).catch( ({data, xhr}) => {
             var message = data.message || data.error;
             ApiActionCreators.logInFailed(new AjaxError(message, xhr.status));
@@ -25,7 +25,7 @@ var api = {
     identify: () => {
         return xhttp({ url: window.baseUrl + 'auth/identity'}).then((data) => {
             if(data.isAuthenticated){
-                ApiActionCreators.loggedIn(data.userName);
+                ApiActionCreators.loggedIn(data.userName, data.displayName);
             }
             return data;
         });
