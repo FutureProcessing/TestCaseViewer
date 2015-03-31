@@ -30,6 +30,20 @@ var ApiActionCreators = {
             type: ActionTypes.LOG_OUT_FAIL,
             error: error
         });
+    },
+
+    getTestCaseDataFailed: function(error) {
+        AppDispatcher.handleApiAction({
+            type: ActionTypes.GET_TC_FAIL,
+            error: error
+        });
+    },
+
+    recieveTestCaseData: function(data){
+        AppDispatcher.handleApiAction({
+            type: ActionTypes.GET_TC_SUCCESS,
+            testCase: data
+        });
     }
 };
 

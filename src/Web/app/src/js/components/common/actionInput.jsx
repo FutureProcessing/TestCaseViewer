@@ -1,25 +1,29 @@
 import React from 'react';
+import Input from './input.jsx';
 
-class Input extends React.Component{
+class ActionInput extends React.Component{
     render (){
         return (
             <div className="action-input">
                 <Input
-                    type={this.props.type}/>
+                    type={this.props.type}
+                    value={this.props.value}
+                    onChange={this.props.onChange}/>
 
-                <span className="action-button">
+                <span className="action-button" onClick={this.props.onActionClick}>
                      {this.props.actionName}
                 </span>
             </div>
-
         );
     }
 }
 
-Input.propTypes = {
+ActionInput.propTypes = {
     type: React.PropTypes.string,
     actionName: React.PropTypes.string,
-    actionName: React.PropTypes.string
+    onActionClick: React.PropTypes.string,
+    value: React.PropTypes.string,
+    onChange: React.PropTypes.func
 };
 
-export default Input;
+export default ActionInput;

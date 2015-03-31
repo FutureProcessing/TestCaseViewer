@@ -41,6 +41,17 @@ var api = {
             var message = data.message || data.error;
             ApiActionCreators.logOutFailed(new AjaxError(message, xhr.status));
         });
+    },
+
+    getTestCaseData: (id) => {
+        xhttp({
+            url: window.baseUrl + 'auth/logout',
+            data: {id: id}
+        }).then((data) => {
+            ApiActionCreators.recievedTestCaseData(data);
+        }).catch(({data, xhr}) => {
+            ApiActionCreators.getTestCaseDataFailed(new AjaxError(message, xhr.status));
+        });
     }
 }
 

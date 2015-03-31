@@ -28,6 +28,14 @@ var ViewActionCreators = {
         api.logOut().then(() => {
             RouterContainer.get().transitionTo('/login');
         });
+    },
+
+    getTestCaseData: function(id){
+        AppDispatcher.handleViewAction({
+            type: ActionTypes.GET_TC
+        });
+
+        api.getTestCaseData(id);
     }
 };
 

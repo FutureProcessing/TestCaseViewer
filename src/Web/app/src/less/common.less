@@ -2,6 +2,33 @@
 @import 'mixins/lessPrefixer.less';
 @import 'mixins/buttonInProgress.less';
 
+@inputPadding: 0.5em;
+
+.action-input {
+    display: flex;
+    .input{
+        float: left;
+        flex: 1;
+    }
+
+    .action-button{
+        .base-button();
+        .animated-button();
+        padding: @inputPadding 2em;
+        float: left;
+        border-left: none;
+        border-color: @CLight2;
+    }
+}
+
+.input{
+    padding: @inputPadding;
+    border: solid 1px @CLight2;
+    &:focus {
+        outline: none;
+    }
+}
+
 .labeled-input{
     box-sizing: border-box;
     position: relative;
@@ -27,27 +54,30 @@
 }
 
 .button {
-    cursor: pointer;
+    .base-button();
 	float: left;
 	min-width: 150px;
 	max-width: 250px;
-	display: block;
-	padding: 1em 2em;
-	border: none;
-	background: none;
-	color: @CLight;
-	vertical-align: middle;
-	position: relative;
-	z-index: 1;
-
-    font-weight: 300;
-    border: 1px solid @CLight;
-
-    &:focus {
-    	outline: none;
-    }
 
     .animated-button();
+}
+
+.base-button(){
+    cursor: pointer;
+    display: block;
+    padding: 1em 2em;
+    background: none;
+    color: @CDark;
+    vertical-align: middle;
+    position: relative;
+    z-index: 1;
+
+    font-weight: 300;
+    border: 1px solid @CDark;
+
+    &:focus {
+        outline: none;
+    }
 }
 
 .animated-button() {
@@ -69,7 +99,7 @@
     }
 
     &:active, &:hover {
-    	color: @CDark;
+    	color: @CSuperLight;
     }
 
     &:hover:after {

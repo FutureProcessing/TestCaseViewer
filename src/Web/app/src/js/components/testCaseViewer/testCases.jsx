@@ -1,4 +1,5 @@
 import React from 'react';
+import {RouteHandler} from 'react-router';
 import LeftMenu from './leftMenu.jsx';
 import TestCase from './testCase.jsx';
 
@@ -7,7 +8,7 @@ class TestCases extends React.Component{
         return (
             <div className="content-container">
                 <LeftMenu />
-                <TestCase />
+                <RouteHandler />
             </div>
         );
     }

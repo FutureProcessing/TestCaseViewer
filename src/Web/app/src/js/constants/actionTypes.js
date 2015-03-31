@@ -7,7 +7,11 @@ var actionTypes = keymirror({
 
         LOG_OUT: null,
         LOG_OUT_SUCCESS: null,
-        LOG_OUT_FAIL: null
+        LOG_OUT_FAIL: null,
+
+        GET_TC: null,
+        GET_TC_SUCCESS: null,
+        GET_TC_FAIL: null
 });
 
 export default actionTypes;

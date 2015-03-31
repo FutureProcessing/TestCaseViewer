@@ -4,14 +4,18 @@ class Input extends React.Component{
     render (){
         return (
             <input
-                className="tcv-input"
-                type={this.props.type || 'text'}/>
+                className="input"
+                type={this.props.type || 'text'}
+                value={this.props.value}
+                onChange={this.props.onChange}/>
         );
     }
 }
 
 Input.propTypes = {
-    type: React.PropTypes.string
+    type: React.PropTypes.string,
+    value: React.PropTypes.string,
+    onChange: React.PropTypes.func
 };
 
 export default Input;
