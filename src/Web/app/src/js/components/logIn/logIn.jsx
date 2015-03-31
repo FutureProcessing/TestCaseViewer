@@ -41,7 +41,8 @@ class LogIn extends React.Component{
         }
     }
 
-    handleLogInClick(){
+    handleLogInClick(e){
+        e.preventDefault();
         if(this.state.user && this.state.password){
             ViewActionCreators.logIn(this.state.user, this.state.password);
         }
@@ -85,8 +86,6 @@ class LogIn extends React.Component{
                         Log In
                     </ProgressButton>
                 </div>
-
-
             </form>
         )
     }
