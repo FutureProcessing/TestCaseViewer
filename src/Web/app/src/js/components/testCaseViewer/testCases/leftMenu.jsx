@@ -1,6 +1,6 @@
 import React from 'react';
-import ActionInput from '../common/actionInput.jsx';
-import TestCaseStore from '../../stores/testCaseStore.js';
+import ActionInput from '../../common/actionInput.jsx';
+import TestCaseStore from '../../../stores/testCaseStore.js';
 
 class LeftMenu extends React.Component{
     constructor(props, context){

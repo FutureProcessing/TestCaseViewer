@@ -1,7 +1,7 @@
 import React from 'react';
-import TestCaseStore from '../../stores/testCaseStore.js';
-import RouterContainer from '../../routerContainer.js';
-import ViewActionCreators from '../../actions/viewActionCreators.js';
+import TestCaseStore from '../../../stores/testCaseStore.js';
+import RouterContainer from '../../../routerContainer.js';
+import ViewActionCreators from '../../../actions/viewActionCreators.js';
 
 class TestCase extends React.Component{
     constructor(props, context){
