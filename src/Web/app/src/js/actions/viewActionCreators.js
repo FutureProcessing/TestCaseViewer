@@ -36,6 +36,21 @@ var ViewActionCreators = {
         });
 
         api.getTestCaseData(id);
+    },
+
+    addToast: function(title, type){
+        AppDispatcher.handleViewAction({
+            type: ActionTypes.ADD_TOAST,
+            title: title,
+            toastType: type
+        });
+    },
+
+    removeToast: function(id){
+        AppDispatcher.handleViewAction({
+            type: ActionTypes.REMOVE_TOAST,
+            id: id
+        });
     }
 };
 

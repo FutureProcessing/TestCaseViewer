@@ -47,11 +47,15 @@ class TestCase extends React.Component{
 
         return (
             <div className="right-content">
-                TestCase {this.state.title}
+                <h1>{this.state.title}</h1>
 
                 <ul>
                     {steps}
                 </ul>
+                <button onClick={() => {ViewActionCreators.addToast('SUCCESS', 'SUCCESS')}}> Add toast 1 </button>
+                    <button onClick={() => {ViewActionCreators.addToast('INFO', 'INFO')}}> Add toast 2 </button>
+                        <button onClick={() => {ViewActionCreators.addToast('WARNING', 'WARNING')}}> Add toast 3 </button>
+                            <button onClick={() => {ViewActionCreators.addToast('ERROR', 'ERROR')}}> Add toast 4 </button>
             </div>
         );
     }

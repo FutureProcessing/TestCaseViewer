@@ -9,6 +9,9 @@ var actionTypes = keymirror({
         LOG_OUT_SUCCESS: null,
         LOG_OUT_FAIL: null,
 
+        ADD_TOAST: null,
+        REMOVE_TOAST: null,
+
         GET_TC: null,
         GET_TC_SUCCESS: null,
         GET_TC_FAIL: null

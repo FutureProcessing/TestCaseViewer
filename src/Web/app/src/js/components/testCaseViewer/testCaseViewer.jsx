@@ -3,6 +3,7 @@ import UserStore from '../../stores/userStore.js';
 import ViewActionCreators from '../../actions/viewActionCreators.js';
 import {RouteHandler} from 'react-router';
 import TopBar from './topBar.jsx';
+import Toaster from '../toaster/toaster.jsx';
 
 class TestCaseViewer extends React.Component {
 
@@ -21,6 +22,7 @@ class TestCaseViewer extends React.Component {
         return(
             <div className="top-bar-layout-container">
                 <TopBar onLogOffClick={this.handleLogOffClick.bind(this)} />
+                <Toaster />
                 <RouteHandler/>
             </div>
         );

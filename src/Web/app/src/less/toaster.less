@@ -1,0 +1,46 @@
+
+@import 'variables/colors';
+@import 'mixins/lessPrefixer.less';
+
+.toaster{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    z-index: 999;
+    ul{
+        padding: 1em;
+        margin: 0;
+        list-style: none;
+        li.toast{
+            border: solid 1px @CDark;
+            width: 15em;
+            min-height: 4em;
+            margin: .5em;
+            padding: 0.7em;
+
+            &.error{
+                background: @CError;
+                border: solid 1px @CErrorDark;
+                border-left: solid 8px @CErrorDark;
+            }
+
+            &.warning{
+                background: @CWarning;
+                border: solid 1px @CWarningDark;
+                border-left: solid 8px @CWarningDark;
+            }
+
+            &.success{
+                background: @CSuccess;
+                border: solid 1px @CSuccessDark;
+                border-left: solid 8px @CSuccessDark;
+            }
+
+            &.info{
+                background: @CInfo;
+                border: solid 1px @CInfoDark;
+                border-left: solid 8px @CInfoDark;
+            }
+        }
+    }
+}
