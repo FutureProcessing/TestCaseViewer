@@ -1,21 +1,27 @@
 import React from 'react';
 import ActionInput from '../common/actionInput.jsx';
+import TestCaseStore from '../../stores/testCaseStore.js';
 
 class LeftMenu extends React.Component{
-    constructor(props){
+    constructor(props, context){
         super(props);
         this.state = {
-            testCaseId: null
+            testCaseId: context.router.getCurrentParams().id,
+            inProgress: false
         }
     }
 
-    handleGoActionClick(){
-        //console.log('TCID', this.state.testCaseId);
-        this.context.router.transitionTo('tc', {id: this.state.testCaseId});
+    componentDidMount(){
+        TestCaseStore.addEventListener(this.handleStoreChange.bind(this));
     }
 
-    handleInputChange(e){
-        this.setState({testCaseId: e.target.value});
+    componentWillUnmount(){
+        TestCaseStore.removeEventListener(this.handleStoreChange.bind(this));
+    }
+
+    handleStoreChange (){
+        var inProgress = TestCaseStore.getData().inProgress;
+        this.setState({inProgress});
     }
 
     render(){
@@ -25,9 +31,18 @@ class LeftMenu extends React.Component{
                     actionName="Go"
                     onActionClick={this.handleGoActionClick.bind(this)}
                     onChange={this.handleInputChange.bind(this)}
-                    value={this.state.testCaseId}/>
+                    value={this.state.testCaseId}
+                    inProgress={this.state.inProgress}/>
             </div>
         );
+    }
+
+    handleGoActionClick(){
+        this.context.router.transitionTo('tc', {id: this.state.testCaseId});
+    }
+
+    handleInputChange(e){
+        this.setState({testCaseId: e.target.value});
     }
 }
 

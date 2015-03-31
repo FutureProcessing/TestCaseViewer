@@ -22,7 +22,8 @@ class Toast extends React.Component{
         return(
             <li className={classes}
                 onClick={this.props.onRemoveClick}>
-                {this.props.title}
+                <div className="toast-title">{this.props.title}</div>
+                <div className="toast-content">{this.props.content}</div>
             </li>
         );
     }

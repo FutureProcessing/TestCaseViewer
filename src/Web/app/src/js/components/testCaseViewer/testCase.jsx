@@ -9,6 +9,7 @@ class TestCase extends React.Component{
         this.state = {
             id: context.router.getCurrentParams().id,
             steps: [],
+            inProgress: false,
             createdBy: '',
             title: ''};
 
@@ -45,17 +46,18 @@ class TestCase extends React.Component{
             return <li ><span dangerouslySetInnerHTML={{__html: step.action}} /> </li>;
         });
 
-        return (
-            <div className="right-content">
+        var content = this.state.inProgress? '...': (
+            <div>
                 <h1>{this.state.title}</h1>
-
                 <ul>
                     {steps}
                 </ul>
-                <button onClick={() => {ViewActionCreators.addToast('SUCCESS', 'SUCCESS')}}> Add toast 1 </button>
-                    <button onClick={() => {ViewActionCreators.addToast('INFO', 'INFO')}}> Add toast 2 </button>
-                        <button onClick={() => {ViewActionCreators.addToast('WARNING', 'WARNING')}}> Add toast 3 </button>
-                            <button onClick={() => {ViewActionCreators.addToast('ERROR', 'ERROR')}}> Add toast 4 </button>
+            </div>
+        );
+
+        return (
+            <div className="right-content">
+                {content}
             </div>
         );
     }

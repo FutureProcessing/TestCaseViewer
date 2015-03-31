@@ -1,4 +1,3 @@
-
 @import 'variables/colors';
 @import 'mixins/lessPrefixer.less';
 
@@ -16,7 +15,17 @@
             width: 15em;
             min-height: 4em;
             margin: .5em;
-            padding: 0.7em;
+            padding: .5em 0.7em;
+            cursor: pointer;
+            .box-shadow(4px 4px 7px 0px rgba(50, 50, 50, 0.38));
+
+            .toast-title{
+                font-weight: bold;
+            }
+
+            .toast-content{
+
+            }
 
             &.error{
                 background: @CError;

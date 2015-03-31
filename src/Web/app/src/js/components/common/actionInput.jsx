@@ -1,5 +1,6 @@
 import React from 'react';
 import Input from './input.jsx';
+import ActionInputButton from '../common/actionInputButton.jsx';
 
 class ActionInput extends React.Component{
     render (){
@@ -9,10 +10,13 @@ class ActionInput extends React.Component{
                     type={this.props.type}
                     value={this.props.value}
                     onChange={this.props.onChange}/>
+                <ActionInputButton
+                    onClick={this.props.onActionClick}
+                    inProgress={this.props.inProgress}
+                    className="action-button">
+                    {this.props.actionName}
+                </ActionInputButton>
 
-                <span className="action-button" onClick={this.props.onActionClick}>
-                     {this.props.actionName}
-                </span>
             </div>
         );
     }
@@ -23,6 +27,7 @@ ActionInput.propTypes = {
     actionName: React.PropTypes.string,
     onActionClick: React.PropTypes.string,
     value: React.PropTypes.string,
+    inProgress: React.PropTypes.boll,
     onChange: React.PropTypes.func
 };
 

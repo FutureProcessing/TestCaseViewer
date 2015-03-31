@@ -1,6 +1,7 @@
 import xhttp from 'xhttp';
 import ApiActionCreators from '../actions/apiActionCreators.js';
 import AjaxError from '../utils/ajaxError.js';
+import ToastTypes from '../constants/toastTypes.js';
 
 var api = {
     logIn: (user, password) => {
@@ -28,6 +29,9 @@ var api = {
                 ApiActionCreators.loggedIn(data.userName, data.displayName);
             }
             return data;
+        }).catch(({data, xhr}) => {
+            var message = data.message || data.error;
+            ApiActionCreators.addToast('FAIL', message, ToastTypes.ERROR);
         });
     },
 
@@ -49,7 +53,9 @@ var api = {
         }).then((data) => {
             ApiActionCreators.recievedTestCaseData(createTestCaseModel(data));
         }).catch(({data, xhr}) => {
+            var message = data.message || data.error;
             ApiActionCreators.getTestCaseDataFailed(new AjaxError(message, xhr.status));
+            ApiActionCreators.addToast('FAIL', message, ToastTypes.ERROR);
         });
     }
 }

@@ -44,6 +44,22 @@ var ApiActionCreators = {
             type: ActionTypes.GET_TC_SUCCESS,
             testCase: data
         });
+    },
+
+    addToast: function(title, content, type){
+        AppDispatcher.handleViewAction({
+            type: ActionTypes.ADD_TOAST,
+            title: title,
+            content: content,
+            toastType: type
+        });
+    },
+
+    removeToast: function(id){
+        AppDispatcher.handleViewAction({
+            type: ActionTypes.REMOVE_TOAST,
+            id: id
+        });
     }
 };
 

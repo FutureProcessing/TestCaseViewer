@@ -1,6 +1,6 @@
 import React from 'react';
 import ToasterStore from '../../stores/toasterStore.js';
-import ViewActionCreators from '../../actions/viewActionCreators.js';
+import ApiActionCreators from '../../actions/apiActionCreators.js';
 import ToastTypes from '../../constants/toastTypes.js';
 import Toast from './toast.jsx';
 
@@ -27,7 +27,7 @@ class Toaster extends React.Component{
     }
 
     handleRemoveClick(toast){
-        ViewActionCreators.removeToast(toast.timestamp);
+        ApiActionCreators.removeToast(toast.timestamp);
     }
 
     render(){

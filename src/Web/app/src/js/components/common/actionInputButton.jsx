@@ -2,9 +2,9 @@ import React from 'react';
 import classNames from 'classnames';
 import PogressButtonBase from './progressButtonBase.jsx';
 
-class PogressButton extends React.Component{
+class ActionInputButton extends React.Component{
     render(){
-        var classes = classNames('button', this.props.className);
+        var classes = classNames('action-button', this.props.className);
 
         return (
             <PogressButtonBase
@@ -17,10 +17,10 @@ class PogressButton extends React.Component{
     }
 }
 
-PogressButton.propTypes = {
+ActionInputButton.propTypes = {
     onClick: React.PropTypes.func,
     inProgress: React.PropTypes.bool,
     className: React.PropTypes.string
 };
 
-export default PogressButton;
+export default ActionInputButton;
