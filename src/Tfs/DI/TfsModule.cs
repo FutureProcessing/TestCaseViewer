@@ -3,6 +3,7 @@
     using Autofac;
     using Microsoft.TeamFoundation.Client;
     using Microsoft.TeamFoundation.Framework.Client;
+    using Microsoft.TeamFoundation.TestManagement.Client;
 
     public class TfsModule : Module
     {
@@ -10,8 +11,10 @@
         {
             builder.RegisterType<AuthenticationService>().AsSelf();
             builder.RegisterType<ProfileService>().AsSelf();
+            builder.RegisterType<TestCaseService>().AsSelf();
             
             RegisterTfsService<IIdentityManagementService2>(builder);
+            RegisterTfsService<ITestManagementService2>(builder);
         }
 
         private static void RegisterTfsService<TService>(ContainerBuilder builder)
