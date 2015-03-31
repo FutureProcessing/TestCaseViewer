@@ -1,6 +1,7 @@
 import {EventEmitter} from 'events';
 import AppDispatcher from '../dispatchers/appDispatcher.js';
 import actionTypes from '../constants/actionTypes.js';
+import AjaxError from '../utils/ajaxError.js';
 
 var CHANGE_EVENT = 'change';
 class userStore extends EventEmitter{
@@ -9,7 +10,7 @@ class userStore extends EventEmitter{
             username: '',
             isLoggedIn: false,
             inProgress: false,
-            errorMessage: ''
+            error: new AjaxError()
         };
 
         this.dispatchToken = AppDispatcher.register(register.bind(this));
@@ -39,12 +40,12 @@ class userStore extends EventEmitter{
         this.state.username = username;
         this.state.isLoggedIn = true;
         this.state.inProgress = false;
-        this.state.errorMessage = '';
+        this.state.error.clear();
     }
 
     handleLogInFail(error){
         this.state.isLoggedIn = false;
-        this.state.errorMessage = error;
+        this.state.error = error;
         this.state.inProgress = false;
     }
 

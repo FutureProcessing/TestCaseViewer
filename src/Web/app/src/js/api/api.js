@@ -1,5 +1,6 @@
 import xhttp from 'xhttp';
 import ApiActionCreators from '../actions/apiActionCreators.js';
+import AjaxError from '../utils/ajaxError.js';
 
 var api = {
     logIn: (user, password) => {
@@ -15,8 +16,9 @@ var api = {
             return xhttp({ url: window.baseUrl + 'auth/identity'});
         }).then((data) => {
             ApiActionCreators.loggedIn(data.userName);
-        }).catch((err) => {
-            ApiActionCreators.logInFailed(err.message || err);
+        }).catch( ({data, xhr}) => {
+            var message = data.message || data.error;
+            ApiActionCreators.logInFailed(new AjaxError(message, xhr.status));
         });
     },
 
@@ -40,5 +42,9 @@ var api = {
         });
     }
 }
+
+xhttp.addErrInterceptor((data, xhr) => {
+    return {xhr, data};
+});
 
 export default api;

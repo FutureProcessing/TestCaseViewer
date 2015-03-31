@@ -2,6 +2,7 @@ import React from 'react';
 import ViewActionCreators from '../../actions/viewActionCreators.js';
 import UserStore from '../../stores/userStore.js';
 import {Router} from 'react-router';
+import StatusCodes from '../../constants/statusCodes.js';
 
 import LogInInput from './logInInput.jsx';
 import ProgressButton from '../common/progressButton.jsx';
@@ -36,7 +37,7 @@ class LogIn extends React.Component{
         if(data.isLoggedIn) {
             this.context.router.transitionTo('/');
         }else{
-            this.setState({inProgress: data.inProgress, errorMessage: data.errorMessage});
+            this.setState({inProgress: data.inProgress, errorMessage: data.error.message, errorCode: data.error.statusCode});
         }
     }
 
@@ -55,13 +56,14 @@ class LogIn extends React.Component{
     }
 
     render(){
+        var errorMessage = createErrorMessage(this.state.errorCode, this.state.errorMessage);
 
         return(
             <div className="login-container">
                 <div className="login-header">Please log in</div>
 
-                {this.state.errorMessage?(
-                    <div className="login-error">{this.state.errorMessage}</div>
+                {errorMessage?(
+                    <div className="login-error">{errorMessage}</div>
                 ): null}
 
                 <div className="login-content">
@@ -94,4 +96,17 @@ LogIn.contextTypes = {
     router: React.PropTypes.func
 };
 
+function createErrorMessage(errorCode, orginalErrorMessage){
+    var errorMessage = '';
+    switch(errorCode){
+        case StatusCodes.FORBIDDEN:
+            errorMessage = 'Invalid username or password.';
+            break;
+        default:
+            errorMessage = orginalErrorMessage;
+            break;
+    }
+
+    return errorMessage;
+}
 export default LogIn
