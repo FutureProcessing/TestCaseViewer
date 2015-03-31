@@ -1,16 +1,20 @@
 ﻿namespace Web
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
+    using Autofac;
+    using DI;
     using Microsoft.Owin;
     using Nancy;
     using Nancy.Bootstrapper;
+    using Nancy.Bootstrappers.Autofac;
     using Nancy.Conventions;
     using Nancy.Owin;
     using Nancy.Responses;
     using Nancy.TinyIoc;
 
-    public class Bootstraper : DefaultNancyBootstrapper
+    public class Bootstraper : AutofacNancyBootstrapper
     {
         protected override void ConfigureConventions(NancyConventions nancyConventions)
         {
@@ -23,9 +27,31 @@
             nancyConventions.StaticContentsConventions.AddDirectory("/", "app/dist");
         }
 
-        protected override void RequestStartup(TinyIoCContainer container, IPipelines pipelines, NancyContext context)
+        protected override void ConfigureApplicationContainer(ILifetimeScope existingContainer)
         {
-            base.RequestStartup(container, pipelines, context);
+            base.ConfigureApplicationContainer(existingContainer);
+
+            var builder = new ContainerBuilder();
+
+            builder.RegisterModule<PerApplicationModule>();
+
+            builder.Update(existingContainer.ComponentRegistry);
+        }
+
+        protected override void ConfigureRequestContainer(ILifetimeScope container, NancyContext context)
+        {
+            base.ConfigureRequestContainer(container, context);
+
+            var builder = new ContainerBuilder();
+
+            builder.RegisterModule<PerRequestModule>();
+
+            builder.Update(container.ComponentRegistry);
+        }
+
+        protected override void RequestStartup(ILifetimeScope lifetimeScope, IPipelines pipelines, NancyContext context)
+        {
+            base.RequestStartup(lifetimeScope, pipelines, context);
 
             pipelines.BeforeRequest += SetNancyUser;
             pipelines.OnError += HandleAjaxError;
@@ -44,7 +70,7 @@
                     StackTrace = e.StackTrace
                 };
 
-                var serializer = this.ApplicationContainer.ResolveAll<ISerializer>().FirstOrDefault(x => x.CanSerialize("application/json"));
+                var serializer = this.ApplicationContainer.Resolve<IEnumerable<ISerializer>>().FirstOrDefault(x => x.CanSerialize("application/json"));
 
                 return new JsonResponse(response, serializer)
                 {
