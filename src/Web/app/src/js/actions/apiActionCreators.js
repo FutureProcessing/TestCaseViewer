@@ -39,7 +39,7 @@ var ApiActionCreators = {
         });
     },
 
-    recieveTestCaseData: function(data){
+    recievedTestCaseData: function(data){
         AppDispatcher.handleApiAction({
             type: ActionTypes.GET_TC_SUCCESS,
             testCase: data

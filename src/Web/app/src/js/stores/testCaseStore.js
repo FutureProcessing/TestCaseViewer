@@ -35,10 +35,11 @@ class TestCaseStore extends EventEmitter{
         this.state.inProgress = true;
     }
 
-    handleRecievedTC(){
+    handleRecievedTC(testCase){
         this.state.inProgress = false;
-        this.steps = [];
-        this.title = ''
+        this.state.title = testCase.title;
+        this.state.createdBy = testCase.createdBy;
+        this.state.steps = testCase.steps;
     }
 }
 
@@ -51,7 +52,7 @@ function register(payload){
             this.emitChange();
             break;
         case actionTypes.GET_TC_SUCCESS:
-            this.handleRecievedTC();
+            this.handleRecievedTC(action.testCase);
             this.emitChange();
             break;
         // case actionTypes.GET_TC_FAIL:

@@ -45,10 +45,9 @@ var api = {
 
     getTestCaseData: (id) => {
         xhttp({
-            url: window.baseUrl + 'auth/logout',
-            data: {id: id}
+            url: `${window.baseUrl}testcase/${id}`
         }).then((data) => {
-            ApiActionCreators.recievedTestCaseData(data);
+            ApiActionCreators.recievedTestCaseData(createTestCaseModel(data));
         }).catch(({data, xhr}) => {
             ApiActionCreators.getTestCaseDataFailed(new AjaxError(message, xhr.status));
         });
@@ -58,5 +57,9 @@ var api = {
 xhttp.addErrInterceptor((data, xhr) => {
     return {xhr, data};
 });
+
+function createTestCaseModel(serverData){
+    return serverData; //TODO: implement
+}
 
 export default api;
