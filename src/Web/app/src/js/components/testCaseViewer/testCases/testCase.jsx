@@ -6,6 +6,8 @@ import perfectScrollbar from 'perfect-scrollbar';
 
 import Swirl from '../../common/swirl.jsx';
 import StepsTable from './stepsTable.jsx';
+import TestCaseInfo from './testCaseInfo.jsx';
+import ProgressButton from '../../common/progressButton.jsx';
 
 
 class TestCase extends React.Component{
@@ -57,11 +59,21 @@ class TestCase extends React.Component{
     }
 
     render(){
-        var content = this.state.inProgress?  <Swirl className="test-case-swirl"/>: (
+        var content = this.state.inProgress? <Swirl className="test-case-swirl"/>: (
             <div className="test-case">
-                <h1>{this.state.title}</h1>
+                <TestCaseInfo
+                    title={this.state.title}
+                    createdBy={this.state.createdBy}
+                    status={this.state.state} />
+                <StepsTable
+                    steps={this.state.steps} />
 
-                <StepsTable steps={this.state.steps} />
+                <ProgressButton buttonType="success">
+                    Accept
+                </ProgressButton>
+                <ProgressButton buttonType="error">
+                    Reject
+                </ProgressButton>
             </div>
         );
 

@@ -9,6 +9,31 @@
 }
 .test-case{
     flex: 1;
+
+    h1{
+        color: @CDark;
+        margin-top: .2em;
+    }
+    .test-case-props{
+        display: flex;
+        >div{
+            padding-right: 2em;
+
+            label{
+                font-weight: bold;
+                color: @CDark;
+            }
+
+            .created-by-field{
+
+            }
+
+            .status-field{
+
+            }
+        }
+    }
+
     ul.steps-table{
         list-style: none;
         padding: 0;
@@ -25,7 +50,7 @@
 
         .step{
             .row();
-            
+
             &.shared-step{
                 cursor: pointer;
                 background: @CLight;

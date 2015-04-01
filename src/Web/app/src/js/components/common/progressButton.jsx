@@ -10,7 +10,8 @@ class PogressButton extends React.Component{
             <PogressButtonBase
                 onClick={this.props.onClick}
                 inProgress={this.props.inProgress}
-                className={classes}>
+                className={classes}
+                buttonType={this.props.buttonType} >
                 {this.props.children}
             </PogressButtonBase>
         );
@@ -20,7 +21,8 @@ class PogressButton extends React.Component{
 PogressButton.propTypes = {
     onClick: React.PropTypes.func,
     inProgress: React.PropTypes.bool,
-    className: React.PropTypes.string
+    className: React.PropTypes.string,
+    buttonType: React.PropTypes.oneOf(['success', 'error', 'info', 'warning', 'normal'])
 };
 
 export default PogressButton;

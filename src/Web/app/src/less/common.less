@@ -83,6 +83,22 @@
 .animated-button() {
 	overflow: hidden;
 
+    &.success:after{
+        background: @CSuccess;
+    }
+
+    &.error:after{
+        background: @CError;
+    }
+
+    &.warning:after{
+        background: @CWarning;
+    }
+
+    &.info:after{
+        background: @CInfo;
+    }
+
     &:after {
         content: '';
     	position: absolute;
