@@ -10,5 +10,8 @@ namespace Common
     {
         Uri TfsServer { get; }
         string ProjectName { get; }
+
+        IDictionary<string, object> AcceptTransition { get; }
+        IDictionary<string, object> RejectTransition { get; }
     }
 }

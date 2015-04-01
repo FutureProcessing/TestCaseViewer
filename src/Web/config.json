@@ -1,6 +1,14 @@
 ﻿{
     "tfs": {
         "url": "http://novakov-tfs.cloudapp.net:8080/tfs/DefaultCollection",
-        "project": "Development"        
+        "project": "Development",
+        "accept": {
+            "State": "Ready",
+            "Assigned To": null
+        },
+        "reject": {
+            "State": "Design",
+            "Assigned To": "@Previous"
+        }
     }
 }
