@@ -17,6 +17,8 @@ var ViewActionCreators = {
                 if(!data.isAuthenticated){
                     RouterContainer.get().transitionTo('/login');
                 }
+            }).catch(err => {
+                RouterContainer.get().transitionTo('/login');
             });
         }
     },
