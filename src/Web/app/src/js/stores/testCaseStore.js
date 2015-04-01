@@ -43,6 +43,7 @@ class TestCaseStore extends EventEmitter{
         this.state.inProgress = false;
         this.state.title = testCase.title;
         this.state.createdBy = testCase.createdBy;
+        this.state.state = testCase.state;
         this.state.steps = testCase.steps;
     }
 }

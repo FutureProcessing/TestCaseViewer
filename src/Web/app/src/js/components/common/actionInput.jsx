@@ -25,9 +25,9 @@ class ActionInput extends React.Component{
 ActionInput.propTypes = {
     type: React.PropTypes.string,
     actionName: React.PropTypes.string,
-    onActionClick: React.PropTypes.string,
+    onActionClick: React.PropTypes.func,
     value: React.PropTypes.string,
-    inProgress: React.PropTypes.boll,
+    inProgress: React.PropTypes.bool,
     onChange: React.PropTypes.func
 };
 

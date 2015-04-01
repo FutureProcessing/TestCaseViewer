@@ -12,8 +12,7 @@ class SharedStepTable extends React.Component{
                 component = <SharedStepContent step={step}/>;
             }
 
-            //TODO: add key
-            return <li > {component} </li>;
+            return <li key={step.order}> {component} </li>;
         });
 
         return this.props.steps.length > 0? (
