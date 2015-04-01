@@ -1,0 +1,6 @@
+﻿{
+    "tfs": {
+        "url": "http://novakov-tfs.cloudapp.net:8080/tfs/DefaultCollection",
+        "project": "Development"        
+    }
+}

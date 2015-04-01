@@ -1,4 +1,6 @@
-﻿namespace Tfs
+﻿using Common;
+
+namespace Tfs
 {
     using System;
     using System.Linq;
@@ -8,20 +10,22 @@
 
     public class TestCaseService
     {
-        private readonly Func<ITestManagementService2> _testManagementFactory;
+        private readonly Func<ITestManagementService2> testManagementFactory;
+        private readonly IConfiguration config;
 
-        public TestCaseService(Func<ITestManagementService2> testManagementFactory)
+        public TestCaseService(Func<ITestManagementService2> testManagementFactory, IConfiguration config)
         {
-            this._testManagementFactory = testManagementFactory;
+            this.testManagementFactory = testManagementFactory;
+            this.config = config;
         }
 
         public TestCase GetById(int id)
         {           
             try
             {
-                var service = this._testManagementFactory();
+                var service = this.testManagementFactory();
 
-                var teamProject = service.GetTeamProject("AllocateHealthSuite");
+                var teamProject = service.GetTeamProject(this.config.ProjectName);
 
                 var tc = teamProject.TestCases.Find(id);
 
