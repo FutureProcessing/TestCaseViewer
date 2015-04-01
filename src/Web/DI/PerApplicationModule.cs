@@ -13,7 +13,7 @@
         {
             builder.RegisterModule<TfsModule>();
 
-            builder.RegisterType<WebConfigConfiguration>()
+            builder.RegisterType<JsonConfiguration>()
                 .As<IConfiguration>();
 
             builder.Register(ctx => (ClaimsIdentity) Thread.CurrentPrincipal.Identity).AsSelf();

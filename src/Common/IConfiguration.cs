@@ -9,5 +9,6 @@ namespace Common
     public interface IConfiguration
     {
         Uri TfsServer { get; }
+        string ProjectName { get; }
     }
 }
