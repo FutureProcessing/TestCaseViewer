@@ -17,9 +17,10 @@ class Toggle extends React.Component{
             <div className={this.props.className} onClick={this.handleClick.bind(this)}>
                 {this.props.header}
                 {this.state.isOpen? (
-                    <div className=>
+                    <div>
                         {this.props.children}
-                    </div>) : null}
+                    </div>
+                ) : null}
             </div>
         );
     }
