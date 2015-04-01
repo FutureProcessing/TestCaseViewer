@@ -56,6 +56,7 @@
     <Compile Include="Model\SimpleTestStep.cs" />
     <Compile Include="Model\TestCase.cs" />
     <Compile Include="Model\TestStepInfo.cs" />
+    <Compile Include="Model\WorkItemTransition.cs" />
     <Compile Include="ProfileInfo.cs" />
     <Compile Include="ProfileService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

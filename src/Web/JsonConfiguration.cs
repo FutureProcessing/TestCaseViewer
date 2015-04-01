@@ -29,5 +29,10 @@ namespace Web
         {
             get { return this.config.tfs.project; }
         }
+
+        public IDictionary<string, object> AcceptTransition
+        {
+            get { return ((JObject) this.config.tfs.accept).Properties().ToDictionary(x => x.Name, x => ((JValue) x.Value).Value); }
+        }
     }
 }

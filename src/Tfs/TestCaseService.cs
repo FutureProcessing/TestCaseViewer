@@ -1,13 +1,12 @@
-﻿using Common;
+﻿using System;
+using System.Linq;
+using Common;
+using Microsoft.TeamFoundation.TestManagement.Client;
+using Microsoft.TeamFoundation.WorkItemTracking.Client;
+using Tfs.Model;
 
 namespace Tfs
 {
-    using System;
-    using System.Linq;
-    using Microsoft.TeamFoundation.TestManagement.Client;
-    using Microsoft.TeamFoundation.WorkItemTracking.Client;
-    using Model;
-
     public class TestCaseService
     {
         private readonly Func<ITestManagementService2> testManagementFactory;
@@ -17,6 +16,20 @@ namespace Tfs
         {
             this.testManagementFactory = testManagementFactory;
             this.config = config;
+        }
+
+        public void Accept(int id)
+        {
+            var service = this.testManagementFactory();
+            var teamProject = service.GetTeamProject(this.config.ProjectName);
+
+            var testCase = teamProject.TestCases.Find(id);
+
+            var transition = new WorkItemTransition(this.config.AcceptTransition);
+
+            transition.Transit(testCase.WorkItem);
+
+            testCase.Save();
         }
 
         public TestCase GetById(int id)
