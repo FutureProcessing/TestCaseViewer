@@ -5,6 +5,10 @@
         "accept": {
             "State": "Ready",
             "Assigned To": null
+        },
+        "reject": {
+            "State": "Design",
+            "Assigned To": "@Previous"
         }
     }
 }

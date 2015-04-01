@@ -13,6 +13,11 @@
                 testCases.Accept(_.id);
                 return Ok;
             };
+
+            Post["testcase/{id}/reject"] = _ =>
+            {
+                testCases.Reject(_.id); return Ok;                
+            };
         }
     }
 }

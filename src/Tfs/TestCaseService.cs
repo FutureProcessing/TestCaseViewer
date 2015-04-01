@@ -32,8 +32,22 @@ namespace Tfs
             testCase.Save();
         }
 
+        public void Reject(int id)
+        {
+            var service = this.testManagementFactory();
+            var teamProject = service.GetTeamProject(this.config.ProjectName);
+
+            var testCase = teamProject.TestCases.Find(id);
+
+            var transition = new WorkItemTransition(this.config.RejectTransition);
+
+            transition.Transit(testCase.WorkItem);
+
+            testCase.Save();
+        }
+
         public TestCase GetById(int id)
-        {           
+        {
             try
             {
                 var service = this.testManagementFactory();
