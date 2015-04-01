@@ -2,6 +2,8 @@ import React from 'react';
 import TestCaseStore from '../../../stores/testCaseStore.js';
 import RouterContainer from '../../../routerContainer.js';
 import ViewActionCreators from '../../../actions/viewActionCreators.js';
+import perfectScrollbar from 'perfect-scrollbar';
+
 import StepsTable from './stepsTable.jsx';
 
 class TestCase extends React.Component{
@@ -19,6 +21,13 @@ class TestCase extends React.Component{
 
     componentDidMount(){
         TestCaseStore.addEventListener(this.handleStoreChange.bind(this));
+        
+        var component = React.findDOMNode(this);
+        perfectScrollbar.initialize(component, {
+            wheelSpeed: 1,
+            wheelPropagation: true,
+            minScrollbarLength: 20
+        });
     }
 
     componentWillUnmount(){

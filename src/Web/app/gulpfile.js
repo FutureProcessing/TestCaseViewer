@@ -24,6 +24,9 @@ gulp.task('copy', function() {
     gulp.src('src/index.sshtml')
       .pipe(gulp.dest('dist'));
 
+    gulp.src('node_modules/perfect-scrollbar/dist/css/perfect-scrollbar.css')
+      .pipe(gulp.dest('dist/css'));
+
     gulp.src('src/font/*.*')
       .pipe(gulp.dest('./dist/font'));
 });
