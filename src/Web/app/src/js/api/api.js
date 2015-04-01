@@ -49,8 +49,7 @@ var api = {
 
     getTestCaseData: (id) => {
         xhttp({
-            url: `${window.baseUrl}testcase/${id}`,
-            timeout: 100
+            url: `${window.baseUrl}testcase/${id}`
         }).then((data) => {
             ApiActionCreators.recievedTestCaseData(createTestCaseModel(data));
         }).catch(({data, xhr}) => {

@@ -4,7 +4,6 @@ import SharedStepContent from './sharedStepContent.jsx';
 
 class SharedStepTable extends React.Component{
     render(){
-        console.log(this.props.steps);
         var steps = this.props.steps.map(step => {
             var component;
             if(step.type === "simple"){

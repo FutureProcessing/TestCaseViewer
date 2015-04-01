@@ -4,6 +4,7 @@ import RouterContainer from '../../../routerContainer.js';
 import ViewActionCreators from '../../../actions/viewActionCreators.js';
 import perfectScrollbar from 'perfect-scrollbar';
 
+import Swirl from '../../common/swirl.jsx';
 import StepsTable from './stepsTable.jsx';
 
 class TestCase extends React.Component{
@@ -16,12 +17,15 @@ class TestCase extends React.Component{
             createdBy: '',
             title: ''};
 
-        if(this.state.id) this.getTestCaseData(this.state.id);
+        if(this.state.id) {
+            this.state.inProgress = true;
+            this.getTestCaseData(this.state.id);
+        }
     }
 
     componentDidMount(){
         TestCaseStore.addEventListener(this.handleStoreChange.bind(this));
-        
+
         var component = React.findDOMNode(this);
         perfectScrollbar.initialize(component, {
             wheelSpeed: 1,
@@ -52,8 +56,8 @@ class TestCase extends React.Component{
     }
 
     render(){
-        var content = this.state.inProgress? 'loading...': (
-            <div>
+        var content = this.state.inProgress?  <Swirl className="test-case-swirl"/>: (
+            <div className="test-case">
                 <h1>{this.state.title}</h1>
 
                 <StepsTable steps={this.state.steps} />

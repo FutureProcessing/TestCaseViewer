@@ -2,50 +2,58 @@
 @import 'mixins/lessPrefixer.less';
 
 @tableBaseColor: @CBase;
-ul.steps-table{
-    list-style: none;
-    padding: 0;
-
-    border: solid 1px @tableBaseColor;
-
-    li.header{
-        background: @tableBaseColor;
-        .step-action, .step-result{
-            color: @CLight;
-        }
-    }
-
-    .step{
-        position: relative;
-        width: 100%;
-        box-sizing: border-box;
-        display: flex;
-        border-bottom: solid 1px @tableBaseColor;
-
-        p{
-            margin: 0;
-        }
-
-        .step-action, .step-result{
-            padding: .5em;
-        }
-
-        .step-action{
-            flex: 1;
-        }
-
-        .step-result{
-            flex: 1;
-        }
-
-        &.shared-step{
-            cursor: pointer;
-            background: @CLight;
-        }
-    }
+.test-case-swirl{
+    position: relative;
+    left: 50%;
+    align-self: center;
 }
+.test-case{
+    flex: 1;
+    ul.steps-table{
+        list-style: none;
+        padding: 0;
 
-ul.shared-steps-table{
-    border: none;
-    border-left: 4px solid @tableBaseColor;
+        border: solid 1px @tableBaseColor;
+
+        li.header{
+            background: @tableBaseColor;
+            .step-action, .step-result{
+                color: @CLight;
+            }
+        }
+
+        .step{
+            position: relative;
+            width: 100%;
+            box-sizing: border-box;
+            display: flex;
+            border-bottom: solid 1px @tableBaseColor;
+
+            p{
+                margin: 0;
+            }
+
+            .step-action, .step-result{
+                padding: .5em;
+            }
+
+            .step-action{
+                flex: 1;
+            }
+
+            .step-result{
+                flex: 1;
+            }
+
+            &.shared-step{
+                cursor: pointer;
+                background: @CLight;
+            }
+        }
+    }
+
+    ul.shared-steps-table{
+        border: none;
+        border-left: 4px solid @tableBaseColor;
+    }
 }
