@@ -62,13 +62,13 @@
     <Compile Include="TestCaseService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{FDCE4533-39A4-46E3-8BBA-EBE9A9B48290}</Project>
-      <Name>Common</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{fdce4533-39a4-46e3-8bba-ebe9a9b48290}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

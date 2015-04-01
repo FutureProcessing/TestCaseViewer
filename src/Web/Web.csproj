@@ -115,7 +115,7 @@
       <Name>Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Tfs\Tfs.csproj">
-      <Project>{404D48EB-A924-48DF-A1F2-A77EA71F651E}</Project>
+      <Project>{404d48eb-a924-48df-a1f2-a77ea71f651e}</Project>
       <Name>Tfs</Name>
     </ProjectReference>
   </ItemGroup>
