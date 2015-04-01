@@ -2,6 +2,7 @@ import React from 'react';
 import TestCaseStore from '../../../stores/testCaseStore.js';
 import RouterContainer from '../../../routerContainer.js';
 import ViewActionCreators from '../../../actions/viewActionCreators.js';
+import StepsTable from './stepsTable.jsx';
 
 class TestCase extends React.Component{
     constructor(props, context){
@@ -42,16 +43,11 @@ class TestCase extends React.Component{
     }
 
     render(){
-        var steps = this.state.steps.map(step => {
-            return <li ><span dangerouslySetInnerHTML={{__html: step.action}} /> </li>;
-        });
-
-        var content = this.state.inProgress? '...': (
+        var content = this.state.inProgress? 'loading...': (
             <div>
                 <h1>{this.state.title}</h1>
-                <ul>
-                    {steps}
-                </ul>
+
+                <StepsTable steps={this.state.steps} />
             </div>
         );
 
