@@ -7,6 +7,7 @@ namespace Web.Modules.Queries
         public QueriesModule(QueriesService queries)
         {
             Get["queries"] = _ => queries.GetQueriesTree();
+            Get["query/list/{path*}"] = _ => queries.ExecuteListQuery(_.path);
         }
     }
 }
