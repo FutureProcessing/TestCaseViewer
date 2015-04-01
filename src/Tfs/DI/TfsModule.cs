@@ -1,4 +1,6 @@
-﻿namespace Tfs.DI
+﻿using Microsoft.TeamFoundation.WorkItemTracking.Client;
+
+namespace Tfs.DI
 {
     using Autofac;
     using Microsoft.TeamFoundation.Client;
@@ -12,9 +14,11 @@
             builder.RegisterType<AuthenticationService>().AsSelf();
             builder.RegisterType<ProfileService>().AsSelf();
             builder.RegisterType<TestCaseService>().AsSelf();
+            builder.RegisterType<QueriesService>().AsSelf();
             
             RegisterTfsService<IIdentityManagementService2>(builder);
             RegisterTfsService<ITestManagementService2>(builder);
+            RegisterTfsService<WorkItemStore>(builder);
         }
 
         private static void RegisterTfsService<TService>(ContainerBuilder builder)
