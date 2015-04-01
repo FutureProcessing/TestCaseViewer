@@ -1,4 +1,6 @@
-import React from 'react';
+import React from 'react/addons';
+
+var CSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 class Toggle extends React.Component{
     constructor(props){
@@ -16,11 +18,13 @@ class Toggle extends React.Component{
         return(
             <div className={this.props.className}>
                 <span  onClick={this.handleClick.bind(this)}>{this.props.header}</span>
-                {this.state.isOpen? (
-                    <div>
-                        {this.props.children}
-                    </div>
-                ) : null}
+                <CSSTransitionGroup transitionName="toggle">
+                    {this.state.isOpen? (
+                        <div>
+                            {this.props.children}
+                        </div>
+                    ) : null}
+                </CSSTransitionGroup>
             </div>
         );
     }

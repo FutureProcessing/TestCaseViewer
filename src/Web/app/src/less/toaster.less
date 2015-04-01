@@ -52,4 +52,22 @@
             }
         }
     }
+
+    .toast-enter {
+        opacity: 0.01;
+        .transition(opacity .5s ease-in);
+    }
+
+    .toast-enter.toast-enter-active {
+        opacity: 1;
+    }
+
+    .toast-leave {
+        opacity: 1;
+        .transition(opacity .5s ease-in);
+    }
+
+    .toast-leave.toast-leave-active {
+        opacity: 0.01;
+    }
 }
