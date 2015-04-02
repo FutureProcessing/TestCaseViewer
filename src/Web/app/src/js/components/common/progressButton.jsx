@@ -4,7 +4,7 @@ import PogressButtonBase from './progressButtonBase.jsx';
 
 class PogressButton extends React.Component{
     render(){
-        var classes = classNames('button', this.props.className);
+        var classes = classNames('comm-button', this.props.className);
 
         return (
             <PogressButtonBase

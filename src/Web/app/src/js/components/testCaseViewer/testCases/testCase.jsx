@@ -8,6 +8,7 @@ import Swirl from '../../common/swirl.jsx';
 import StepsTable from './stepsTable.jsx';
 import TestCaseInfo from './testCaseInfo.jsx';
 import ProgressButton from '../../common/progressButton.jsx';
+import ButtonGroup from '../../common/buttonGroup.jsx';
 
 
 class TestCase extends React.Component{
@@ -67,13 +68,14 @@ class TestCase extends React.Component{
                     status={this.state.state} />
                 <StepsTable
                     steps={this.state.steps} />
-
-                <ProgressButton buttonType="success">
-                    Accept
-                </ProgressButton>
-                <ProgressButton buttonType="error">
-                    Reject
-                </ProgressButton>
+                <ButtonGroup>
+                    <ProgressButton buttonType="success">
+                        Accept
+                    </ProgressButton>
+                    <ProgressButton buttonType="error">
+                        Reject
+                    </ProgressButton>
+                </ButtonGroup>
             </div>
         );
 
