@@ -42,7 +42,7 @@ class LogIn extends React.Component{
     }
 
     handleLogInClick(e){
-        e.preventDefault();
+         e.preventDefault();
         if(this.state.user && this.state.password){
             ViewActionCreators.logIn(this.state.user, this.state.password);
         }
@@ -60,7 +60,7 @@ class LogIn extends React.Component{
         var errorMessage = createErrorMessage(this.state.errorCode, this.state.errorMessage);
 
         return(
-            <form className="login-container">
+            <form className="login-container" onSubmit={this.handleLogInClick.bind(this)}>
                 <div className="login-header">Please log in</div>
 
                 {errorMessage?(
@@ -80,7 +80,6 @@ class LogIn extends React.Component{
                         type="password"/>
 
                     <ProgressButton
-                        onClick={this.handleLogInClick.bind(this)}
                         inProgress={this.state.inProgress}
                         className="login-button">
                         Log In

@@ -16,7 +16,11 @@ class PogressButtonBase extends React.Component{
 
         return (
             <button
-                onClick={() => {this.props.disabled || this.props.onClick()}}
+                onClick={() => {
+                    if(!this.props.disabled && this.props.onClick) {
+                        this.props.onClick();
+                    }
+                }}
                 className={classes}>
                 {this.props.children}
             </button>
