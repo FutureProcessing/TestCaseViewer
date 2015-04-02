@@ -54,11 +54,6 @@ class TestCase extends React.Component{
         ViewActionCreators.getTestCaseData(id);
     }
 
-    handleStoreChange(){
-        var testCaseData = TestCaseStore.getData();
-        this.setState(testCaseData);
-    }
-
     render(){
         var content = this.state.inProgress? <Swirl className="test-case-swirl"/>: (
             <div className="test-case">
@@ -69,10 +64,14 @@ class TestCase extends React.Component{
                 <StepsTable
                     steps={this.state.steps} />
                 <ButtonGroup>
-                    <ProgressButton buttonType="success">
+                    <ProgressButton buttonType="success"
+                        inProgress={this.state.acceptInProgress}
+                        onClick={this.handleAcceptButtonClick.bind(this)}>
                         Accept
                     </ProgressButton>
-                    <ProgressButton buttonType="error">
+                    <ProgressButton buttonType="error"
+                        inProgress={this.state.rejectInProgress}
+                        onClick={this.handleRejectButtonClick.bind(this)}>
                         Reject
                     </ProgressButton>
                 </ButtonGroup>
@@ -84,6 +83,19 @@ class TestCase extends React.Component{
                 {content}
             </div>
         );
+    }
+
+    handleStoreChange(){
+        var testCaseData = TestCaseStore.getData();
+        this.setState(testCaseData);
+    }
+
+    handleAcceptButtonClick(){
+        ViewActionCreators.acceptTestCase(this.state.id);
+    }
+
+    handleRejectButtonClick(){
+        ViewActionCreators.rejectTestCase(this.state.id);
     }
 }
 

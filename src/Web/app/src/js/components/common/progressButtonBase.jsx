@@ -4,7 +4,6 @@ import classNames from 'classnames';
 class PogressButtonBase extends React.Component{
     render(){
         var buttonType = this.props.buttonType || 'normal';
-        console.log(this.props.buttonType, buttonType === 'success');
         var classes = classNames({
             'in-progress': this.props.inProgress,
             'success': buttonType === 'success',

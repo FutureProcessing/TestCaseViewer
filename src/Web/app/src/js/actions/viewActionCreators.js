@@ -34,10 +34,31 @@ var ViewActionCreators = {
 
     getTestCaseData: function(id){
         AppDispatcher.handleViewAction({
-            type: ActionTypes.GET_TC
+            type: ActionTypes.GET_TC,
+            id: id
         });
 
         api.getTestCaseData(id);
+    },
+
+    acceptTestCase: function(id){
+        AppDispatcher.handleViewAction({
+            type: ActionTypes.ACCEPT_TC
+        });
+
+        api.acceptTestCase(id).then(() => {
+            ViewActionCreators.getTestCaseData(id);
+        });
+    },
+
+    rejectTestCase: function(id){
+        AppDispatcher.handleViewAction({
+            type: ActionTypes.REJECT_TC
+        });
+
+        api.rejectTestCase(id).then(() => {
+            ViewActionCreators.getTestCaseData(id);
+        });
     }
 };
 

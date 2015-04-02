@@ -48,13 +48,41 @@ var api = {
     },
 
     getTestCaseData: (id) => {
-        xhttp({
+        return xhttp({
             url: `${window.baseUrl}testcase/${id}`
         }).then((data) => {
             ApiActionCreators.recievedTestCaseData(mapTestCase(data));
         }).catch(({data, xhr}) => {
             var message = data.message || data.error;
             ApiActionCreators.getTestCaseDataFailed(new AjaxError(message, xhr.status));
+            ApiActionCreators.addToast('FAIL', message, ToastTypes.ERROR);
+        });
+    },
+
+    acceptTestCase: (id) => {
+        return xhttp({
+            url: `${window.baseUrl}testcase/${id}/accept`,
+            method: 'post'
+        }).then((data) => {
+            ApiActionCreators.acceptedTestCase();
+            ApiActionCreators.addToast('ACCEPTED', `Accepted Test Case ${id}`, ToastTypes.SUCCESS);
+        }).catch(({data, xhr}) => {
+            var message = data.message || data.error;
+            ApiActionCreators.acceptTestCseFailed();
+            ApiActionCreators.addToast('FAIL', message, ToastTypes.ERROR);
+        });
+    },
+
+    rejectTestCase: (id) => {
+        return xhttp({
+            url: `${window.baseUrl}testcase/${id}/reject`,
+            method: 'post'
+        }).then((data) => {
+            ApiActionCreators.rejectedTestCase();
+            ApiActionCreators.addToast('REJECTED', `Rejected Test Case ${id}`, ToastTypes.SUCCESS);
+        }).catch(({data, xhr}) => {
+            var message = data.message || data.error;
+            ApiActionCreators.rejectTestCseFailed();
             ApiActionCreators.addToast('FAIL', message, ToastTypes.ERROR);
         });
     }
@@ -71,7 +99,6 @@ function mapTestCase(serverData){
         state: serverData.state,
         steps: mapSteps(serverData.steps)
     }
-    // return serverData; //TODO: implement
 }
 
 function mapSteps(steps){
