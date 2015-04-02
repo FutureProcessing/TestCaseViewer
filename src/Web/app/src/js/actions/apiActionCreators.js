@@ -70,6 +70,20 @@ var ApiActionCreators = {
         });
     },
 
+    getTestCasesFailed: function(error) {
+        AppDispatcher.handleApiAction({
+            type: ActionTypes.GET_TEST_CASES_FAIL,
+            error: error
+        });
+    },
+
+    recievedTestCases: function(data){
+        AppDispatcher.handleApiAction({
+            type: ActionTypes.GET_TEST_CASES_SUCCESS,
+            testCases: data
+        });
+    },
+
     addToast: function(title, content, type){
         AppDispatcher.handleViewAction({
             type: ActionTypes.ADD_TOAST,

@@ -1,27 +1,34 @@
 import React from 'react';
 import ActionInput from '../../common/actionInput.jsx';
 import TestCaseStore from '../../../stores/testCaseStore.js';
+import QueryStore from '../../../stores/queryStore.js';
+import ViewActionCreators from '../../../actions/viewActionCreators.js';
+
+import TestCaseList from './testCaseList.jsx';
 
 class LeftMenu extends React.Component{
     constructor(props, context){
         super(props);
         this.state = {
             testCaseId: context.router.getCurrentParams().id,
-            inProgress: false
+            getTestCasesInProgress: true,
+            inProgress: false,
+            testCases: []
         }
+
+
     }
 
     componentDidMount(){
         TestCaseStore.addEventListener(this.handleStoreChange.bind(this));
+        QueryStore.addEventListener(this.handleQueryStoreChange.bind(this));
+
+        this.getTestCaseData();
     }
 
     componentWillUnmount(){
         TestCaseStore.removeEventListener(this.handleStoreChange.bind(this));
-    }
-
-    handleStoreChange (){
-        var inProgress = TestCaseStore.getData().inProgress;
-        this.setState({inProgress});
+        QueryStore.removeEventListener(this.handleQueryStoreChange.bind(this));
     }
 
     render(){
@@ -33,8 +40,36 @@ class LeftMenu extends React.Component{
                     onChange={this.handleInputChange.bind(this)}
                     value={this.state.testCaseId}
                     inProgress={this.state.inProgress}/>
+
+                <TestCaseList
+                    testCases={this.state.testCases}
+                    inProgress={this.state.getTestCasesInProgress}
+                    onTestCaseClick={this.handleTestCaseClick.bind(this)}/>
             </div>
         );
+    }
+
+    getTestCaseData (){
+        ViewActionCreators.getTestCases('Development/Shared Queries/Current Sprint/Test Cases');
+    }
+
+    handleStoreChange (){
+        var data = TestCaseStore.getData();
+        this.setState({inProgress: data.inProgress, testCaseId: data.id});
+    }
+
+    handleQueryStoreChange (){
+        var data = QueryStore.getData();
+        this.setState({
+            getTestCasesInProgress: data.inProgress,
+            testCases: data.testCases
+        });
+    }
+
+    handleTestCaseClick(id){
+        console.log(id);
+        // ViewActionCreators.getTestCaseData(id);
+        this.context.router.transitionTo('tc', {id: id});
     }
 
     handleGoActionClick(){

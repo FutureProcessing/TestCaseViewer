@@ -85,6 +85,18 @@ var api = {
             ApiActionCreators.rejectTestCseFailed();
             ApiActionCreators.addToast('FAIL', message, ToastTypes.ERROR);
         });
+    },
+
+    getTestCases: (query) => {
+        return xhttp({
+            url: `${window.baseUrl}query/list/${encodeURIComponent(query)}`
+        }).then((data) => {
+            ApiActionCreators.recievedTestCases(data);//TODO: create map funciton
+        }).catch(({data, xhr}) => {
+            var message = data.message || data.error;
+            ApiActionCreators.getTestCasesFailed(new AjaxError(message, xhr.status));
+            ApiActionCreators.addToast('FAIL', message, ToastTypes.ERROR);
+        });
     }
 }
 

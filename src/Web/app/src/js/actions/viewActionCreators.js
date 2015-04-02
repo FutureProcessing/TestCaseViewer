@@ -59,6 +59,14 @@ var ViewActionCreators = {
         api.rejectTestCase(id).then(() => {
             ViewActionCreators.getTestCaseData(id);
         });
+    },
+
+    getTestCases: function(query){
+        AppDispatcher.handleViewAction({
+            type: ActionTypes.GET_TEST_CASES
+        });
+
+        api.getTestCases(query);
     }
 };
 
