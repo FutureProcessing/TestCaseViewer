@@ -3,8 +3,9 @@ import ToasterStore from '../../stores/toasterStore.js';
 import ApiActionCreators from '../../actions/apiActionCreators.js';
 import ToastTypes from '../../constants/toastTypes.js';
 import Toast from './toast.jsx';
-
-var CSSTransitionGroup = React.addons.CSSTransitionGroup;
+import TimeoutTransitionGroup from '../timeoutTransitionGroup.jsx';
+//TODO: change TimeoutTransitionGroup to CSSTransitionGroup
+// var CSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 class Toaster extends React.Component{
     constructor(props){
@@ -43,13 +44,18 @@ class Toaster extends React.Component{
             );
         });
 
-        return (<div className="toaster">
-            <ul>
-                <CSSTransitionGroup transitionName="toast">
-                    {toasts}
-                </CSSTransitionGroup>
-            </ul>
-        </div>);
+        return (
+            <div className="toaster">
+                <ul>
+                    <TimeoutTransitionGroup
+                        enterTimeout={500}
+                        leaveTimeout={500}
+                        transitionName="toast">
+                        {toasts}
+                    </TimeoutTransitionGroup>
+                </ul>
+            </div>
+        );
     }
 }
 

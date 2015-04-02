@@ -10,12 +10,13 @@ class PogressButtonBase extends React.Component{
             'error': buttonType === 'error',
             'info': buttonType === 'info',
             'warning': buttonType === 'warning',
-            'normal': buttonType === 'normal'
+            'normal': buttonType === 'normal',
+            'disabled': this.props.disabled
         }, this.props.className);
 
         return (
             <button
-                onClick={this.props.onClick}
+                onClick={() => {this.props.disabled || this.props.onClick()}}
                 className={classes}>
                 {this.props.children}
             </button>
@@ -27,6 +28,7 @@ PogressButtonBase.propTypes = {
     onClick: React.PropTypes.func,
     inProgress: React.PropTypes.bool,
     className: React.PropTypes.string,
+    disabled: React.PropTypes.bool,
     buttonType: React.PropTypes.oneOf(['success', 'error', 'info', 'warning', 'normal'])
 };
 
