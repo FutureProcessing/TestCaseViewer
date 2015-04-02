@@ -1,8 +1,19 @@
 import React from 'react';
 import classNames from 'classnames';
+import perfectScrollbar from 'perfect-scrollbar';
+
 import Swirl from '../../common/swirl.jsx';
 
 class TestCaseList extends React.Component{
+    componentDidMount(){
+        // var component = React.findDOMNode(this);
+        // perfectScrollbar.initialize(component, {
+        //     wheelSpeed: 1,
+        //     wheelPropagation: true,
+        //     minScrollbarLength: 20
+        // });
+    };
+
     render(){
         var activeTestCaseId = this.props.activeTestCaseId;
         var testCases = this.props.testCases.map((testCase) => {
@@ -19,12 +30,16 @@ class TestCaseList extends React.Component{
         });
 
         var content = this.props.inProgress? <Swirl className="test-case-swirl"/> : (
-            <ul className="test-case-list">
+            <ul>
                 {testCases}
             </ul>
         );
 
-        return content;
+        return (
+            <div className="test-case-list">
+                {content}
+            </div>
+        );
     }
 }
 

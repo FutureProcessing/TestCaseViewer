@@ -1,23 +1,64 @@
 @import 'variables/colors';
 @import 'mixins/lessPrefixer.less';
 
-ul.test-case-list{
-    list-style: none;
-    padding: 0;
+.test-case-list{
+    ul{
+        list-style: none;
+        padding: 0;
+    }
 
     li{
         padding-top: .5em;
         padding-bottom: .5em;
         cursor: pointer;
 
+        display: block;
+        background: none;
+        color: @CDark;
+        vertical-align: middle;
+        position: relative;
+        z-index: 1;
+
         &.active{
             background: @CBase;
             color: @CSuperLight;
         }
 
-        &:hover{
-            background: @CBase;
-            color: @CSuperLight;
-        }
+        .animated-item();
+    }
+}
+
+
+.animated-item() {
+	overflow: hidden;
+    .transition(color 0.3s);
+
+    &:after {
+        content: '';
+    	position: absolute;
+    	z-index: -1;
+    	.transition(all 0.3s);
+
+    	width: 0;
+    	height: 103%;
+    	top: 0;
+    	left: 0;
+    	background: @CBase;
+    	opacity: 0;
+    }
+
+    &:active {
+    	 color: @CSuperLight;
+    }
+
+    &:hover:after {
+    	// width: calc(100% - 3em);
+        width: .7em;
+    	opacity: 1;
+    }
+
+    &:active:after {
+    	width: 101%;
+    	opacity: 1;
     }
 }

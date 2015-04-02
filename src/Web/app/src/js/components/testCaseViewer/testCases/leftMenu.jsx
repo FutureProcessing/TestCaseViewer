@@ -3,6 +3,7 @@ import ActionInput from '../../common/actionInput.jsx';
 import TestCaseStore from '../../../stores/testCaseStore.js';
 import QueryStore from '../../../stores/queryStore.js';
 import ViewActionCreators from '../../../actions/viewActionCreators.js';
+import perfectScrollbar from 'perfect-scrollbar';
 
 import TestCaseList from './testCaseList.jsx';
 
@@ -15,8 +16,6 @@ class LeftMenu extends React.Component{
             inProgress: false,
             testCases: []
         }
-
-
     }
 
     componentDidMount(){
