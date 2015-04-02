@@ -4,7 +4,7 @@ class Input extends React.Component{
     render (){
         return (
             <input
-                className="input"
+                className="comm-input"
                 type={this.props.type || 'text'}
                 value={this.props.value}
                 onChange={this.props.onChange}/>

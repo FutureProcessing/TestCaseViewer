@@ -5,14 +5,14 @@
 
 @inputPadding: 0.5em;
 
-.action-input {
+.comm-action-input {
     display: flex;
-    .input{
+    .comm-input{
         float: left;
         flex: 1;
     }
 
-    .action-button{
+    .comm-action-button{
         .base-button();
         .animated-button();
         padding: @inputPadding 2em;
@@ -22,7 +22,7 @@
     }
 }
 
-.input{
+.comm-input{
     padding: @inputPadding;
     border: solid 1px @CLight2;
     &:focus {
@@ -30,7 +30,7 @@
     }
 }
 
-.labeled-input{
+.comm-labeled-input{
     box-sizing: border-box;
     position: relative;
     padding: .5em 0;

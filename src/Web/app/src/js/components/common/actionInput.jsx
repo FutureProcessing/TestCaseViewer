@@ -5,7 +5,7 @@ import ActionInputButton from '../common/actionInputButton.jsx';
 class ActionInput extends React.Component{
     render (){
         return (
-            <div className="action-input">
+            <div className="comm-action-input">
                 <Input
                     type={this.props.type}
                     value={this.props.value}
@@ -13,7 +13,7 @@ class ActionInput extends React.Component{
                 <ActionInputButton
                     onClick={this.props.onActionClick}
                     inProgress={this.props.inProgress}
-                    className="action-button">
+                    className="comm-action-button">
                     {this.props.actionName}
                 </ActionInputButton>
 
