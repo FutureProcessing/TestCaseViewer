@@ -9,6 +9,31 @@
 }
 .test-case{
     flex: 1;
+
+    h1{
+        color: @CDark;
+        margin-top: .2em;
+    }
+    .test-case-props{
+        display: flex;
+        >div{
+            padding-right: 2em;
+
+            label{
+                font-weight: bold;
+                color: @CDark;
+            }
+
+            .created-by-field{
+
+            }
+
+            .status-field{
+
+            }
+        }
+    }
+
     ul.steps-table{
         list-style: none;
         padding: 0;
@@ -16,6 +41,7 @@
         border: solid 1px @tableBaseColor;
 
         li.header{
+            .row();
             background: @tableBaseColor;
             .step-action, .step-result{
                 color: @CLight;
@@ -23,27 +49,7 @@
         }
 
         .step{
-            position: relative;
-            width: 100%;
-            box-sizing: border-box;
-            display: flex;
-            border-bottom: solid 1px @tableBaseColor;
-
-            p{
-                margin: 0;
-            }
-
-            .step-action, .step-result{
-                padding: .5em;
-            }
-
-            .step-action{
-                flex: 1;
-            }
-
-            .step-result{
-                flex: 1;
-            }
+            .row();
 
             &.shared-step{
                 cursor: pointer;
@@ -59,5 +65,29 @@
     ul.shared-steps-table{
         border: none;
         border-left: 4px solid @tableBaseColor;
+    }
+}
+
+.row(){
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    border-bottom: solid 1px @tableBaseColor;
+
+    p{
+        margin: 0;
+    }
+
+    .step-action, .step-result{
+        padding: .5em;
+    }
+
+    .step-action{
+        flex: 1;
+    }
+
+    .step-result{
+        flex: 1;
     }
 }

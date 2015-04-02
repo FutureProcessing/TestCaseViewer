@@ -12,13 +12,12 @@ class StepsTable extends React.Component{
                 component = <SharedStepContent step={step}/>;
             }
 
-            //TODO: add key
-            return <li > {component} </li>;
+            return <li  key={step.order}> {component} </li>;
         });
 
         return this.props.steps.length > 0? (
             <ul className="steps-table">
-                <li className="step header"> { /*TODO: add key */ }
+                <li className="header" key="0"> 
                     <div className="step-action" > Action </div>
                     <div className="step-result" > Expected Result</div>
                 </li>

@@ -46,6 +46,30 @@ var ApiActionCreators = {
         });
     },
 
+    acceptedTestCase: function(){
+        AppDispatcher.handleApiAction({
+            type: ActionTypes.ACCEPT_TC_SUCCESS
+        });
+    },
+
+    acceptTestCasefailed: function(){
+        AppDispatcher.handleApiAction({
+            type: ActionTypes.ACCEPT_TC_FAIL
+        });
+    },
+
+    rejectedTestCase: function(){
+        AppDispatcher.handleApiAction({
+            type: ActionTypes.REJECT_TC_SUCCESS
+        });
+    },
+
+    rejectTestCasefailed: function(){
+        AppDispatcher.handleApiAction({
+            type: ActionTypes.REJECT_TC_FAIL
+        });
+    },
+
     addToast: function(title, content, type){
         AppDispatcher.handleViewAction({
             type: ActionTypes.ADD_TOAST,

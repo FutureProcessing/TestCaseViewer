@@ -14,7 +14,15 @@ var actionTypes = keymirror({
 
         GET_TC: null,
         GET_TC_SUCCESS: null,
-        GET_TC_FAIL: null
+        GET_TC_FAIL: null,
+
+        ACCEPT_TC: null,
+        ACCEPT_TC_SUCCESS: null,
+        ACCEPT_TC_FAIL: null,
+
+        REJECT_TC: null,
+        REJECT_TC_SUCCESS: null,
+        REJECT_TC_FAIL: null
 });
 
 export default actionTypes;

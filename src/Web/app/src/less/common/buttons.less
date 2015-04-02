@@ -1,0 +1,97 @@
+@import '../variables/colors';
+@import '../mixins/lessPrefixer.less';
+@import '../mixins/buttonInProgress.less';
+
+.comm-button-group{
+    >*:not(:first-child){
+        border-left: none;
+        margin-bottom: 2em;
+    }
+}
+
+.comm-button {
+    .base-button();
+	float: left;
+	min-width: 150px;
+	max-width: 250px;
+
+    .animated-button();
+}
+
+.base-button(){
+    cursor: pointer;
+    display: block;
+    padding: 1em 2em;
+    background: none;
+    color: @CDark;
+    vertical-align: middle;
+    position: relative;
+    z-index: 1;
+
+    font-weight: 300;
+    border: 1px solid @CDark;
+
+    &:focus {
+        outline: none;
+    }
+
+    &.disabled {
+        color: gray;
+        background: #dfdfdf;
+        cursor: not-allowed;
+    }
+}
+
+.animated-button() {
+	overflow: hidden;
+
+    &.success:after{
+        background: @CSuccess;
+    }
+
+    &.error:after{
+        background: @CError;
+    }
+
+    &.warning:after{
+        background: @CWarning;
+    }
+
+    &.info:after{
+        background: @CInfo;
+    }
+
+    &:after {
+        content: '';
+    	position: absolute;
+    	z-index: -1;
+    	.transition(all 0.3s);
+
+    	width: 0;
+    	height: 103%;
+    	top: 50%;
+    	left: 50%;
+    	background: @CBase;
+    	opacity: 0;
+    	.transform(translateX(-50%) translateY(-50%));
+    }
+
+    &:not(.disabled):active, &:not(.disabled):hover {
+    	color: @CSuperLight;
+    }
+
+    &:not(.disabled):hover:after {
+    	width: 90%;
+    	opacity: 1;
+    }
+
+    &:not(.disabled):active:after {
+    	width: 101%;
+    	opacity: 1;
+    }
+
+    &.in-progress{
+        .in-progress();
+    }
+
+}

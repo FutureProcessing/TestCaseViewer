@@ -7,6 +7,8 @@ var CHANGE_EVENT = 'change';
 class TestCaseStore extends EventEmitter{
     constructor(){
         this.state = {
+            rejectInProgress: false,
+            acceptInProgress: false,
             inProgress: false,
             title: '',
             steps: []
@@ -31,8 +33,11 @@ class TestCaseStore extends EventEmitter{
         return this.state;
     }
 
-    handleRecieveTC(){
-        this.state.inProgress = true;
+    handleRecieveTC(id){
+        if(this.state.id !== id){
+            this.state.id = id;
+            this.state.inProgress = true;
+        }
     }
 
     handleGetTCFail(){
@@ -43,7 +48,24 @@ class TestCaseStore extends EventEmitter{
         this.state.inProgress = false;
         this.state.title = testCase.title;
         this.state.createdBy = testCase.createdBy;
+        this.state.state = testCase.state;
         this.state.steps = testCase.steps;
+    }
+
+    handleAcceptTCStart(){
+        this.state.acceptInProgress = true;
+    }
+
+    handleAcceptTCFinish(){
+        this.state.acceptInProgress = false;
+    }
+
+    handleRejectTCStart(){
+        this.state.rejectInProgress = true;
+    }
+
+    handleRejectTCFinish(){
+        this.state.rejectInProgress = false;
     }
 }
 
@@ -52,7 +74,7 @@ function register(payload){
 
     switch(action.type){
         case actionTypes.GET_TC:
-            this.handleRecieveTC();
+            this.handleRecieveTC(action.id);
             this.emitChange();
             break;
         case actionTypes.GET_TC_SUCCESS:
@@ -61,6 +83,26 @@ function register(payload){
             break;
         case actionTypes.GET_TC_FAIL:
             this.handleGetTCFail(action.testCase);
+            this.emitChange();
+            break;
+
+        case actionTypes.ACCEPT_TC:
+            this.handleAcceptTCStart();
+            this.emitChange();
+            break;
+        case actionTypes.ACCEPT_TC_SUCCESS:
+        case actionTypes.ACCEPT_TC_FAIL:
+            this.handleAcceptTCFinish();
+            this.emitChange();
+            break;
+
+        case actionTypes.REJECT_TC:
+            this.handleRejectTCStart();
+            this.emitChange();
+            break;
+        case actionTypes.REJECT_TC_SUCCESS:
+        case actionTypes.REJECT_TC_FAIL:
+            this.handleRejectTCFinish();
             this.emitChange();
             break;
     }

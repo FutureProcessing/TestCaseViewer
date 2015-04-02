@@ -15,7 +15,7 @@ class LogInInput extends React.Component{
 
     render(){
         return (
-            <div className="labeled-input">
+            <div className="comm-labeled-input">
                 <input type={this.props.type} value={this.state.value} placeholder={this.props.placeholder} onChange={this.props.onChange.bind(this)}></input>
                 <label>{this.props.label}</label>
             </div>

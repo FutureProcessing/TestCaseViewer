@@ -6,6 +6,9 @@ import perfectScrollbar from 'perfect-scrollbar';
 
 import Swirl from '../../common/swirl.jsx';
 import StepsTable from './stepsTable.jsx';
+import TestCaseInfo from './testCaseInfo.jsx';
+import ProgressButton from '../../common/progressButton.jsx';
+import ButtonGroup from '../../common/buttonGroup.jsx';
 
 
 class TestCase extends React.Component{
@@ -51,17 +54,27 @@ class TestCase extends React.Component{
         ViewActionCreators.getTestCaseData(id);
     }
 
-    handleStoreChange(){
-        var testCaseData = TestCaseStore.getData();
-        this.setState(testCaseData);
-    }
-
     render(){
-        var content = this.state.inProgress?  <Swirl className="test-case-swirl"/>: (
+        var content = this.state.inProgress? <Swirl className="test-case-swirl"/>: (
             <div className="test-case">
-                <h1>{this.state.title}</h1>
-
-                <StepsTable steps={this.state.steps} />
+                <TestCaseInfo
+                    title={this.state.title}
+                    createdBy={this.state.createdBy}
+                    status={this.state.state} />
+                <StepsTable
+                    steps={this.state.steps} />
+                <ButtonGroup>
+                    <ProgressButton buttonType="success"
+                        inProgress={this.state.acceptInProgress}
+                        onClick={this.handleAcceptButtonClick.bind(this)}>
+                        Accept
+                    </ProgressButton>
+                    <ProgressButton buttonType="error"
+                        inProgress={this.state.rejectInProgress}
+                        onClick={this.handleRejectButtonClick.bind(this)}>
+                        Reject
+                    </ProgressButton>
+                </ButtonGroup>
             </div>
         );
 
@@ -70,6 +83,19 @@ class TestCase extends React.Component{
                 {content}
             </div>
         );
+    }
+
+    handleStoreChange(){
+        var testCaseData = TestCaseStore.getData();
+        this.setState(testCaseData);
+    }
+
+    handleAcceptButtonClick(){
+        ViewActionCreators.acceptTestCase(this.state.id);
+    }
+
+    handleRejectButtonClick(){
+        ViewActionCreators.rejectTestCase(this.state.id);
     }
 }
 
