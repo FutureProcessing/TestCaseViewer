@@ -1,11 +1,13 @@
 import React from 'react';
 import Input from './input.jsx';
+import classNames from 'classnames';
 import ActionInputButton from '../common/actionInputButton.jsx';
 
 class ActionInput extends React.Component{
     render (){
+        var classes = classNames("comm-action-input",this.props.className)
         return (
-            <div className="comm-action-input">
+            <div className={classes}>
                 <Input
                     type={this.props.type}
                     value={this.props.value}

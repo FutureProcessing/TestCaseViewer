@@ -1,0 +1,23 @@
+@import 'variables/colors';
+@import 'mixins/lessPrefixer.less';
+
+ul.test-case-list{
+    list-style: none;
+    padding: 0;
+
+    li{
+        padding-top: .5em;
+        padding-bottom: .5em;
+        cursor: pointer;
+
+        &.active{
+            background: @CBase;
+            color: @CSuperLight;
+        }
+
+        &:hover{
+            background: @CBase;
+            color: @CSuperLight;
+        }
+    }
+}

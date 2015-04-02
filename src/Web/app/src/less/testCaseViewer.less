@@ -3,6 +3,7 @@
 @import 'mixins/buttonInProgress.less';
 
 @import './testCase.less';
+@import './testCaseList.less';
 
 @topbarHeight: 3em;
 .top-bar{
@@ -92,11 +93,16 @@
     flex: 1;
 
     .left-menu{
-        padding: 1em;
+         padding: 1em 0;
         width: 300px;
         background: @CLight;
         box-sizing: border-box;
         flex: 1;
+
+        .left-menu-item{
+            padding-left: 1em;
+            padding-right: 1em;
+        }
     }
 
     .right-content{

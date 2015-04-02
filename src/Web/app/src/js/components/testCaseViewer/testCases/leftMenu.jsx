@@ -35,6 +35,7 @@ class LeftMenu extends React.Component{
         return (
             <div className="left-menu">
                 <ActionInput
+                    className="left-menu-item"
                     actionName="Go"
                     onActionClick={this.handleGoActionClick.bind(this)}
                     onChange={this.handleInputChange.bind(this)}
@@ -44,6 +45,7 @@ class LeftMenu extends React.Component{
                 <TestCaseList
                     testCases={this.state.testCases}
                     inProgress={this.state.getTestCasesInProgress}
+                    activeTestCaseId={this.state.testCaseId}
                     onTestCaseClick={this.handleTestCaseClick.bind(this)}/>
             </div>
         );
