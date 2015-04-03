@@ -1,0 +1,39 @@
+@import '../variables/colors';
+@import '../variables/constants';
+@import '../mixins/lessPrefixer.less';
+
+ul.tree-view{
+    list-style: none;
+    padding: 0 0 0 1em;
+
+    .folder-name{
+        padding: .5em 0 .5em 1em;
+        display: block;
+        font-weight: bold;
+        cursor: pointer;
+
+        &.empty{
+            cursor: default;
+            color: @CLight2;
+        }
+    }
+
+    li.leaf{
+        padding: .5em 0 .5em 1em;
+        cursor: pointer;
+
+        display: block;
+        background: none;
+        color: @CDark;
+        vertical-align: middle;
+        border: solid 1px transparent;
+
+        &:hover{
+            border: solid 1px @CLight2;
+        }
+
+        &.active{
+            border: solid 1px @CBase;
+        }
+    }
+}

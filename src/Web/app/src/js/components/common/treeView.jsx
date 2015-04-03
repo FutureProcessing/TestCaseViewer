@@ -1,4 +1,7 @@
 import React from 'react';
+import classNames from 'classnames';
+
+import Toggle from './toggle.jsx';
 
 class TreeView extends React.Component{
     render(){
@@ -7,16 +10,30 @@ class TreeView extends React.Component{
         var nodes = children.map(node => {
             var element;
             if(node.type === 'folder'){
-                element = <li>{node.name}<TreeView onLeafClick={props.onLeafClick} parentNode={node}/></li>
+                element = (
+                    <li>
+                        <Toggle open={true} header={<span className="folder-name" >{node.name} </span>} >
+                            <TreeView
+                                onLeafClick={props.onLeafClick}
+                                parentNode={node}
+                                selectedNode={props.selectedNode}/>
+                        </Toggle>
+                    </li>
+                );
             }else{
-                element = <li onClick={props.onLeafClick.bind(this, node.path, node.name)}>{node.name}</li>
+                var classes = classNames('leaf', {
+                    'active': props.selectedNode === node.path
+                });
+                element = (
+                    <li className={classes} onClick={props.onLeafClick.bind(this, node.path, node.name)}>{node.name}</li>
+                );
             }
 
             return element;
         });
 
         return(
-            <ul>
+            <ul className="tree-view">
                 {nodes}
             </ul>
         );
@@ -25,7 +42,8 @@ class TreeView extends React.Component{
 
 TreeView.propTypes = {
     parentNode: React.PropTypes.array,
-    onLeafClick: React.PropTypes.func
+    onLeafClick: React.PropTypes.func,
+    selectedNode: React.PropTypes.string
 };
 
 export default TreeView;

@@ -9,6 +9,7 @@ import TestCaseList from './testCaseList.jsx';
 import ProgressButton from '../../common/progressButton.jsx';
 import LeftMenuExtension from './leftMenuExtenstion.jsx';
 import TreeView from '../../common/treeView.jsx';
+import QueryButton from './queryButton.jsx';
 
 class LeftMenu extends React.Component{
     constructor(props, context){
@@ -52,9 +53,10 @@ class LeftMenu extends React.Component{
                     value={this.state.testCaseId}
                     inProgress={this.state.inProgress}/>
 
-                <div className="query-button" onClick={this.handleChooseQueryClick.bind(this)}>
-                    {this.state.selectedQueryName}
-                </div>
+                <QueryButton
+                    onClick={this.handleChooseQueryClick.bind(this)}
+                    value={this.state.selectedQueryName}
+                    isActive={this.state.isExtensionOpen} />
 
                 <TestCaseList
                     testCases={this.state.testCases}
@@ -113,6 +115,7 @@ class LeftMenu extends React.Component{
     }
 
     handleQueryClick(path, name){
+        this.setState({isExtensionOpen: false});
         ViewActionCreators.getTestCases(path, name);
     }
 }

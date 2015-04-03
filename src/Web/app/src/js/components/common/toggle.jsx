@@ -6,7 +6,7 @@ class Toggle extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            isOpen: false
+            isOpen: props.open || false
         }
     }
 
@@ -31,7 +31,8 @@ class Toggle extends React.Component{
 }
 
 Toggle.propTypes = {
-    header: React.PropTypes.element
+    header: React.PropTypes.element,
+    open: React.PropTypes.bool
 }
 
 export default Toggle;
