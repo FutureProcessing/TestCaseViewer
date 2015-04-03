@@ -2,6 +2,21 @@
 @import '../mixins/lessPrefixer.less';
 
 .test-case-list{
+    flex: 1;
+    position: relative;
+    margin-top: .5em;
+
+    .test-case-list-swirl{
+        align-self: center;
+        left: 50%;
+        top: 2em;
+        .transform(translateX(-100%));
+    }
+
+    .ps-scrollbar-y-rail{
+        z-index: 2;
+    }
+
     ul{
         list-style: none;
         padding: 0;

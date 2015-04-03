@@ -6,12 +6,12 @@ import Swirl from '../../common/swirl.jsx';
 
 class TestCaseList extends React.Component{
     componentDidMount(){
-        // var component = React.findDOMNode(this);
-        // perfectScrollbar.initialize(component, {
-        //     wheelSpeed: 1,
-        //     wheelPropagation: true,
-        //     minScrollbarLength: 20
-        // });
+        var component = React.findDOMNode(this);
+        perfectScrollbar.initialize(component, {
+            wheelSpeed: 1,
+            wheelPropagation: true,
+            minScrollbarLength: 20
+        });
     };
 
     render(){
@@ -29,7 +29,7 @@ class TestCaseList extends React.Component{
             );
         });
 
-        var content = this.props.inProgress? <Swirl className="test-case-swirl"/> : (
+        var content = this.props.inProgress? <Swirl className="test-case-list-swirl"/> : (
             <ul>
                 {testCases}
             </ul>
