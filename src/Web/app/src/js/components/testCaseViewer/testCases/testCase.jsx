@@ -19,16 +19,17 @@ class TestCase extends React.Component{
             steps: [],
             inProgress: false,
             createdBy: '',
-            title: ''};
-
-        if(this.state.id) {
-            this.state.inProgress = true;
-            this.getTestCaseData(this.state.id);
-        }
+            title: ''
+        };
+        this.storeChangeHandler = this.handleStoreChange.bind(this);
     }
 
     componentDidMount(){
-        TestCaseStore.addEventListener(this.handleStoreChange.bind(this));
+        TestCaseStore.addEventListener(this.storeChangeHandler);
+
+        if(this.state.id) {
+            this.getTestCaseData(this.state.id);
+        }
 
         var component = React.findDOMNode(this);
         perfectScrollbar.initialize(component, {
@@ -39,7 +40,7 @@ class TestCase extends React.Component{
     }
 
     componentWillUnmount(){
-        TestCaseStore.removeEventListener(this.handleStoreChange.bind(this));
+        TestCaseStore.removeEventListener(this.storeChangeHandler);
     }
 
     componentWillReceiveProps (){

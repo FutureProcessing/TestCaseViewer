@@ -13,14 +13,15 @@ class Toaster extends React.Component{
         this.state = {
             toasts: []
         };
+        this.storeChangeHandler = this.handleStoreChange.bind(this);
     }
 
     componentDidMount() {
-        ToasterStore.addEventListener(this.handleStoreChange.bind(this));
+        ToasterStore.addEventListener(this.storeChangeHandler);
     }
 
     componentWillUnmount() {
-        ToasterStore.removeEventListener(this.handleStoreChange.bind(this));
+        ToasterStore.removeEventListener(this.storeChangeHandler);
     }
 
     handleStoreChange(){

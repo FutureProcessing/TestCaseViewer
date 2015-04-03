@@ -32,4 +32,18 @@ body{
          display: flex;
          flex-direction: column;
     }
+
+    .loading-page{
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        background: @CLight;
+        display: flex;
+        z-index: 9999;
+
+        .loading-page-swirl{
+            left: 50%;
+            align-self: center;
+        }
+    }
 }

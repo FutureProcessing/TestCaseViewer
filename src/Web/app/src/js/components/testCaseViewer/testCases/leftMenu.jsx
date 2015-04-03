@@ -12,22 +12,25 @@ class LeftMenu extends React.Component{
         super(props);
         this.state = {
             testCaseId: context.router.getCurrentParams().id,
-            getTestCasesInProgress: true,
+            getTestCasesInProgress: false,
             inProgress: false,
             testCases: []
         }
+
+        this.queryStoreChangeHandler = this.handleQueryStoreChange.bind(this);
+        this.tcStoreChangeHandler = this.handleStoreChange.bind(this);
     }
 
     componentDidMount(){
-        TestCaseStore.addEventListener(this.handleStoreChange.bind(this));
-        QueryStore.addEventListener(this.handleQueryStoreChange.bind(this));
+        TestCaseStore.addEventListener(this.tcStoreChangeHandler);
+        QueryStore.addEventListener(this.queryStoreChangeHandler);
 
         this.getTestCaseData();
     }
 
     componentWillUnmount(){
-        TestCaseStore.removeEventListener(this.handleStoreChange.bind(this));
-        QueryStore.removeEventListener(this.handleQueryStoreChange.bind(this));
+        TestCaseStore.removeEventListener(this.tcStoreChangeHandler);
+        QueryStore.removeEventListener(this.queryStoreChangeHandler);
     }
 
     render(){
@@ -68,8 +71,6 @@ class LeftMenu extends React.Component{
     }
 
     handleTestCaseClick(id){
-        console.log(id);
-        // ViewActionCreators.getTestCaseData(id);
         this.context.router.transitionTo('tc', {id: id});
     }
 

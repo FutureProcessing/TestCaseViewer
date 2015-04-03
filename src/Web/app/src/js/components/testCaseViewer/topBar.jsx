@@ -11,14 +11,16 @@ class TopBar extends React.Component{
             displayName: userData.displayName,
             username: userData.username
         };
+
+        this.storeChangeHandler = this.handleStoreChange.bind(this);
     }
 
     componentDidMount(){
-        UserStore.addEventListener(this.handleStoreChange.bind(this));
+        UserStore.addEventListener(this.storeChangeHandler);
     }
 
     componentWillUnmount(){
-        UserStore.removeEventListener(this.handleStoreChange.bind(this));
+        UserStore.removeEventListener(this.storeChangeHandler);
     }
 
     handleStoreChange(){

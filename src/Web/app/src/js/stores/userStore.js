@@ -3,7 +3,7 @@ import AppDispatcher from '../dispatchers/appDispatcher.js';
 import actionTypes from '../constants/actionTypes.js';
 import AjaxError from '../utils/ajaxError.js';
 
-var CHANGE_EVENT = 'change';
+var CHANGE_EVENT = 'userStoreChange';
 class userStore extends EventEmitter{
     constructor(){
         this.state = {

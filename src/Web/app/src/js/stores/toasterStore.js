@@ -4,7 +4,7 @@ import actionTypes from '../constants/actionTypes.js';
 import ToastTypes from '../constants/toastTypes.js';
 import AjaxError from '../utils/ajaxError.js';
 
-var CHANGE_EVENT = 'change';
+var CHANGE_EVENT = 'changeToaster';
 class Toast{
     constructor(title, content, type){
         this.type = type;
