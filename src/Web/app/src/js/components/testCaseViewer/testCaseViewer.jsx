@@ -17,7 +17,7 @@ class TestCaseViewer extends React.Component {
 
     componentDidMount(){
         UserStore.addEventListener(this.storeChangeHandler);
-        
+
         var isLoggedIn = UserStore.getData().isLoggedIn;
         if (!isLoggedIn) {
             ViewActionCreators.logIn();
@@ -42,7 +42,7 @@ class TestCaseViewer extends React.Component {
         var loadingPage = !this.state.isLoggedIn? <LoadingPage /> : null;
 
         return (
-            <div className="top-bar-layout-container">
+            <div className="test-case-viewer">
                 {loadingPage}
                 <TopBar onLogOffClick={this.handleLogOffClick.bind(this)} />
                 <Toaster />

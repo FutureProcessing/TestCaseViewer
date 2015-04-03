@@ -3,7 +3,7 @@
 @import '../mixins/buttonInProgress.less';
 @import './buttons.less';
 
-@inputPadding: 0.5em;
+@inputPadding: 0.6em;
 
 .comm-action-input {
     display: flex;
@@ -37,12 +37,9 @@
     input{
         width: 100%;
         box-sizing: border-box;
-        padding: 0.5em;
-        border-top: none;
-        border-left: solid 1px @CDark2;
-        border-right: solid 1px @CDark2;
-        border-bottom: solid 1px @CDark2;
-        background: none;
+        padding: @inputPadding;
+
+        border: solid 1px @CDark2;
 
         &:focus{
             outline: none;

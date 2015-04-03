@@ -2,117 +2,190 @@
 @import 'mixins/lessPrefixer.less';
 @import 'mixins/buttonInProgress.less';
 
-@import './testCase.less';
-@import './testCaseList.less';
+@import './testCases/testCases.less';
+@import './testCases/testCase.less';
+@import './testCases/testCaseList.less';
 
 @topbarHeight: 3em;
-.top-bar{
-    width: 100%;
-    background: @CDark;
-    position: relative;
-    overflow: hidden;
-    color: @CLight;
-    height: @topbarHeight;
+// .top-bar{
+//     width: 100%;
+//     background: @CDark;
+//     position: relative;
+//     overflow: hidden;
+//     color: @CLight;
+//     height: @topbarHeight;
+//
+//     .user-button{
+//         border-left: 1px solid @CLight2;
+//         float: right;
+//         overflow: hidden;
+//         position: relative;
+//         box-sizing: border-box;
+//
+//         .name{
+//             float: left;
+//             color: @CLight;
+//             box-sizing: border-box;
+//             height: @topbarHeight;
+//             .logout-button();
+//         }
+//
+//         img{
+//             float: left;
+//             height: @topbarHeight;
+//             background: @CBase;
+//         }
+//
+//         &.in-progress{
+//             .in-progress();
+//         }
+//     }
+//
+//     .logout-button(){
+//         overflow: hidden;
+//         vertical-align: middle;
+//         position: relative;
+//         text-align: center;
+//         cursor: pointer;
+//         margin: auto;
+//         vertical-align: middle;
+//         line-height: 1em;
+//         padding: 1em 1em;
+//
+//         font-weight: 300;
+//         &:after {
+//             content: attr(data-logout);
+//             position: absolute;
+//         	z-index: 1;
+//         	.transition(all 0.3s);
+//
+//             padding-top: 2em;
+//             margin: auto;
+//
+//         	width: 0;
+//         	height: 103%;
+//         	top: 50%;
+//         	left: 50%;
+//         	background: @CBase2;
+//         	opacity: 0;
+//         	.transform(translateX(-50%) translateY(-50%));
+//         }
+//
+//         &:active, &:hover {
+//         	color: @CDark;
+//         }
+//
+//         &:hover:after {
+//         	width: 90%;
+//         	opacity: 1;
+//         }
+//
+//         &:active:after {
+//         	width: 101%;
+//         	opacity: 1;
+//         }
+//     }
+// }
 
-    .user-button{
-        border-left: 1px solid @CLight2;
-        float: right;
-        overflow: hidden;
-        position: relative;
-        box-sizing: border-box;
+.test-case-viewer{
+     width: 100%;
+     height: 100%;
+     position: relative;
+     display: flex;
+     flex-direction: column;
 
-        .name{
-            float: left;
-            color: @CLight;
-            box-sizing: border-box;
-            height: @topbarHeight;
-            .logout-button();
-        }
-
-        img{
-            float: left;
-            height: @topbarHeight;
-            background: @CBase;
-        }
-
-        &.in-progress{
-            .in-progress();
-        }
-    }
-
-    .logout-button(){
-        overflow: hidden;
-        vertical-align: middle;
-        position: relative;
-        text-align: center;
-        cursor: pointer;
-        margin: auto;
-        vertical-align: middle;
-        line-height: 1em;
-        padding: 1em 1em;
-
-        font-weight: 300;
-        &:after {
-            content: attr(data-logout);
-            position: absolute;
-        	z-index: 1;
-        	.transition(all 0.3s);
-
-            padding-top: 2em;
-            margin: auto;
-
-        	width: 0;
-        	height: 103%;
-        	top: 50%;
-        	left: 50%;
-        	background: @CBase2;
-        	opacity: 0;
-        	.transform(translateX(-50%) translateY(-50%));
-        }
-
-        &:active, &:hover {
-        	color: @CDark;
-        }
-
-        &:hover:after {
-        	width: 90%;
-        	opacity: 1;
-        }
-
-        &:active:after {
-        	width: 101%;
-        	opacity: 1;
-        }
-    }
-}
-
-.content-container{
-    height: 100%;
-    position: relative;
-    display: flex;
-    flex: 1;
-
-    .left-menu{
-        padding: 1em 0;
-        width: 300px;
+    .loading-page{
+        position: fixed;
+        width: 100%;
+        height: 100%;
         background: @CLight;
-        box-sizing: border-box;
-        flex: 1;
         display: flex;
-        flex-direction: column;
+        z-index: 9999;
 
-        .left-menu-item{
-            padding-left: 1em;
-            padding-right: 1em;
+        .loading-page-swirl{
+            left: 50%;
+            align-self: center;
         }
     }
 
-    .right-content{
-        padding: 1em;
-        margin: 0;
-        overflow: hidden;
-        flex: 3;
+    .top-bar{
+        width: 100%;
+        background: @CDark;
         position: relative;
-        display: flex;
+        overflow: hidden;
+        color: @CLight;
+        height: @topbarHeight;
+
+        .user-button{
+            border-left: 1px solid @CLight2;
+            float: right;
+            overflow: hidden;
+            position: relative;
+            box-sizing: border-box;
+
+            .name{
+                float: left;
+                color: @CLight;
+                box-sizing: border-box;
+                height: @topbarHeight;
+                .logout-button();
+            }
+
+            img{
+                float: left;
+                height: @topbarHeight;
+                background: @CBase;
+            }
+
+            &.in-progress{
+                .in-progress();
+            }
+        }
+
+        .logout-button(){
+            overflow: hidden;
+            vertical-align: middle;
+            position: relative;
+            text-align: center;
+            cursor: pointer;
+            margin: auto;
+            vertical-align: middle;
+            line-height: 1em;
+            padding: 1em 1em;
+
+            font-weight: 300;
+            &:after {
+                content: attr(data-logout);
+                position: absolute;
+            	z-index: 1;
+            	.transition(all 0.3s);
+
+                padding-top: 2em;
+                margin: auto;
+
+            	width: 0;
+            	height: 103%;
+            	top: 50%;
+            	left: 50%;
+            	background: @CBase2;
+            	opacity: 0;
+            	.transform(translateX(-50%) translateY(-50%));
+            }
+
+            &:active, &:hover {
+            	color: @CDark;
+            }
+
+            &:hover:after {
+            	width: 90%;
+            	opacity: 1;
+            }
+
+            &:active:after {
+            	width: 101%;
+            	opacity: 1;
+            }
+        }
     }
+
 }
