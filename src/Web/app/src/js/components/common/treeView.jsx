@@ -6,26 +6,29 @@ import Toggle from './toggle.jsx';
 class TreeView extends React.Component{
     render(){
         var children = this.props.parentNode.children || [];
-        var props = this.props;
         var nodes = children.map(node => {
             var element;
             if(node.type === 'folder'){
+                var classes = classNames('folder-name', {
+                    'empty': node.children.length === 0
+                });
                 element = (
                     <li>
-                        <Toggle open={true} header={<span className="folder-name" >{node.name} </span>} >
+                        <Toggle open={this.props.open} header={<span className={classes} >{node.name} </span>} >
                             <TreeView
-                                onLeafClick={props.onLeafClick}
+                                onLeafClick={this.props.onLeafClick}
                                 parentNode={node}
-                                selectedNode={props.selectedNode}/>
+                                selectedNode={this.props.selectedNode}
+                                open={this.props.open}/>
                         </Toggle>
                     </li>
                 );
             }else{
                 var classes = classNames('leaf', {
-                    'active': props.selectedNode === node.path
+                    'active': this.props.selectedNode === node.path
                 });
                 element = (
-                    <li className={classes} onClick={props.onLeafClick.bind(this, node.path, node.name)}>{node.name}</li>
+                    <li className={classes} onClick={this.props.onLeafClick.bind(this, node.path, node.name)}>{node.name}</li>
                 );
             }
 
@@ -43,7 +46,8 @@ class TreeView extends React.Component{
 TreeView.propTypes = {
     parentNode: React.PropTypes.array,
     onLeafClick: React.PropTypes.func,
-    selectedNode: React.PropTypes.string
+    selectedNode: React.PropTypes.string,
+    open: React.PropTypes.bool
 };
 
 export default TreeView;

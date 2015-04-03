@@ -68,7 +68,8 @@ class LeftMenu extends React.Component{
                     <TreeView
                         parentNode={this.state.queriesParentNode}
                         onLeafClick={this.handleQueryClick.bind(this)}
-                        selectedNode={this.state.selectedQueryPath}/>
+                        selectedNode={this.state.selectedQueryPath}
+                        open={true}/>
                 </LeftMenuExtension>
             </div>
         );
