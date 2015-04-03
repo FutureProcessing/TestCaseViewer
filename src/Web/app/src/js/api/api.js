@@ -87,14 +87,26 @@ var api = {
         });
     },
 
-    getTestCases: (query) => {
+    getTestCases: (path) => {
         return xhttp({
-            url: `${window.baseUrl}query/list/${encodeURIComponent(query)}`
+            url: `${window.baseUrl}query/list/${encodeURIComponent(path)}`
         }).then((data) => {
             ApiActionCreators.recievedTestCases(data);//TODO: create map funciton
         }).catch(({data, xhr}) => {
             var message = data.message || data.error;
             ApiActionCreators.getTestCasesFailed(new AjaxError(message, xhr.status));
+            ApiActionCreators.addToast('FAIL', message, ToastTypes.ERROR);
+        });
+    },
+
+    getQueries: () => {
+        return xhttp({
+            url: `${window.baseUrl}queries`
+        }).then((data) => {
+            ApiActionCreators.recievedQueries(data);//TODO: create map funciton
+        }).catch(({data, xhr}) => {
+            var message = data.message || data.error;
+            ApiActionCreators.getQueriesFailed(new AjaxError(message, xhr.status));
             ApiActionCreators.addToast('FAIL', message, ToastTypes.ERROR);
         });
     }

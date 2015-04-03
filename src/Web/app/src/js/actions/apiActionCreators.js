@@ -84,6 +84,20 @@ var ApiActionCreators = {
         });
     },
 
+    getQueriesFailed: function(error) {
+        AppDispatcher.handleApiAction({
+            type: ActionTypes.GET_QUERIES_FAIL,
+            error: error
+        });
+    },
+
+    recievedQueries: function(data){
+        AppDispatcher.handleApiAction({
+            type: ActionTypes.GET_QUERIES_SUCCESS,
+            queriesParentNode: data
+        });
+    },
+
     addToast: function(title, content, type){
         AppDispatcher.handleViewAction({
             type: ActionTypes.ADD_TOAST,

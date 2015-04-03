@@ -61,12 +61,22 @@ var ViewActionCreators = {
         });
     },
 
-    getTestCases: function(query){
+    getTestCases: function(path, name){
         AppDispatcher.handleViewAction({
-            type: ActionTypes.GET_TEST_CASES
+            type: ActionTypes.GET_TEST_CASES,
+            queryPath: path,
+            queryName: name
         });
 
-        api.getTestCases(query);
+        api.getTestCases(path);
+    },
+
+    getQueries: function(){
+        AppDispatcher.handleViewAction({
+            type: ActionTypes.GET_QUERIES
+        });
+
+        api.getQueries();
     }
 };
 

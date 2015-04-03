@@ -8,7 +8,10 @@ class QueryStore extends EventEmitter{
     constructor(){
         this.state = {
             inProgress: false,
-            testCases: []
+            testCases: [],
+            queriesParentNode: [],
+            selectedQueryName: '',
+            selectedQueryPath: ''
         };
 
         this.dispatchToken = AppDispatcher.register(register.bind(this));
@@ -30,8 +33,10 @@ class QueryStore extends EventEmitter{
         return this.state;
     }
 
-    handleGetTestCases(){
+    handleGetTestCases(queryName, queryPath){
         this.state.inProgress = true;
+        this.state.selectedQueryName = queryName;
+        this.state.selectedQueryPath = queryPath;
     }
 
     handleGetTestCasesFail(){
@@ -42,6 +47,19 @@ class QueryStore extends EventEmitter{
         this.state.inProgress = false;
         this.state.testCases = testCases;
     }
+
+    handleGetQueries(){
+        this.state.inProgress = true;
+    }
+
+    handleGetQueriesFail(){
+        this.state.inProgress = false;
+    }
+
+    handleRecievedQueries(queriesParentNode){
+        this.state.inProgress = false;
+        this.state.queriesParentNode = queriesParentNode;
+    }
 }
 
 function register(payload){
@@ -49,7 +67,7 @@ function register(payload){
 
     switch(action.type){
         case actionTypes.GET_TEST_CASES:
-            this.handleGetTestCases();
+            this.handleGetTestCases(action.queryName, action.queryPath);
             this.emitChange();
             break;
         case actionTypes.GET_TEST_CASES_SUCCESS:
@@ -58,6 +76,19 @@ function register(payload){
             break;
         case actionTypes.GET_TEST_CASES_FAIL:
             this.handleGetTestCasesFail();
+            this.emitChange();
+            break;
+
+        case actionTypes.GET_QUERIES:
+            this.handleGetQueries();
+            this.emitChange();
+            break;
+        case actionTypes.GET_QUERIES_SUCCESS:
+            this.handleRecievedQueries(action.queriesParentNode);
+            this.emitChange();
+            break;
+        case actionTypes.GET_QUERIES_FAIL:
+            this.handleGetQueriesFail();
             this.emitChange();
             break;
     }

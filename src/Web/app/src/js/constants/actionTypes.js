@@ -20,6 +20,10 @@ var actionTypes = keymirror({
         GET_TEST_CASES_SUCCESS: null,
         GET_TEST_CASES_FAIL: null,
 
+        GET_QUERIES: null,
+        GET_QUERIES_SUCCESS: null,
+        GET_QUERIES_FAIL: null,
+
         ACCEPT_TC: null,
         ACCEPT_TC_SUCCESS: null,
         ACCEPT_TC_FAIL: null,
