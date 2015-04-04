@@ -1,4 +1,6 @@
-import React from 'react';
+import React from 'react/addons';
+
+var CSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 class LeftMenuExtension extends React.Component{
     render(){
@@ -8,7 +10,7 @@ class LeftMenuExtension extends React.Component{
             </div>
         ): null;
 
-        return content;
+        return <CSSTransitionGroup transitionName="extension">{content}</CSSTransitionGroup>;
     }
 }
 

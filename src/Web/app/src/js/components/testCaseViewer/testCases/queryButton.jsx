@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import Icon from '../../common/Icon.jsx';
 
 class QueryButton extends React.Component{
     render(){
@@ -9,9 +10,14 @@ class QueryButton extends React.Component{
 
         return(
             <div
-                className={classes}
-                onClick={this.props.onClick}>
-                {this.props.value}
+                className={classes}>
+                <div className="query-button-value">
+                    {this.props.value}
+                </div>
+                <div className="query-button-icon"
+                    onClick={this.props.onClick}>
+                    <Icon icon="arrow-down"  />
+                </div>
             </div>
 
         );

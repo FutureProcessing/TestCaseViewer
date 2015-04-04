@@ -24,18 +24,18 @@
         height: 100%;
         background: @CSuperLight;
         z-index: 2;
+        overflow: hidden;
         padding-right: 1em;
-        .box-shadow(3px 0px 5px 0px rgba(50, 50, 50, 0.19));
+        .box-shadow(4px 0px 4px 0px rgba(50, 50, 50, 0.19));
     }
 
     .query-button{
         margin: 1em 0 0 0;
-        padding: @inputPadding 1em;
+        padding: 0;
         border-top: solid 1px @CLight2;
         border-bottom: solid 1px @CLight2;
 
-        cursor: pointer;
-        display: block;
+        display: flex;
         background: none;
         color: @CDark;
         vertical-align: middle;
@@ -44,9 +44,92 @@
 
         font-weight: bold;
 
-        &.active{
-            background: @CSuperLight;
-            border-color: white;
+        .query-button-value{
+            padding: @inputPadding 1em;
+            flex:1;
         }
+
+        .query-button-icon{
+            .query-button-icon();
+        }
+
+        &.active .query-button-icon{
+            background: @CSuperLight;
+            svg{
+                .transform(rotate(-0.25turn));
+            }
+        }
+    }
+
+    .extension-enter {
+        width: 0;
+        .transition(all .2s ease-in);
+
+        >*{
+            opacity: 0;
+            .transition(opacity .1s ease-in);
+            .transition-delay(.2s);
+        }
+    }
+
+    .extension-enter.extension-enter-active {
+        width: 100%;
+        >*{
+            opacity: 1;
+        }
+    }
+
+    .extension-leave {
+        width: 100%;
+        .transition(all .2s ease-in);
+
+        >*{
+            opacity: 1;
+            .transition(opacity .1s ease-in);
+            .transition-delay(.2s);
+        }
+    }
+
+    .extension-leave.extension-leave-active {
+        width: 0;
+        >*{
+            opacity: 0;
+        }
+    }
+}
+
+.query-button-icon(){
+    cursor: pointer;
+    border-left: solid 1px @CLight2;
+    padding: 0 .4em;
+    display: flex;
+    position: relative;
+    box-sizing: border-box;
+    .transition(all .3s);
+
+    svg{
+        align-self: center;
+        width: 2em;
+        height: 2em;
+        .transition(all .3s);
+    }
+
+    &:after {
+        content: '';
+        position: absolute;
+        z-index: -1;
+        .transition(all 0.3s);
+
+        width: 0;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background: @CSuperLight;
+        opacity: 0;
+    }
+
+    &:hover:after {
+        width: 100%;
+        opacity: 1;
     }
 }
