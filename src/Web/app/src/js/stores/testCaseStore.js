@@ -2,6 +2,7 @@ import {EventEmitter} from 'events';
 import AppDispatcher from '../dispatchers/appDispatcher.js';
 import actionTypes from '../constants/actionTypes.js';
 import AjaxError from '../utils/ajaxError.js';
+import objectAssign from 'object-assign';
 
 var CHANGE_EVENT = 'change';
 class TestCaseStore extends EventEmitter{
@@ -13,6 +14,8 @@ class TestCaseStore extends EventEmitter{
             title: '',
             steps: []
         };
+
+        this.lastProperState = {};
 
         this.dispatchToken = AppDispatcher.register(register.bind(this));
     }
@@ -29,18 +32,28 @@ class TestCaseStore extends EventEmitter{
         this.removeListener(CHANGE_EVENT, callback);
     }
 
+    saveState(){
+        objectAssign(this.lastProperState, this.state);
+    }
+
+    restoreState(){
+        objectAssign(this.state, this.lastProperState);
+    }
+
     getData(){
         return this.state;
     }
 
     handleRecieveTC(id){
         if(this.state.id !== id){
+            this.saveState();
             this.state.id = id;
             this.state.inProgress = true;
         }
     }
 
     handleGetTCFail(){
+        this.restoreState();
         this.state.inProgress = false;
     }
 

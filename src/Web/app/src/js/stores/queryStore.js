@@ -2,6 +2,7 @@ import {EventEmitter} from 'events';
 import AppDispatcher from '../dispatchers/appDispatcher.js';
 import actionTypes from '../constants/actionTypes.js';
 import AjaxError from '../utils/ajaxError.js';
+import objectAssign from 'object-assign';
 
 var CHANGE_EVENT = 'changeQueryStore';
 class QueryStore extends EventEmitter{
@@ -12,6 +13,10 @@ class QueryStore extends EventEmitter{
             queriesParentNode: [],
             selectedQueryName: '',
             selectedQueryPath: ''
+        };
+
+        this.lastProperState = {
+
         };
 
         this.dispatchToken = AppDispatcher.register(register.bind(this));
@@ -29,17 +34,27 @@ class QueryStore extends EventEmitter{
         this.removeListener(CHANGE_EVENT, callback);
     }
 
+    saveState(){
+        objectAssign(this.lastProperState, this.state);
+    }
+
+    restoreState(){
+        objectAssign(this.state, this.lastProperState);
+    }
+
     getData(){
         return this.state;
     }
 
     handleGetTestCases(queryName, queryPath){
+        this.saveState();
         this.state.inProgress = true;
         this.state.selectedQueryName = queryName;
         this.state.selectedQueryPath = queryPath;
     }
 
     handleGetTestCasesFail(){
+        this.restoreState();
         this.state.inProgress = false;
     }
 
