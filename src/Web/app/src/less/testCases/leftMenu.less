@@ -10,6 +10,7 @@
     display: flex;
     flex-direction: column;
     position: relative;
+    z-index: 2;
 
     .left-menu-item{
         padding-left: 1em;
@@ -23,42 +24,15 @@
         width: 100%;
         height: 100%;
         background: @CSuperLight;
-        z-index: 2;
+
         overflow: hidden;
         padding-right: 1em;
+        border-left: solid 1px @CLight2;
         .box-shadow(4px 0px 4px 0px rgba(50, 50, 50, 0.19));
     }
 
     .query-button{
-        margin: 1em 0 0 0;
-        padding: 0;
-        border-top: solid 1px @CLight2;
-        border-bottom: solid 1px @CLight2;
-
-        display: flex;
-        background: none;
-        color: @CDark;
-        vertical-align: middle;
-        position: relative;
-        z-index: 1;
-
-        font-weight: bold;
-
-        .query-button-value{
-            padding: @inputPadding 1em;
-            flex:1;
-        }
-
-        .query-button-icon{
-            .query-button-icon();
-        }
-
-        &.active .query-button-icon{
-            background: @CSuperLight;
-            svg{
-                .transform(rotate(-0.25turn));
-            }
-        }
+        .query-button();
     }
 
     .extension-enter {
@@ -98,6 +72,42 @@
     }
 }
 
+.query-button(){
+    margin: 1em 0 0 0;
+    padding: 0;
+    border-top: solid 1px @CLight2;
+    border-bottom: solid 1px @CLight2;
+
+    display: flex;
+    background: none;
+    color: @CDark;
+    vertical-align: middle;
+    position: relative;
+    z-index: 1;
+
+    font-weight: bold;
+
+    .query-button-value{
+        padding: @inputPadding 1em;
+        flex:1;
+    }
+
+    .query-button-icon{
+        .query-button-icon();
+    }
+
+    &.active .query-button-icon{
+        background: @CSuperLight;
+        &:after {
+            width: 103%;
+            opacity: 1;
+        }
+        svg{
+            .transform(rotate(-0.25turn));
+        }
+    }
+}
+
 .query-button-icon(){
     cursor: pointer;
     border-left: solid 1px @CLight2;
@@ -129,7 +139,7 @@
     }
 
     &:hover:after {
-        width: 100%;
+        width: 103%;
         opacity: 1;
     }
 }
