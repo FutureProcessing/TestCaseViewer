@@ -1,9 +1,21 @@
 bin
 obj
-src/packages
 src/Web/app/dist/
 src/Web/app/node_modules/
 
 *.user
 *.suo
 *.swp
+
+src/packages/*
+
+!src/packages/FAKE.Core.*
+src/packages/FAKE.Core.*/*
+
+!src/packages/FAKE.Core.*/tools
+src/packages/FAKE.Core.*/tools/*.pdb
+
+
+
+!src/packages/NuGet.CommandLine.*
+src/packages/NuGet.CommandLine.*/*.nupkg
