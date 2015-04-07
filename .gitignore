@@ -2,6 +2,7 @@ bin
 obj
 src/Web/app/dist/
 src/Web/app/node_modules/
+build
 
 *.user
 *.suo

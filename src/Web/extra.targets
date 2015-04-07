@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <CopyAllFilesToSingleFolderForMsdeployDependsOn>
+      AddJSFilesToPackage;
+      $(CopyAllFilesToSingleFolderForMsdeployDependsOn);
+    </CopyAllFilesToSingleFolderForMsdeployDependsOn>
+  </PropertyGroup>
+
+  <Target Name="AddJSFilesToPackage">
+    <ItemGroup>
+      <_CustomFiles Include="$(MSBuildProjectDirectory)\app\dist\**\*.*" />
+
+      <FilesForPackagingFromProject  Include="%(_CustomFiles.Identity)">
+        <DestinationRelativePath>app\dist\%(RecursiveDir)%(Filename)%(Extension)</DestinationRelativePath>
+      </FilesForPackagingFromProject>
+    </ItemGroup>
+    
+    <Message Importance="High" Text="ADDING JS FILES!!!!!"/>
+  </Target>
+
+</Project>
