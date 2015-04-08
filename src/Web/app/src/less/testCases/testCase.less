@@ -54,11 +54,22 @@
             &.shared-step{
                 cursor: pointer;
                 background: @CLight;
+                position: relative;
+
+                svg{
+                    align-self: center;
+                    width: 1em !important;
+                    .transition(all .3s);
+                }
             }
 
             &:hover{
                 background: @CLight;
             }
+        }
+        
+        .closed svg{
+            .transform(rotate(-0.25turn));
         }
     }
 
