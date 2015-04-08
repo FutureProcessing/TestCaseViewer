@@ -2,7 +2,9 @@ import AppDispatcher from '../dispatchers/appDispatcher.js';
 import ActionTypes from '../constants/actionTypes.js';
 import RouterContainer from '../routerContainer.js';
 
-import api from '../api/api.js';
+import logInApi from '../api/logInApi.js';
+import testCaseApi from '../api/testCaseApi.js';
+import queryApi from '../api/queryApi.js';
 
 var ViewActionCreators = {
     logIn: function(user, password){
@@ -11,9 +13,9 @@ var ViewActionCreators = {
         });
 
         if(user && password){
-            api.logIn(user, password);
+            logInApi.authenticate(user, password);
         }else{
-            api.identify().then((data) => {
+            logInApi.identify().then((data) => {
                 if(!data.isAuthenticated){
                     RouterContainer.get().transitionTo('/login');
                 }
@@ -27,7 +29,7 @@ var ViewActionCreators = {
         AppDispatcher.handleViewAction({
             type: ActionTypes.LOG_OFF
         })
-        api.logOut().then(() => {
+        logInApi.logOut().then(() => {
             RouterContainer.get().transitionTo('/login');
         });
     },
@@ -38,7 +40,7 @@ var ViewActionCreators = {
             id: id
         });
 
-        api.getTestCaseData(id);
+        testCaseApi.getTestCaseData(id);
     },
 
     acceptTestCase: function(id){
@@ -46,7 +48,7 @@ var ViewActionCreators = {
             type: ActionTypes.ACCEPT_TC
         });
 
-        api.acceptTestCase(id).then(() => {
+        testCaseApi.acceptTestCase(id).then(() => {
             ViewActionCreators.getTestCaseData(id);
         });
     },
@@ -56,7 +58,7 @@ var ViewActionCreators = {
             type: ActionTypes.REJECT_TC
         });
 
-        api.rejectTestCase(id).then(() => {
+        testCaseApi.rejectTestCase(id).then(() => {
             ViewActionCreators.getTestCaseData(id);
         });
     },
@@ -68,7 +70,7 @@ var ViewActionCreators = {
             queryName: name
         });
 
-        api.getTestCases(path);
+        queryApi.getTestCases(path);
     },
 
     getQueries: function(){
@@ -76,7 +78,7 @@ var ViewActionCreators = {
             type: ActionTypes.GET_QUERIES
         });
 
-        api.getQueries();
+        queryApi.getQueries();
     }
 };
 

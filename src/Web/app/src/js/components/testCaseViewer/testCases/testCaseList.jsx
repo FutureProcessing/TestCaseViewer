@@ -24,7 +24,7 @@ class TestCaseList extends React.Component{
                 <li
                     className={classes}
                     onClick={this.props.onTestCaseClick.bind(this, testCase.id)}>
-                    {testCase.field_Title}
+                    {testCase.title}
                 </li>
             );
         });
