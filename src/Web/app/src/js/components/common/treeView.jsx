@@ -2,6 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 
 import Toggle from './toggle.jsx';
+import Icon from '../common/Icon.jsx';
 
 class TreeView extends React.Component{
     render(){
@@ -14,7 +15,9 @@ class TreeView extends React.Component{
                 });
                 element = (
                     <li>
-                        <Toggle open={this.props.open} header={<span className={classes} >{node.name} </span>} >
+                        <Toggle
+                            open={this.props.open}
+                            header={<span className={classes} > <Icon icon="arrow-down" className="folder-icon"/> {node.name} </span>} >
                             <TreeView
                                 onLeafClick={this.props.onLeafClick}
                                 parentNode={node}
@@ -23,6 +26,7 @@ class TreeView extends React.Component{
                         </Toggle>
                     </li>
                 );
+
             }else{
                 var classes = classNames('leaf', {
                     'active': this.props.selectedNode === node.path

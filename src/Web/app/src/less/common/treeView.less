@@ -16,10 +16,23 @@ ul.tree-view{
             cursor: default;
             color: @CLight2;
         }
+
+        &.closed .folder-icon{
+            .transform(rotate(-0.25turn));
+        }
+
+        svg{
+            width: 1em !important;
+            .transition(all .3s);
+        }
+    }
+
+    .closed svg{
+        .transform(rotate(-0.25turn));
     }
 
     li.leaf{
-        padding: .5em 0 .5em 1em;
+        padding: .5em 0 .5em 2em;
         cursor: pointer;
 
         display: block;

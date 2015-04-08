@@ -1,4 +1,5 @@
 import React from 'react/addons';
+import classNames from 'classnames';
 
 var CSSTransitionGroup = React.addons.CSSTransitionGroup;
 
@@ -15,9 +16,12 @@ class Toggle extends React.Component{
     }
 
     render(){
+        var headerClasses = classNames({
+            'closed': !this.state.isOpen
+        });
         return(
             <div className={this.props.className}>
-                <span  onClick={this.handleClick.bind(this)}>{this.props.header}</span>
+                <span className={headerClasses} onClick={this.handleClick.bind(this)}>{this.props.header}</span>
                 <CSSTransitionGroup transitionName="toggle">
                     {this.state.isOpen? (
                         <div>
