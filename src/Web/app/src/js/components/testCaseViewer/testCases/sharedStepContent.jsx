@@ -9,6 +9,7 @@ class SharedStepContent extends React.Component{
     render(){
         var header = (
             <div className="step shared-step" >
+                <div className="step-order">{this.props.step.order}</div>
                 <Icon icon="arrow-down" className="folder-icon"/>
                 <div className="step-action" dangerouslySetInnerHTML={{__html: this.props.step.title}} />
             </div>

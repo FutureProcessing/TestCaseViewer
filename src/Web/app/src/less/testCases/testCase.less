@@ -43,7 +43,7 @@
         li.header{
             .row();
             background: @tableBaseColor;
-            .step-action, .step-result{
+            .step-action, .step-result, .step-order{
                 color: @CLight;
             }
         }
@@ -67,7 +67,7 @@
                 background: @CLight;
             }
         }
-        
+
         .closed svg{
             .transform(rotate(-0.25turn));
         }
@@ -90,8 +90,15 @@
         margin: 0;
     }
 
-    .step-action, .step-result{
+    .step-action, .step-result, .step-order{
         padding: .5em;
+    }
+
+    .step-order{
+        align-self: center;
+        color: @CBase;
+        font-weight: bold;
+        padding-right: 1em;
     }
 
     .step-action{

@@ -17,7 +17,8 @@ class StepsTable extends React.Component{
 
         return this.props.steps.length > 0? (
             <ul className="steps-table">
-                <li className="header" key="0"> 
+                <li className="header" key="0">
+                    <div className="step-order"> # </div>
                     <div className="step-action" > Action </div>
                     <div className="step-result" > Expected Result</div>
                 </li>
