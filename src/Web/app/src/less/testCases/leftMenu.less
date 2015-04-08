@@ -29,6 +29,7 @@
         padding-right: 1em;
         border-left: solid 1px @CLight2;
         .box-shadow(4px 0px 4px 0px rgba(50, 50, 50, 0.19));
+
     }
 
     .query-button{
@@ -37,6 +38,7 @@
 
     .extension-enter {
         width: 0;
+        overflow: hidden;
         .transition(all .2s ease-in);
 
         >*{
@@ -47,6 +49,7 @@
     }
 
     .extension-enter.extension-enter-active {
+        overflow: hidden;
         width: 100%;
         >*{
             opacity: 1;
@@ -60,7 +63,6 @@
         >*{
             opacity: 1;
             .transition(opacity .1s ease-in);
-            .transition-delay(.2s);
         }
     }
 

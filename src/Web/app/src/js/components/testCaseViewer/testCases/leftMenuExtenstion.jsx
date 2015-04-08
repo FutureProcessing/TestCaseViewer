@@ -1,16 +1,23 @@
-import React from 'react/addons';
+import React from 'react';
+import perfectScrollbar from 'perfect-scrollbar';
 
-var CSSTransitionGroup = React.addons.CSSTransitionGroup;
+import LeftMenuExtensionContent from './leftMenuExtensionContent.jsx';
+import TimeoutTransitionGroup from '../../timeoutTransitionGroup.jsx';
 
 class LeftMenuExtension extends React.Component{
     render(){
         var content = this.props.isOpen? (
-            <div className="left-menu-extension">
-                {this.props.children}
-            </div>
+            <LeftMenuExtensionContent> {this.props.children} </LeftMenuExtensionContent>
         ): null;
 
-        return <CSSTransitionGroup transitionName="extension">{content}</CSSTransitionGroup>;
+        return (
+            <TimeoutTransitionGroup
+                enterTimeout={200}
+                leaveTimeout={200}
+                transitionName="extension">
+                {content}
+            </TimeoutTransitionGroup>
+        );
     }
 }
 
