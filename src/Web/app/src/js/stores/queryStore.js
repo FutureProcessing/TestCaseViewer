@@ -10,7 +10,7 @@ class QueryStore extends EventEmitter{
         this.state = {
             inProgress: false,
             testCases: [],
-            queriesParentNode: [],
+            queriesParentNode: {},
             selectedQueryName: '',
             selectedQueryPath: ''
         };

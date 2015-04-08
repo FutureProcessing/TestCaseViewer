@@ -21,7 +21,7 @@ class TestCaseList extends React.Component{
                 'active': testCase.id == activeTestCaseId
             });
             return (
-                <li
+                <li key={testCase.id}
                     className={classes}
                     onClick={this.props.onTestCaseClick.bind(this, testCase.id)}>
                     {testCase.title}

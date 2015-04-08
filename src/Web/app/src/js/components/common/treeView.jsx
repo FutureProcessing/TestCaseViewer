@@ -48,7 +48,7 @@ class TreeView extends React.Component{
 }
 
 TreeView.propTypes = {
-    parentNode: React.PropTypes.array,
+    parentNode: React.PropTypes.object,
     onLeafClick: React.PropTypes.func,
     selectedNode: React.PropTypes.string,
     open: React.PropTypes.bool

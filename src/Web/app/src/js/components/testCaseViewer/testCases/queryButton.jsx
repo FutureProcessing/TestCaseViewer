@@ -25,7 +25,7 @@ class QueryButton extends React.Component{
 }
 
 QueryButton.propTypes = {
-    isActive: React.PropTypes.Bool,
+    isActive: React.PropTypes.bool,
     className: React.PropTypes.string,
     value: React.PropTypes.string,
     onClick: React.PropTypes.func
