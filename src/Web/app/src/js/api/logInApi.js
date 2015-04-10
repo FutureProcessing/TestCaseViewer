@@ -22,9 +22,7 @@ var loginApi = {
     },
 
     logOut(){
-        return api.post({
-            url: window.baseUrl + 'auth/logout'
-        }).then(() => {
+        return api.post('auth/logout').then(() => {
             ApiActionCreators.loggedOut();
         }).catch(error => {
             ApiActionCreators.logOutFailed(error);

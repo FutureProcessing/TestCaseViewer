@@ -3,7 +3,6 @@ import UserStore from '../../stores/userStore.js';
 import ViewActionCreators from '../../actions/viewActionCreators.js';
 import {RouteHandler} from 'react-router';
 import TopBar from './topBar.jsx';
-import Toaster from '../toaster/toaster.jsx';
 import LoadingPage from './loadingPage.jsx';
 
 class TestCaseViewer extends React.Component {
