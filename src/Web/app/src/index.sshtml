@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>Test Case Viewer</title>
     <link rel='stylesheet' media="screen" href="@Path['~/css/perfect-scrollbar.css']" />
     <link rel="stylesheet" media="screen" href="@Path['~/css/site.css']">
 

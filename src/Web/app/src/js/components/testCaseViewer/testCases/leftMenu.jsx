@@ -104,11 +104,14 @@ class LeftMenu extends React.Component{
     }
 
     handleGoActionClick(){
-        this.context.router.transitionTo('tc', {id: this.state.testCaseId});
+        this.context.router.transitionTo('tc', {id: encodeURIComponent(this.state.testCaseId)});
     }
 
     handleInputChange(e){
-        this.setState({testCaseId: e.target.value});
+        console.log(Number(e.target.value));
+        if(!isNaN(Number(e.target.value))){
+            this.setState({testCaseId: e.target.value});
+        }
     }
 
     handleChooseQueryClick(){
