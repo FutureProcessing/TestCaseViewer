@@ -2,6 +2,7 @@
 using System.Linq;
 using Common;
 using Microsoft.TeamFoundation.TestManagement.Client;
+using Microsoft.TeamFoundation.TestManagement.Common;
 using Microsoft.TeamFoundation.WorkItemTracking.Client;
 using Tfs.Model;
 
@@ -108,6 +109,16 @@ namespace Tfs
             }
 
             return null;
+        }
+
+        public string[] TestCaseTypeNames()
+        {
+            var service = this.testManagementFactory();
+
+            var teamProject = service.GetTeamProject(this.config.ProjectName);
+            var t = teamProject.WitProject.Categories[WitCategoryRefName.TestCase].WorkItemTypes.Select(x => x.Name);
+
+            return t.ToArray();
         }
     }
 }

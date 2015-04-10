@@ -60,7 +60,7 @@ namespace Tfs
             return null;
         }
 
-        public IEnumerable<IDictionary<string, object>> ExecuteListQuery(string queryPath)
+        public IEnumerable<IDictionary<string, object>> ExecuteListQuery(string queryPath, params string[] limitToTypes)
         {
             var store = this.storeFactory();
 
@@ -70,12 +70,13 @@ namespace Tfs
             {
                 {"project", this.config.ProjectName}
             };
-            var query = new Query(store, queryDef.QueryText, context);
-
+            
+            var query = new Query(store, queryDef.QueryText, context);            
 
             var workItems = query.RunQuery();
 
             var q = from WorkItem workItem in workItems
+                    where limitToTypes.Contains(workItem.Type.Name)
                     select BuildResultItem(workItem, query.DisplayFieldList);
 
             return q.ToList();
