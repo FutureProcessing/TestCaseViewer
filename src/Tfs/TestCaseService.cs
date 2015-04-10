@@ -56,6 +56,11 @@ namespace Tfs
 
                 var tc = teamProject.TestCases.Find(id);
 
+                if (tc == null)
+                {
+                    return null;
+                }
+
                 var steps = from step in tc.Actions
                             select InfoForStep(step);
 
