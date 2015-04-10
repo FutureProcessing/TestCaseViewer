@@ -50,6 +50,10 @@ class ToasterStore extends EventEmitter{
 
         this.state.toasts.splice(idx, 1);
     }
+
+    handleRemoveAllToasts(){
+        this.state.toasts = [];
+    }
 }
 
 function register(payload){
@@ -62,6 +66,10 @@ function register(payload){
             break;
         case actionTypes.REMOVE_TOAST:
             this.handleRemoveToast(action.id);
+            this.emitChange();
+            break;
+        case actionTypes.REMOVE_ALL_TOASTS:
+            this.handleRemoveAllToasts();
             this.emitChange();
             break;
     }

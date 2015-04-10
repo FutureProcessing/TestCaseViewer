@@ -1,52 +1,45 @@
 import xhttp from 'xhttp';
 import ApiActionCreators from '../actions/apiActionCreators.js';
 import AjaxError from '../utils/ajaxError.js';
+import api from './api.js';
 
 var loginApi = {
     authenticate(user, password){
-        return this.logIn(user, password).then(() => {
-            return xhttp({ url: window.baseUrl + 'auth/identity'});
-        }).then((data) => {
-            ApiActionCreators.loggedIn(data.userName, data.displayName);
-        }).catch(({data, xhr}) => {
-            var message = data.message || data.error;
-            ApiActionCreators.logOutFailed(new AjaxError(message, xhr.status));
-        });
-    },
-
-    logIn(user, password){
-        return xhttp({
-            url: `${window.baseUrl}auth/login`,
-            method: 'post',
+        return api.post({
+            url: `auth/login`,
             data: {
                 username: user,
                 password: password
             },
             type: 'form'
+        }).then(() => {
+            return api.get('auth/identity');
+        }).then((data) => {
+            ApiActionCreators.loggedIn(data.userName, data.displayName);
+        }).catch(error => {
+            ApiActionCreators.logOutFailed(error);
         });
     },
 
     logOut(){
-        return xhttp({
-            url: window.baseUrl + 'auth/logout',
-            method: 'post'
+        return api.post({
+            url: window.baseUrl + 'auth/logout'
         }).then(() => {
             ApiActionCreators.loggedOut();
-        }).catch(({data, xhr}) => {
-            var message = data.message || data.error;
-            ApiActionCreators.logOutFailed(new AjaxError(message, xhr.status));
+        }).catch(error => {
+            ApiActionCreators.logOutFailed(error);
         });
     },
 
     identify(){
-        return xhttp({ url: window.baseUrl + 'auth/identity'}).then((data) => {
+
+        return api.get('auth/identity').then((data) => {
             if(data.isAuthenticated){
                 ApiActionCreators.loggedIn(data.userName, data.displayName);
             }
             return data;
-        }).catch(({data, xhr}) => {
-            var message = data.message || data.error;
-            ApiActionCreators.logOutFailed(new AjaxError(message, xhr.status));
+        }).catch((error) => {
+            ApiActionCreators.logOutFailed(error);
         });
     }
 }

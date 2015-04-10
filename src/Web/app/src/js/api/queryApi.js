@@ -2,29 +2,22 @@ import xhttp from 'xhttp';
 import ApiActionCreators from '../actions/apiActionCreators.js';
 import AjaxError from '../utils/ajaxError.js';
 import ToastTypes from '../constants/toastTypes.js';
+import api from './api.js';
 
 var queryApi = {
     getTestCases(path){
-        return xhttp({
-            url: `${window.baseUrl}query/list/${encodeURIComponent(path)}`
-        }).then((data) => {
+        return api.get(`query/list/${encodeURIComponent(path)}`).then((data) => {
             ApiActionCreators.recievedTestCases(mapTestCases(data));
-        }).catch(({data, xhr}) => {
-            var message = data.message || data.error;
-            ApiActionCreators.getTestCasesFailed(new AjaxError(message, xhr.status));
-            ApiActionCreators.addToast('FAIL', message, ToastTypes.ERROR);
+        }).catch(error => {
+            ApiActionCreators.getTestCasesFailed(error);
         });
     },
 
     getQueries(){
-        return xhttp({
-            url: `${window.baseUrl}queries`
-        }).then((data) => {
+        return api.get('queries').then((data) => {
             ApiActionCreators.recievedQueries(mapQueries(data));
-        }).catch(({data, xhr}) => {
-            var message = data.message || data.error;
-            ApiActionCreators.getQueriesFailed(new AjaxError(message, xhr.status));
-            ApiActionCreators.addToast('FAIL', message, ToastTypes.ERROR);
+        }).catch(error => {
+            ApiActionCreators.getQueriesFailed(error);
         });
     }
 }

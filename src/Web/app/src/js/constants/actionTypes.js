@@ -11,6 +11,7 @@ var actionTypes = keymirror({
 
         ADD_TOAST: null,
         REMOVE_TOAST: null,
+        REMOVE_ALL_TOASTS: null,
 
         GET_TC: null,
         GET_TC_SUCCESS: null,

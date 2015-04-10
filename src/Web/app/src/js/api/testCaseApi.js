@@ -2,45 +2,32 @@ import xhttp from 'xhttp';
 import ApiActionCreators from '../actions/apiActionCreators.js';
 import AjaxError from '../utils/ajaxError.js';
 import ToastTypes from '../constants/toastTypes.js';
+import api from './api.js';
 
 var testCaseApi = {
     getTestCaseData(id){
-        return xhttp({
-            url: `${window.baseUrl}testcase/${id}`
-        }).then((data) => {
+        return api.get(`testcase/${id}`).then((data) => {
             ApiActionCreators.recievedTestCaseData(mapTestCase(data));
-        }).catch(({data, xhr}) => {
-            var message = data.message || data.error;
-            ApiActionCreators.getTestCaseDataFailed(new AjaxError(message, xhr.status));
-            ApiActionCreators.addToast('FAIL', message, ToastTypes.ERROR);
+        }).catch(error => {
+            ApiActionCreators.getTestCaseDataFailed(error);
         });
     },
 
     acceptTestCase(id){
-        return xhttp({
-            url: `${window.baseUrl}testcase/${id}/accept`,
-            method: 'post'
-        }).then((data) => {
+        return api.post(`testcase/${id}/accept`).then((data) => {
             ApiActionCreators.acceptedTestCase();
             ApiActionCreators.addToast('ACCEPTED', `Accepted Test Case ${id}`, ToastTypes.SUCCESS);
-        }).catch(({data, xhr}) => {
-            var message = data.message || data.error;
-            ApiActionCreators.acceptTestCseFailed();
-            ApiActionCreators.addToast('FAIL', message, ToastTypes.ERROR);
+        }).catch(error => {
+            ApiActionCreators.acceptTestCaseFailed(error);
         });
     },
 
     rejectTestCase(id){
-        return xhttp({
-            url: `${window.baseUrl}testcase/${id}/reject`,
-            method: 'post'
-        }).then((data) => {
+        return api.post(`testcase/${id}/reject`).then((data) => {
             ApiActionCreators.rejectedTestCase();
             ApiActionCreators.addToast('REJECTED', `Rejected Test Case ${id}`, ToastTypes.SUCCESS);
-        }).catch(({data, xhr}) => {
-            var message = data.message || data.error;
-            ApiActionCreators.rejectTestCseFailed();
-            ApiActionCreators.addToast('FAIL', message, ToastTypes.ERROR);
+        }).catch(error => {
+            ApiActionCreators.rejectTestCaseFailed(error);
         });
     }
 }

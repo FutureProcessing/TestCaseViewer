@@ -45,7 +45,6 @@ class TestCaseViewer extends React.Component {
             <div className="test-case-viewer">
                 {loadingPage}
                 <TopBar onLogOffClick={this.handleLogOffClick.bind(this)} />
-                <Toaster />
                 <RouteHandler/>
             </div>
         );

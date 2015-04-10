@@ -10,6 +10,8 @@ import TimeoutTransitionGroup from '../timeoutTransitionGroup.jsx';
 class Toaster extends React.Component{
     constructor(props){
         super(props);
+        ApiActionCreators.removeAllToasts();
+        
         this.state = {
             toasts: []
         };

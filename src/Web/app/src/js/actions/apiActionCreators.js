@@ -1,8 +1,6 @@
 import AppDispatcher from '../dispatchers/appDispatcher.js';
 import ActionTypes from '../constants/actionTypes.js';
 
-import api from '../api/api.js';
-
 var ApiActionCreators = {
     loggedIn: function(username, displayName){
         AppDispatcher.handleApiAction({
@@ -52,7 +50,7 @@ var ApiActionCreators = {
         });
     },
 
-    acceptTestCasefailed: function(){
+    acceptTestCaseFailed: function(){
         AppDispatcher.handleApiAction({
             type: ActionTypes.ACCEPT_TC_FAIL
         });
@@ -64,7 +62,7 @@ var ApiActionCreators = {
         });
     },
 
-    rejectTestCasefailed: function(){
+    rejectTestCaseFailed: function(){
         AppDispatcher.handleApiAction({
             type: ActionTypes.REJECT_TC_FAIL
         });
@@ -111,6 +109,12 @@ var ApiActionCreators = {
         AppDispatcher.handleViewAction({
             type: ActionTypes.REMOVE_TOAST,
             id: id
+        });
+    },
+
+    removeAllToasts: function(id){
+        AppDispatcher.handleViewAction({
+            type: ActionTypes.REMOVE_ALL_TOASTS
         });
     }
 };

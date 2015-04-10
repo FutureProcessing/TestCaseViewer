@@ -108,7 +108,6 @@ class LeftMenu extends React.Component{
     }
 
     handleInputChange(e){
-        console.log(Number(e.target.value));
         if(!isNaN(Number(e.target.value))){
             this.setState({testCaseId: e.target.value});
         }
