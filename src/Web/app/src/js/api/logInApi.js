@@ -12,7 +12,7 @@ var loginApi = {
                 password: password
             },
             type: 'form'
-        }).then(() => {
+        }, true).then(() => {
             return api.get('auth/identity');
         }).then((data) => {
             ApiActionCreators.loggedIn(data.userName, data.displayName);
@@ -31,18 +31,14 @@ var loginApi = {
 
     identify(){
         return api.get('auth/identity').then((data) => {
-            setTimeout(() => {
             if(data.isAuthenticated){
                 ApiActionCreators.Identified(data.userName, data.displayName);
             } else {
                 ApiActionCreators.identifyFailed(new AjaxError());
             }
             return data;
-        }, 1000);
         }).catch((error) => {
-            setTimeout(() => {
             ApiActionCreators.identifyFailed(error);
-        }, 1000);
         });
 
     }
