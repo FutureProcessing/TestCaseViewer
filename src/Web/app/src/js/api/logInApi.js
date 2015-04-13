@@ -17,7 +17,7 @@ var loginApi = {
         }).then((data) => {
             ApiActionCreators.loggedIn(data.userName, data.displayName);
         }).catch(error => {
-            ApiActionCreators.logOutFailed(error);
+            ApiActionCreators.logInFailed(error);
         });
     },
 
@@ -30,15 +30,21 @@ var loginApi = {
     },
 
     identify(){
-
         return api.get('auth/identity').then((data) => {
+            setTimeout(() => {
             if(data.isAuthenticated){
-                ApiActionCreators.loggedIn(data.userName, data.displayName);
+                ApiActionCreators.Identified(data.userName, data.displayName);
+            } else {
+                ApiActionCreators.identifyFailed(new AjaxError());
             }
             return data;
+        }, 1000);
         }).catch((error) => {
-            ApiActionCreators.logOutFailed(error);
+            setTimeout(() => {
+            ApiActionCreators.identifyFailed(error);
+        }, 1000);
         });
+
     }
 }
 

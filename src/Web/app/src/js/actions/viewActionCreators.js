@@ -8,13 +8,17 @@ import queryApi from '../api/queryApi.js';
 
 var ViewActionCreators = {
     logIn: function(user, password){
-        AppDispatcher.handleViewAction({
-            type: ActionTypes.LOG_IN
-        });
-
         if(user && password){
+            AppDispatcher.handleViewAction({
+                type: ActionTypes.LOG_IN
+            });
+
             logInApi.authenticate(user, password);
         }else{
+            AppDispatcher.handleViewAction({
+                type: ActionTypes.IDENTIFY
+            });
+
             logInApi.identify().then((data) => {
                 if(!data.isAuthenticated){
                     RouterContainer.get().transitionTo('/login');

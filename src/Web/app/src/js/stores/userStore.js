@@ -37,11 +37,16 @@ class userStore extends EventEmitter{
         this.state.inProgress = true;
     }
 
+    handleIdentify(){
+        this.state.identifying = true;
+    }
+
     handleLoggedIn(username, displayName){
         this.state.username = username;
         this.state.displayName = displayName;
         this.state.isLoggedIn = true;
         this.state.inProgress = false;
+        this.state.identifying = false;
         this.state.error.clear();
     }
 
@@ -49,6 +54,7 @@ class userStore extends EventEmitter{
         this.state.isLoggedIn = false;
         this.state.error = error;
         this.state.inProgress = false;
+        this.state.identifying = false;
     }
 
     handleLogOut(){
@@ -76,10 +82,16 @@ function register(payload){
             this.handleLogIn();
             this.emitChange();
             break;
+        case actionTypes.IDENTIFY:
+            this.handleIdentify();
+            this.emitChange();
+            break;
+        case actionTypes.IDENTIFY_SUCCESS:
         case actionTypes.LOG_IN_SUCCESS:
             this.handleLoggedIn(action.username, action.displayName);
             this.emitChange();
             break;
+        case actionTypes.IDENTIFY_FAIL:
         case actionTypes.LOG_IN_FAIL:
             this.handleLogInFail(action.error);
             this.emitChange();

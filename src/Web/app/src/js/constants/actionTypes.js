@@ -5,6 +5,10 @@ var actionTypes = keymirror({
         LOG_IN_SUCCESS: null,
         LOG_IN_FAIL: null,
 
+        IDENTIFY: null,
+        IDENTIFY_SUCCESS: null,
+        IDENTIFY_FAIL: null,
+
         LOG_OUT: null,
         LOG_OUT_SUCCESS: null,
         LOG_OUT_FAIL: null,
