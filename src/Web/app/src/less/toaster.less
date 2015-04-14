@@ -14,17 +14,39 @@
             border: solid 1px @CDark;
             width: 15em;
             min-height: 4em;
-            margin: .5em;
             padding: .5em 0.7em;
-            cursor: pointer;
             .box-shadow(4px 4px 7px 0px rgba(50, 50, 50, 0.38));
 
             .toast-title{
                 font-weight: bold;
+                word-wrap: break-word;
             }
 
             .toast-content{
+                word-wrap: break-word;
+            }
 
+            .close-icon{
+                padding: .2em;
+                position: absolute;
+                top: 1em;
+                right: 1em;
+                width: 1em !important;
+                height: 1em !important;
+                display: flex;
+                cursor: pointer;
+
+                svg{
+                    width: 100% !important;
+                    height: 100% !important;
+                    stroke-width: 0;
+                    stroke: black;
+                    .transition(all .2s);
+                }
+
+                &:hover svg{
+                    stroke-width: 2;
+                }
             }
 
             &.error{

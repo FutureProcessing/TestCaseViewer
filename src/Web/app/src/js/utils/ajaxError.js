@@ -19,7 +19,7 @@ class AjaxError {
 
 function generateAutoMessage(xhr){
     if(xhr.readyState === 4 && xhr.status === 0){
-        return 'Canceled becouse of timeout';
+        return 'Canceled because of timeout';
     }
     return '';
 }

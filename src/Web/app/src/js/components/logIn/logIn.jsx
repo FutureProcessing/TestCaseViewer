@@ -98,35 +98,6 @@ class LogIn extends React.Component{
         }else{
             return <LoadingPage />;
         }
-
-        // return(
-        //     <form className="login-container" onSubmit={this.handleLogInClick.bind(this)}>
-        //         <div className="login-header">Please log in</div>
-        //
-        //         {errorMessage?(
-        //             <div className="login-error">{errorMessage}</div>
-        //         ): null}
-        //
-        //         <div className="login-content">
-        //
-        //             <LogInInput
-        //                 onChange={this.handleUserChange.bind(this)}
-        //                 label="user"
-        //                 type="text"/>
-        //
-        //             <LogInInput
-        //                 onChange={this.handlePasswordChange.bind(this)}
-        //                 label="password"
-        //                 type="password"/>
-        //
-        //             <ProgressButton
-        //                 inProgress={this.state.inProgress}
-        //                 className="login-button">
-        //                 Log In
-        //             </ProgressButton>
-        //         </div>
-        //     </form>
-        // )
     }
 }
 
