@@ -38,15 +38,16 @@ class TestCaseViewer extends React.Component {
     }
 
     render(){
-        var loadingPage = !this.state.isLoggedIn? <LoadingPage /> : null;
-
-        return (
-            <div className="test-case-viewer">
-                {loadingPage}
-                <TopBar onLogOffClick={this.handleLogOffClick.bind(this)} />
-                <RouteHandler/>
-            </div>
-        );
+        if(this.state.isLoggedIn){
+            return (
+                <div className="test-case-viewer">
+                    <TopBar onLogOffClick={this.handleLogOffClick.bind(this)} />
+                    <RouteHandler/>
+                </div>
+            );
+        } else {
+            return <LoadingPage />;
+        }
     }
 }
 

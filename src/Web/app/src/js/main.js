@@ -11,4 +11,5 @@ xhttp.addErrInterceptor((data, xhr) => {
 var router = Router.run(routes, (Handler) => {
     React.render(React.createElement(Handler, null), document.getElementById("main"));
 });
+
 RouterContainer.set(router);
