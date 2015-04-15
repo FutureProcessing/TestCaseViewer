@@ -10,5 +10,6 @@ namespace Tfs.Model
         public string CreatedBy { get; set; }
         public List<TestStepInfo> Steps { get; set; }
         public string Status { get; set; }
+        public string AssignedTo { get; set; }
     }
 }

@@ -62,6 +62,8 @@ class TestCaseStore extends EventEmitter{
         this.state.title = testCase.title;
         this.state.createdBy = testCase.createdBy;
         this.state.state = testCase.state;
+        this.state.status = testCase.status;
+        this.state.assignedTo = testCase.assignedTo;
         this.state.steps = testCase.steps;
     }
 

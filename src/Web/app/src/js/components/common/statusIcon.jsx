@@ -1,5 +1,6 @@
 import React from 'react';
 import tcStatuses from '../../constants/tcStatuses.js';
+import classNames from 'classnames';
 
 import Icon from './Icon.jsx';
 
@@ -16,10 +17,16 @@ class StatusIcon extends React.Component{
             case tcStatuses.ready:
                 iconName = 'status-ready';
                 break;
+            default:
+                return null;
         }
 
+        var classes = classNames(this.props.className, 'comm-status-icon', iconName, {
+            'colors': this.props.enableColors
+        });
+
         return (
-            <span className="status-icon">
+            <span className={classes}>
                 <Icon icon={iconName} />
             </span>
         )
@@ -27,7 +34,8 @@ class StatusIcon extends React.Component{
 }
 
 StatusIcon.propTypes = {
-    status: React.PropTypes.string
+    status: React.PropTypes.string,
+    enableColors: React.PropTypes.bool
 }
 
 export default StatusIcon;

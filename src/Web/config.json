@@ -15,7 +15,7 @@
         "status": {
             "design": {
                 "State": "Design",
-                "Assigned To":  ["Person1"]
+                "Assigned To":  ["Person1", "Łukasz Kojzar"]
             },
             "waitingForApproval": {
                 "State": "Design",

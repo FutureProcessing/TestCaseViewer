@@ -35,6 +35,7 @@ var testCaseApi = {
 function mapTestCase(serverData){
     return{
         createdBy: serverData.createdBy,
+        assignedTo: serverData.assignedTo,
         title: serverData.title,
         state: serverData.state,
         status: serverData.status,

@@ -70,6 +70,7 @@ namespace Tfs
                     Id = tc.Id,
                     Title = tc.Title,
                     State = tc.State,
+                    AssignedTo = (string)tc.WorkItem.Fields[CoreField.AssignedTo].Value,
                     CreatedBy = tc.WorkItem.CreatedBy,
                     Steps = steps.ToList(),
                     Status = this.DetermineStatus(tc.WorkItem)

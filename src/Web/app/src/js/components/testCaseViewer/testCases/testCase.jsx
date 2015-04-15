@@ -61,7 +61,9 @@ class TestCase extends React.Component{
                 <TestCaseInfo
                     title={this.state.title}
                     createdBy={this.state.createdBy}
-                    status={this.state.state} />
+                    assignedTo={this.state.assignedTo}
+                    status={this.state.status}
+                    tfsState={this.state.state} />
                 <StepsTable
                     steps={this.state.steps} />
                 <ButtonGroup>
@@ -88,6 +90,7 @@ class TestCase extends React.Component{
 
     handleStoreChange(){
         var testCaseData = TestCaseStore.getData();
+        console.log(testCaseData);
         this.setState(testCaseData);
     }
 

@@ -25,8 +25,8 @@ class TestCaseList extends React.Component{
                 <li key={testCase.id}
                     className={classes}
                     onClick={this.props.onTestCaseClick.bind(this, testCase.id)}>
-                    
-                    <StatusIcon status={testCase.status} />
+
+                    <StatusIcon className="status-icon" status={testCase.status}/>
                     {testCase.title}
                 </li>
             );

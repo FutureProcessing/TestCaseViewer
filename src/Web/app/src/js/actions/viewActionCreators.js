@@ -50,6 +50,7 @@ var ViewActionCreators = {
 
         testCaseApi.acceptTestCase(id).then(() => {
             ViewActionCreators.getTestCaseData(id);
+            //TODO: Refresh testcase list
         });
     },
 
