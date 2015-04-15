@@ -3,6 +3,7 @@ import AppDispatcher from '../dispatchers/appDispatcher.js';
 import actionTypes from '../constants/actionTypes.js';
 import AjaxError from '../utils/ajaxError.js';
 import objectAssign from 'object-assign';
+import tcStatuses from '../constants/tcStatuses.js';
 
 var CHANGE_EVENT = 'change';
 class TestCaseStore extends EventEmitter{
@@ -65,6 +66,8 @@ class TestCaseStore extends EventEmitter{
         this.state.status = testCase.status;
         this.state.assignedTo = testCase.assignedTo;
         this.state.steps = testCase.steps;
+        this.state.canReject = canReject(testCase.status);
+        this.state.canAccept = canAccept(testCase.status);
     }
 
     handleAcceptTCStart(){
@@ -121,6 +124,14 @@ function register(payload){
             this.emitChange();
             break;
     }
+}
+
+function canAccept(status){
+    return status === tcStatuses.waiting;
+}
+
+function canReject(status){
+    return status === tcStatuses.waiting || status === tcStatuses.ready;
 }
 
 export default new TestCaseStore();

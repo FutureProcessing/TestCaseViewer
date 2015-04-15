@@ -69,12 +69,14 @@ class TestCase extends React.Component{
                 <ButtonGroup>
                     <ProgressButton buttonType="success"
                         inProgress={this.state.acceptInProgress}
-                        onClick={this.handleAcceptButtonClick.bind(this)}>
+                        onClick={this.handleAcceptButtonClick.bind(this)}
+                        disabled={!this.state.canAccept}>
                         Accept
                     </ProgressButton>
                     <ProgressButton buttonType="error"
                         inProgress={this.state.rejectInProgress}
-                        onClick={this.handleRejectButtonClick.bind(this)}>
+                        onClick={this.handleRejectButtonClick.bind(this)}
+                        disabled={!this.state.canReject}>
                         Reject
                     </ProgressButton>
                 </ButtonGroup>
