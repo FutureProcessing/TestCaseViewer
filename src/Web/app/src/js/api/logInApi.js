@@ -12,12 +12,12 @@ var loginApi = {
                 password: password
             },
             type: 'form'
-        }).then(() => {
+        }, true).then(() => {
             return api.get('auth/identity');
         }).then((data) => {
             ApiActionCreators.loggedIn(data.userName, data.displayName);
         }).catch(error => {
-            ApiActionCreators.logOutFailed(error);
+            ApiActionCreators.logInFailed(error);
         });
     },
 
@@ -30,15 +30,17 @@ var loginApi = {
     },
 
     identify(){
-
         return api.get('auth/identity').then((data) => {
             if(data.isAuthenticated){
-                ApiActionCreators.loggedIn(data.userName, data.displayName);
+                ApiActionCreators.Identified(data.userName, data.displayName);
+            } else {
+                ApiActionCreators.identifyFailed(new AjaxError());
             }
             return data;
         }).catch((error) => {
-            ApiActionCreators.logOutFailed(error);
+            ApiActionCreators.identifyFailed(error);
         });
+
     }
 }
 

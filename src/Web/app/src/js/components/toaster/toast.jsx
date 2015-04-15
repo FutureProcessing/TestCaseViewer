@@ -2,6 +2,8 @@ import React from 'react';
 import ToastTypes from '../../constants/toastTypes.js';
 import classNames from 'classnames';
 
+import Icon from '../common/Icon.jsx';
+
 class Toast extends React.Component{
     componentDidMount(){
         if(this.props.autoRemove){
@@ -20,10 +22,11 @@ class Toast extends React.Component{
         });
 
         return(
-            <li className={classes}
-                onClick={this.props.onRemoveClick}>
+            <li className={classes}>
                 <div className="toast-title">{this.props.title}</div>
                 <div className="toast-content">{this.props.content}</div>
+                <span className="close-icon"
+                    onClick={this.props.onRemoveClick}><Icon icon="close" /></span>
             </li>
         );
     }

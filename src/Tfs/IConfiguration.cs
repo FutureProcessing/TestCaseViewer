@@ -14,5 +14,6 @@ namespace Tfs
         MatchingSpec DesignStatus { get; }
         MatchingSpec WaitingForApprovalStatus { get; }
         MatchingSpec ReadyStatus { get; }
+        string DefaultQuery { get; }
     }
 }

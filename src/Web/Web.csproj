@@ -109,6 +109,7 @@
     <Compile Include="JsonConfiguration.cs" />
     <Compile Include="Modules\Authentication\AuthenticationModule.cs" />
     <Compile Include="Modules\BaseModule.cs" />
+    <Compile Include="Modules\Config\ConfigModule.cs" />
     <Compile Include="Modules\Home\HomeModule.cs" />
     <Compile Include="Modules\Profile\ImageDataResponse.cs" />
     <Compile Include="Modules\Profile\ProfileModule.cs" />

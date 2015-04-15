@@ -7,37 +7,37 @@ import objectAssign from 'object-assign';
 class Api {
     static get(xhttpParams, customErrors){
         return makeRequest('get', xhttpParams, customErrors);
-    }
+        }
 
     static post(xhttpParams, customErrors){
         return makeRequest('post', xhttpParams, customErrors);
     }
-}
-
-function makeRequest(method, xhttpParams, customErrors){
-    var params;
-    if(typeof xhttpParams === 'string'){
-        params = {
-            method: method,
-            url: composeAbsoluteUrl(xhttpParams)
-        };
-    } else {
-        xhttpParams.url = composeAbsoluteUrl(xhttpParams.url);
-        params = objectAssign({
-            method: method,
-        }, xhttpParams);
     }
 
-    return new Promise((resolve, reject) => {
-        xhttp(params).then((data) => {
-            resolve(data);
-        }).catch(({data, xhr}) => {
-            var error = new AjaxError(data.message || data.error, xhr);
-            reject(error);
+function makeRequest(method, xhttpParams, customErrors){
+        var params;
+        if(typeof xhttpParams === 'string'){
+            params = {
+            method: method,
+                url: composeAbsoluteUrl(xhttpParams)
+            };
+    } else {
+            xhttpParams.url = composeAbsoluteUrl(xhttpParams.url);
+            params = objectAssign({
+            method: method,
+            }, xhttpParams);
+        }
+
+        return new Promise((resolve, reject) => {
+            xhttp(params).then((data) => {
+                resolve(data);
+            }).catch(({data, xhr}) => {
+                var error = new AjaxError(data.message || data.error, xhr);
+                reject(error);
             if(!customErrors) ApiActionCreators.addToast("FAIL", error.getMessage(), ToastTypes.ERROR);
+            });
         });
-    });
-}
+    }
 
 function handleError({data, xhr}){
     var error = new AjaxError(data.message || data.error, xhr);

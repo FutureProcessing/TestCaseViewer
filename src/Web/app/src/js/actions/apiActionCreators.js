@@ -17,13 +17,28 @@ var ApiActionCreators = {
         });
     },
 
+    Identified: function(username, displayName){
+        AppDispatcher.handleApiAction({
+            type: ActionTypes.IDENTIFY_SUCCESS,
+            username: username,
+            displayName: displayName
+        });
+    },
+
+    identifyFailed: function(error){
+        AppDispatcher.handleApiAction({
+            type: ActionTypes.IDENTIFY_FAIL,
+            error: error
+        });
+    },
+
     loggedOut: function(){
         AppDispatcher.handleApiAction({
             type: ActionTypes.LOG_OUT_SUCCESS
         });
     },
 
-    logOutFail: function(error){
+    logOutFailed: function(error){
         AppDispatcher.handleApiAction({
             type: ActionTypes.LOG_OUT_FAIL,
             error: error

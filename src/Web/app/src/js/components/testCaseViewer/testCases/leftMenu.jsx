@@ -15,7 +15,7 @@ class LeftMenu extends React.Component{
     constructor(props, context){
         super(props);
         this.state = {
-            testCaseId: context.router.getCurrentParams().id,
+            testCaseId: context.router.getCurrentParams().id || '',
             getTestCasesInProgress: false,
             inProgress: false,
             isExtensionOpen: false,
@@ -114,7 +114,9 @@ class LeftMenu extends React.Component{
     }
 
     handleInputChange(e){
+        console.log(Number(e.target.value));
         if(!isNaN(Number(e.target.value))){
+            console.log("HMM");
             this.setState({testCaseId: e.target.value});
         }
     }

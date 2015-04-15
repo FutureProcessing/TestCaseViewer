@@ -3,14 +3,14 @@
         "url": "http://novakov-tfs.cloudapp.net:8080/tfs/DefaultCollection",
         "project": "Development",
         "transitions": {
-            "accept": {
-                "State": "Ready",
-                "Assigned To": null
-            },
-            "reject": {
-                "State": "Design",
-                "Assigned To": "@Previous"
-            }
+        "accept": {
+            "State": "Ready",
+            "Assigned To": null
+        },
+        "reject": {
+            "State": "Design",
+            "Assigned To": "@Previous"
+        }
         },
         "status": {
             "design": {

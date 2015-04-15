@@ -63,5 +63,10 @@ namespace Web
         {
             get { return ((JObject)this.config.tfs.status.ready).ToObject<MatchingSpec>(this.serializer); }
         }
+
+        public string DefaultQuery
+        {
+            get { return this.config.tfs.defaultQuery; }
+        }
     }
 }

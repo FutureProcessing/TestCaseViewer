@@ -6,10 +6,12 @@ import StatusCodes from '../../constants/statusCodes.js';
 
 import LogInInput from './logInInput.jsx';
 import ProgressButton from '../common/progressButton.jsx';
+import LoadingPage from '../common/loadingPage.jsx';
 
 class LogIn extends React.Component{
     constructor(props){
         this.state = {
+            identifying: true,
             user: '',
             password: ''
         };
@@ -37,7 +39,12 @@ class LogIn extends React.Component{
         if(data.isLoggedIn) {
             this.context.router.transitionTo('/');
         }else{
-            this.setState({inProgress: data.inProgress, errorMessage: data.error.message, errorCode: data.error.statusCode});
+            this.setState({
+                inProgress: data.inProgress,
+                errorMessage: data.error.message,
+                errorCode: data.error.statusCode,
+                identifying: data.identifying
+            });
         }
     }
 
@@ -59,34 +66,38 @@ class LogIn extends React.Component{
     render(){
         var errorMessage = createErrorMessage(this.state.errorCode, this.state.errorMessage);
 
-        return(
-            <form className="login-container" onSubmit={this.handleLogInClick.bind(this)}>
-                <div className="login-header">Please log in</div>
+        if(!this.state.identifying){
+            return (
+                <form className="login-container" onSubmit={this.handleLogInClick.bind(this)}>
+                    <div className="login-header">Please log in</div>
 
-                {errorMessage?(
-                    <div className="login-error">{errorMessage}</div>
-                ): null}
+                    {errorMessage?(
+                        <div className="login-error">{errorMessage}</div>
+                    ): null}
 
-                <div className="login-content">
+                    <div className="login-content">
 
-                    <LogInInput
-                        onChange={this.handleUserChange.bind(this)}
-                        label="user"
-                        type="text"/>
+                        <LogInInput
+                            onChange={this.handleUserChange.bind(this)}
+                            label="user"
+                            type="text"/>
 
-                    <LogInInput
-                        onChange={this.handlePasswordChange.bind(this)}
-                        label="password"
-                        type="password"/>
+                        <LogInInput
+                            onChange={this.handlePasswordChange.bind(this)}
+                            label="password"
+                            type="password"/>
 
-                    <ProgressButton
-                        inProgress={this.state.inProgress}
-                        className="login-button">
-                        Log In
-                    </ProgressButton>
-                </div>
-            </form>
-        )
+                        <ProgressButton
+                            inProgress={this.state.inProgress}
+                            className="login-button">
+                            Log In
+                        </ProgressButton>
+                    </div>
+                </form>
+            );
+        }else{
+            return <LoadingPage />;
+        }
     }
 }
 
