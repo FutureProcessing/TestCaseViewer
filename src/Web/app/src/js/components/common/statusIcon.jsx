@@ -3,7 +3,7 @@ import tcStatuses from '../../constants/tcStatuses.js';
 
 import Icon from './Icon.jsx';
 
-class statusIcon extends React.Component{
+class StatusIcon extends React.Component{
     render(){
         var iconName;
         switch(this.props.status){
@@ -26,4 +26,8 @@ class statusIcon extends React.Component{
     }
 }
 
-export default statusIcon;
+StatusIcon.propTypes = {
+    status: React.PropTypes.string
+}
+
+export default StatusIcon;

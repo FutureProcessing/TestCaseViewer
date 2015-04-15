@@ -1,5 +1,5 @@
 export default {
-    design: 'design',
-    waitingForApproval: 'waitingForApproval',
-    ready: 'ready'
+    design: 'Design',
+    waitingForApproval: 'WaitingForApproval',
+    ready: 'Ready'
 };

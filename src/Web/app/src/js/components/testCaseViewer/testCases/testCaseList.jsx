@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import perfectScrollbar from 'perfect-scrollbar';
 
 import Swirl from '../../common/swirl.jsx';
+import StatusIcon from '../../common/statusIcon.jsx';
 
 class TestCaseList extends React.Component{
     componentDidMount(){
@@ -24,6 +25,8 @@ class TestCaseList extends React.Component{
                 <li key={testCase.id}
                     className={classes}
                     onClick={this.props.onTestCaseClick.bind(this, testCase.id)}>
+                    
+                    <StatusIcon status={testCase.status} />
                     {testCase.title}
                 </li>
             );

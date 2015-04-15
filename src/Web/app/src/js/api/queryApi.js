@@ -29,6 +29,7 @@ function mapTestCases(data){
             type: testCase['field_Work Item Type'],
             title: testCase.field_Title,
             state: testCase.field_State,
+            status: testCase.status,
             priority: testCase.field_Priority
         };
     });

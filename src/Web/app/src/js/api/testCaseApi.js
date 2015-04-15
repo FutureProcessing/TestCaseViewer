@@ -37,6 +37,7 @@ function mapTestCase(serverData){
         createdBy: serverData.createdBy,
         title: serverData.title,
         state: serverData.state,
+        status: serverData.status,
         steps: mapSteps(serverData.steps)
     }
 }
