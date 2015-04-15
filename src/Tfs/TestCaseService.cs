@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using Common;
 using Microsoft.TeamFoundation.TestManagement.Client;
 using Microsoft.TeamFoundation.TestManagement.Common;
 using Microsoft.TeamFoundation.WorkItemTracking.Client;
-using Tfs.Matching;
 using Tfs.Model;
 
 namespace Tfs
@@ -73,7 +71,8 @@ namespace Tfs
                     Title = tc.Title,
                     State = tc.State,
                     CreatedBy = tc.WorkItem.CreatedBy,
-                    Steps = steps.ToList()
+                    Steps = steps.ToList(),
+                    Status = this.DetermineStatus(tc.WorkItem)
                 };
             }
             catch (DeniedOrNotExistException)
@@ -121,26 +120,6 @@ namespace Tfs
             var t = teamProject.WitProject.Categories[WitCategoryRefName.TestCase].WorkItemTypes.Select(x => x.Name);
 
             return t.ToArray();
-        }
-
-        public object Match(MatchingSpec spec, int testCaseId)
-        {
-            var service = this.testManagementFactory();
-
-            var teamProject = service.GetTeamProject(this.config.ProjectName);
-
-            var tc = teamProject.TestCases.Find(testCaseId);
-
-            var results = new Dictionary<string, bool>();
-
-            foreach (var fieldSpec in spec.Fields)
-            {
-                var field = tc.WorkItem.Fields[fieldSpec.Key];
-
-                results[field.Name] = fieldSpec.Value.IsMatching(field);
-            }
-
-            return results;
         }
 
         public string DetermineStatus(WorkItem workItem)
