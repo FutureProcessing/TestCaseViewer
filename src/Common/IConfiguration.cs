@@ -13,5 +13,6 @@ namespace Common
 
         IDictionary<string, object> AcceptTransition { get; }
         IDictionary<string, object> RejectTransition { get; }
+        string DefaultQuery { get; }
     }
 }

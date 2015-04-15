@@ -2,6 +2,7 @@
     "tfs": {
         "url": "http://novakov-tfs.cloudapp.net:8080/tfs/DefaultCollection",
         "project": "Development",
+        "defaultQuery": "Shared Queries/Current Sprint/Test Cases",
         "accept": {
             "State": "Ready",
             "Assigned To": null

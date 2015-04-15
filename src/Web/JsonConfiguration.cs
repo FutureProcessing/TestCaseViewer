@@ -32,12 +32,17 @@ namespace Web
 
         public IDictionary<string, object> AcceptTransition
         {
-            get { return ((JObject) this.config.tfs.accept).Properties().ToDictionary(x => x.Name, x => ((JValue) x.Value).Value); }
+            get { return ((JObject)this.config.tfs.accept).Properties().ToDictionary(x => x.Name, x => ((JValue)x.Value).Value); }
         }
 
         public IDictionary<string, object> RejectTransition
         {
             get { return ((JObject)this.config.tfs.reject).Properties().ToDictionary(x => x.Name, x => ((JValue)x.Value).Value); }
+        }
+
+        public string DefaultQuery
+        {
+            get { return this.config.tfs.defaultQuery; }
         }
     }
 }
