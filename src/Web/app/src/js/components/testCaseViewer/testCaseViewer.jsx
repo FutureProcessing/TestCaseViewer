@@ -14,7 +14,7 @@ class TestCaseViewer extends React.Component {
         this.storeChangeHandler = this.handleStoreChange.bind(this);
     }
 
-    componentDidMount(){
+    componentDidMount(){ 
         UserStore.addEventListener(this.storeChangeHandler);
 
         var isLoggedIn = UserStore.getData().isLoggedIn;
