@@ -24,13 +24,7 @@ namespace Web.Modules.TestCases
             Post["testcase/{id}/reject"] = _ =>
             {
                 testCases.Reject(_.id); return Ok;
-            };
-
-            Post["/match/{id}"] = _ =>
-            {
-                var spec = this.Bind<MatchingSpec>();
-                return testCases.Match(spec, _.id);
-            };
+            };           
         }
     }
 }
