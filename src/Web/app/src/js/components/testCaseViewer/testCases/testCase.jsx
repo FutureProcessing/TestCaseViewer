@@ -90,7 +90,6 @@ class TestCase extends React.Component{
 
     handleStoreChange(){
         var testCaseData = TestCaseStore.getData();
-        console.log(testCaseData);
         this.setState(testCaseData);
     }
 

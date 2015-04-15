@@ -15,7 +15,7 @@ var testCaseApi = {
 
     acceptTestCase(id){
         return api.post(`testcase/${id}/accept`).then((data) => {
-            ApiActionCreators.acceptedTestCase();
+            ApiActionCreators.acceptedTestCase(id);
             ApiActionCreators.addToast('ACCEPTED', `Accepted Test Case ${id}`, ToastTypes.SUCCESS);
         }).catch(error => {
             ApiActionCreators.acceptTestCaseFailed(error);
@@ -24,7 +24,7 @@ var testCaseApi = {
 
     rejectTestCase(id){
         return api.post(`testcase/${id}/reject`).then((data) => {
-            ApiActionCreators.rejectedTestCase();
+            ApiActionCreators.rejectedTestCase(id);
             ApiActionCreators.addToast('REJECTED', `Rejected Test Case ${id}`, ToastTypes.SUCCESS);
         }).catch(error => {
             ApiActionCreators.rejectTestCaseFailed(error);

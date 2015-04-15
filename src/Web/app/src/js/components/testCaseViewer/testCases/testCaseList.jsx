@@ -21,6 +21,7 @@ class TestCaseList extends React.Component{
             var classes = classNames('left-menu-item', {
                 'active': testCase.id == activeTestCaseId
             });
+            
             return (
                 <li key={testCase.id}
                     className={classes}

@@ -44,9 +44,10 @@ var ApiActionCreators = {
         });
     },
 
-    acceptedTestCase: function(){
+    acceptedTestCase: function(id){
         AppDispatcher.handleApiAction({
-            type: ActionTypes.ACCEPT_TC_SUCCESS
+            type: ActionTypes.ACCEPT_TC_SUCCESS,
+            id: id
         });
     },
 
@@ -56,9 +57,10 @@ var ApiActionCreators = {
         });
     },
 
-    rejectedTestCase: function(){
+    rejectedTestCase: function(id){
         AppDispatcher.handleApiAction({
-            type: ActionTypes.REJECT_TC_SUCCESS
+            type: ActionTypes.REJECT_TC_SUCCESS,
+            id: id
         });
     },
 

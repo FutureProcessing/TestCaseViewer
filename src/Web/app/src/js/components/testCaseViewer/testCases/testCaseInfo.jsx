@@ -10,8 +10,8 @@ class TestCaseInfo extends React.Component{
                     <StatusIcon className="status-icon" status={this.props.status} enableColors={true} />
                 </h1>
                 <div className="test-case-props">
-                    <div className="created-by-field"> <label>created by:</label> {this.props.createdBy} </div>
-                    <div className="assigned-to-field"> <label>assigned to:</label> {this.props.assignedTo} </div>
+                    <div className="created-by-field"> <label>created by:</label> {this.props.createdBy || 'nobody'} </div>
+                    <div className="assigned-to-field"> <label>assigned to:</label> {this.props.assignedTo || 'nobody'} </div>
                     <div className="status-field"> <label>status:</label> {this.props.status} </div>
                     </div>
             </div>

@@ -3,6 +3,7 @@ import AppDispatcher from '../dispatchers/appDispatcher.js';
 import actionTypes from '../constants/actionTypes.js';
 import AjaxError from '../utils/ajaxError.js';
 import objectAssign from 'object-assign';
+import tcStatuses from '../constants/tcStatuses.js';
 
 var CHANGE_EVENT = 'changeQueryStore';
 class QueryStore extends EventEmitter{
@@ -15,9 +16,7 @@ class QueryStore extends EventEmitter{
             selectedQueryPath: ''
         };
 
-        this.lastProperState = {
-
-        };
+        this.lastProperState = {};
 
         this.dispatchToken = AppDispatcher.register(register.bind(this));
     }
@@ -75,6 +74,16 @@ class QueryStore extends EventEmitter{
         this.state.inProgress = false;
         this.state.queriesParentNode = queriesParentNode;
     }
+
+    handleAcceptedTc(id){
+        var tc = this.state.testCases.filter(x => x.id == id)[0];
+        tc.status = tcStatuses.ready;
+    }
+
+    handleRejectedTc(id){
+        var tc = this.state.testCases.filter(x => x.id == id)[0];
+        tc.status = tcStatuses.design;
+    }
 }
 
 function register(payload){
@@ -104,6 +113,15 @@ function register(payload){
             break;
         case actionTypes.GET_QUERIES_FAIL:
             this.handleGetQueriesFail();
+            this.emitChange();
+            break;
+
+        case actionTypes.ACCEPT_TC_SUCCESS:
+            this.handleAcceptedTc(action.id);
+            this.emitChange();
+            break;
+        case actionTypes.REJECT_TC_SUCCESS:
+            this.handleRejectedTc(action.id);
             this.emitChange();
             break;
     }

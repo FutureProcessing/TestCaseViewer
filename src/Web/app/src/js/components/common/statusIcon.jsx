@@ -18,7 +18,8 @@ class StatusIcon extends React.Component{
                 iconName = 'status-ready';
                 break;
             default:
-                return null;
+                iconName = 'status-design';
+                break;
         }
 
         var classes = classNames(this.props.className, 'comm-status-icon', iconName, {
@@ -26,7 +27,9 @@ class StatusIcon extends React.Component{
         });
 
         return (
-            <span className={classes}>
+            <span
+                className={classes}
+                title={this.props.status || 'status empty'}>
                 <Icon icon={iconName} />
             </span>
         )
