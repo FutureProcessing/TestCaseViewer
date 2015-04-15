@@ -1,4 +1,11 @@
-﻿namespace Web.Modules.TestCases
+﻿using System.IO;
+using System.Linq;
+using Nancy.ModelBinding;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Tfs.Matching;
+
+namespace Web.Modules.TestCases
 {
     using Tfs;
 
@@ -16,8 +23,14 @@
 
             Post["testcase/{id}/reject"] = _ =>
             {
-                testCases.Reject(_.id); return Ok;                
-            };            
+                testCases.Reject(_.id); return Ok;
+            };
+
+            Post["/match/{id}"] = _ =>
+            {
+                var spec = this.Bind<MatchingSpec>();
+                return testCases.Match(spec, _.id);
+            };
         }
     }
 }

@@ -60,7 +60,7 @@ namespace Tfs
             return null;
         }
 
-        public IEnumerable<IDictionary<string, object>> ExecuteListQuery(string queryPath, params string[] limitToTypes)
+        public IEnumerable<IDictionary<string, object>> ExecuteListQuery(string queryPath, QueryOptions options)
         {
             var store = this.storeFactory();
 
@@ -76,13 +76,13 @@ namespace Tfs
             var workItems = query.RunQuery();
 
             var q = from WorkItem workItem in workItems
-                    where limitToTypes.Contains(workItem.Type.Name)
-                    select BuildResultItem(workItem, query.DisplayFieldList);
+                    where options.LimitToTypes.Contains(workItem.Type.Name)
+                    select BuildResultItem(workItem, query.DisplayFieldList, options.AdditionalFields);
 
             return q.ToList();
         }
 
-        private IDictionary<string, object> BuildResultItem(WorkItem workItem, DisplayFieldList displayFieldList)
+        private IDictionary<string, object> BuildResultItem(WorkItem workItem, DisplayFieldList displayFieldList, Dictionary<string, Func<WorkItem, object>> additionalFields)
         {
             var dict = new Dictionary<string, object>();
 
@@ -94,7 +94,18 @@ namespace Tfs
                 dict["field_" + field.Name] = workItem[field.Name];
             }
 
+            foreach (var additionalField in additionalFields)
+            {
+                dict[additionalField.Key] = additionalField.Value(workItem);
+            }
+
             return dict;
         }
+    }
+
+    public class QueryOptions
+    {
+        public string[] LimitToTypes { get; set; }
+        public Dictionary<string, Func<WorkItem, object>> AdditionalFields { get; set; }
     }
 }

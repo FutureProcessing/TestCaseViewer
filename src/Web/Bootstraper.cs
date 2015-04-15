@@ -31,11 +31,11 @@
         {
             base.ConfigureApplicationContainer(existingContainer);
 
-            var builder = new ContainerBuilder();
+            var builder = new ContainerBuilder();            
 
             builder.RegisterModule<PerApplicationModule>();
 
-            builder.Update(existingContainer.ComponentRegistry);
+            builder.Update(existingContainer.ComponentRegistry);            
         }
 
         protected override void ConfigureRequestContainer(ILifetimeScope container, NancyContext context)

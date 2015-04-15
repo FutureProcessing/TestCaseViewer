@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Tfs.Matching;
 
-namespace Common
+namespace Tfs
 {
     public interface IConfiguration
     {
@@ -13,5 +11,8 @@ namespace Common
 
         IDictionary<string, object> AcceptTransition { get; }
         IDictionary<string, object> RejectTransition { get; }
+        MatchingSpec DesignStatus { get; }
+        MatchingSpec WaitingForApprovalStatus { get; }
+        MatchingSpec ReadyStatus { get; }
     }
 }

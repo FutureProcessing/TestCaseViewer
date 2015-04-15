@@ -2,13 +2,28 @@
     "tfs": {
         "url": "http://novakov-tfs.cloudapp.net:8080/tfs/DefaultCollection",
         "project": "Development",
-        "accept": {
-            "State": "Ready",
-            "Assigned To": null
+        "transitions": {
+            "accept": {
+                "State": "Ready",
+                "Assigned To": null
+            },
+            "reject": {
+                "State": "Design",
+                "Assigned To": "@Previous"
+            }
         },
-        "reject": {
-            "State": "Design",
-            "Assigned To": "@Previous"
+        "status": {
+            "design": {
+                "State": "Design",
+                "Assigned To":  ["Person1"]
+            },
+            "waitingForApproval": {
+                "State": "Design",
+                "Assigned To":  ["Maciej Nowak", "Jakub Kłobus"]
+            },
+            "ready": { 
+                "State": "Ready"
+            }
         }
     }
 }
