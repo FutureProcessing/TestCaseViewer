@@ -127,11 +127,11 @@ function register(payload){
 }
 
 function canAccept(status){
-    return status === tcStatuses.waiting;
+    return status === tcStatuses.waitingForApproval;
 }
 
 function canReject(status){
-    return status === tcStatuses.waiting || status === tcStatuses.ready;
+    return status === tcStatuses.waitingForApproval || status === tcStatuses.ready;
 }
 
 export default new TestCaseStore();
