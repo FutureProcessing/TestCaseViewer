@@ -76,11 +76,15 @@ class LeftMenu extends React.Component{
     }
 
     initializeTestCases (){
-        ViewActionCreators.getTestCases('Development/Shared Queries/Current Sprint/Test Cases', 'Default');
+        setTimeout(() => {
+            ViewActionCreators.getTestCases('Development/Shared Queries/Current Sprint/Test Cases', 'Default');
+        },1); //FIXME: setTimeout is be
     }
 
     initializeQueries (){
-        ViewActionCreators.getQueries();
+        setTimeout(() => {
+            ViewActionCreators.getQueries();
+        },1); //FIXME: setTimeout is be
     }
 
     handleStoreChange (){

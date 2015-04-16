@@ -28,7 +28,7 @@ class TestCase extends React.Component{
         TestCaseStore.addEventListener(this.storeChangeHandler);
 
         if(this.state.id) {
-            this.getTestCaseData(this.state.id);
+            this.initializeTestCaseData(this.state.id);
         }
 
         var component = React.findDOMNode(this);
@@ -51,8 +51,11 @@ class TestCase extends React.Component{
         this.setState({id});
     }
 
-    getTestCaseData (id){
-        ViewActionCreators.getTestCaseData(id);
+    initializeTestCaseData (id){
+        setTimeout(() => {
+            ViewActionCreators.getTestCaseData(id);
+        }, 1); //FIXME: setTimeout is be
+
     }
 
     render(){

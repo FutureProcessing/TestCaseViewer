@@ -32,7 +32,7 @@ var loginApi = {
     identify(){
         return api.get('auth/identity').then((data) => {
             if(data.isAuthenticated){
-                ApiActionCreators.Identified(data.userName, data.displayName);
+                ApiActionCreators.identified(data.userName, data.displayName);
             } else {
                 ApiActionCreators.identifyFailed(new AjaxError());
             }

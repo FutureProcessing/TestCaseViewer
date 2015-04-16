@@ -4,46 +4,42 @@ import ApiActionCreators from '../actions/apiActionCreators.js';
 import ToastTypes from '../constants/toastTypes.js';
 
 import objectAssign from 'object-assign';
+
 class Api {
     static get(xhttpParams, customErrors){
         return makeRequest('get', xhttpParams, customErrors);
-        }
+    }
 
     static post(xhttpParams, customErrors){
         return makeRequest('post', xhttpParams, customErrors);
     }
-    }
+}
 
 function makeRequest(method, xhttpParams, customErrors){
-        var params;
-        if(typeof xhttpParams === 'string'){
-            params = {
+    var params;
+    if(typeof xhttpParams === 'string'){
+        params = {
             method: method,
-                url: composeAbsoluteUrl(xhttpParams)
-            };
+            url: composeAbsoluteUrl(xhttpParams)//,
+            // timeout: 20000
+        };
     } else {
-            xhttpParams.url = composeAbsoluteUrl(xhttpParams.url);
-            params = objectAssign({
-            method: method,
-            }, xhttpParams);
-        }
-
-        return new Promise((resolve, reject) => {
-            xhttp(params).then((data) => {
-                resolve(data);
-            }).catch(({data, xhr}) => {
-                var error = new AjaxError(data.message || data.error, xhr);
-                reject(error);
-            if(!customErrors) ApiActionCreators.addToast("FAIL", error.getMessage(), ToastTypes.ERROR);
-            });
-        });
+        xhttpParams.url = composeAbsoluteUrl(xhttpParams.url);
+        params = objectAssign({
+            method: method//,
+            // timeout: 20000
+        }, xhttpParams);
     }
 
-function handleError({data, xhr}){
-    var error = new AjaxError(data.message || data.error, xhr);
-
-    reject(error);
-    ApiActionCreators.addToast("FAIL", error.mgetMessage(), ToastTypes.ERROR);
+    return new Promise((resolve, reject) => {
+        xhttp(params).then((data) => {
+            resolve(data);
+        }).catch(({data, xhr}) => {
+            var error = new AjaxError(data.message || data.error, xhr);
+            reject(error);
+            if(!customErrors) ApiActionCreators.addToast("FAIL", error.getMessage(), ToastTypes.ERROR);
+        });
+    });
 }
 
 function composeAbsoluteUrl(url){

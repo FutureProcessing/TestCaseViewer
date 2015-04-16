@@ -17,7 +17,7 @@ var ApiActionCreators = {
         });
     },
 
-    Identified: function(username, displayName){
+    identified: function(username, displayName){
         AppDispatcher.handleApiAction({
             type: ActionTypes.IDENTIFY_SUCCESS,
             username: username,

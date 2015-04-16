@@ -14,7 +14,7 @@ class TestCaseViewer extends React.Component {
         this.storeChangeHandler = this.handleStoreChange.bind(this);
     }
 
-    componentDidMount(){ 
+    componentDidMount(){
         UserStore.addEventListener(this.storeChangeHandler);
 
         var isLoggedIn = UserStore.getData().isLoggedIn;
@@ -29,8 +29,9 @@ class TestCaseViewer extends React.Component {
 
     handleStoreChange(){
         var isLoggedIn = UserStore.getData().isLoggedIn;
-        if(!this.state.isLoggedIn && isLoggedIn)
+        if(!this.state.isLoggedIn && isLoggedIn){
             this.setState({isLoggedIn});
+        }
     }
 
     handleLogOffClick(){
@@ -38,6 +39,7 @@ class TestCaseViewer extends React.Component {
     }
 
     render(){
+        // var loadingPage = !this.state.isLoggedIn? <LoadingPage /> : null;
         if(this.state.isLoggedIn){
             return (
                 <div className="test-case-viewer">

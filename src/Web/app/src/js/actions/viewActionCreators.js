@@ -20,7 +20,7 @@ var ViewActionCreators = {
             });
 
             logInApi.identify().then((data) => {
-                if(!data.isAuthenticated){
+                if(data && !data.isAuthenticated){
                     RouterContainer.get().transitionTo('/login');
                 }
             }).catch(err => {
@@ -54,7 +54,6 @@ var ViewActionCreators = {
 
         testCaseApi.acceptTestCase(id).then(() => {
             ViewActionCreators.getTestCaseData(id);
-            //TODO: Refresh testcase list
         });
     },
 
