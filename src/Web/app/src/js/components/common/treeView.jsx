@@ -9,30 +9,39 @@ class TreeView extends React.Component{
         var children = this.props.parentNode.children || [];
         var nodes = children.map(node => {
             var element;
-            if(node.type === 'folder'){
-                var classes = classNames('folder-name', {
-                    'empty': node.children.length === 0
-                });
+            var value = '';
+            var text = '';
+
+            if(this.props.isNode(node)){
                 element = (
                     <li>
                         <Toggle
                             open={this.props.open}
-                            header={<span className={classes} > <Icon icon="arrow-down" className="folder-icon"/> {node.name} </span>} >
+                            header={(
+                                <span className={this.classesForNode(node)} >
+                                    <Icon icon="arrow-down" className="folder-icon"/>
+                                    {this.props.text(node)}
+                                </span>
+                            )}>
                             <TreeView
                                 onLeafClick={this.props.onLeafClick}
                                 parentNode={node}
                                 selectedNode={this.props.selectedNode}
-                                open={this.props.open}/>
+                                open={this.props.open}
+                                value={this.props.value}
+                                text={this.props.text}
+                                children={this.props.children}
+                                isNode={this.props.isNode}/>
                         </Toggle>
                     </li>
                 );
 
             }else{
-                var classes = classNames('leaf', {
-                    'active': this.props.selectedNode === node.path
-                });
                 element = (
-                    <li className={classes} onClick={this.props.onLeafClick.bind(this, node.path, node.name)}>{node.name}</li>
+                    <li className={this.classesForLeaf(node)}
+                        onClick={this.props.onLeafClick.bind(this, this.props.value(node), this.props.text(node))}>
+                        {this.props.text(node)}
+                    </li>
                 );
             }
 
@@ -45,13 +54,29 @@ class TreeView extends React.Component{
             </ul>
         );
     }
+
+    classesForNode(node){
+        return classNames('folder-name', {
+            'empty': this.props.children(node).length === 0
+        });
+    }
+
+    classesForLeaf(node){
+        return classNames('leaf', {
+            'active': this.props.selectedNode === this.props.text(node)
+        });
+    }
 }
 
 TreeView.propTypes = {
     parentNode: React.PropTypes.object,
     onLeafClick: React.PropTypes.func,
     selectedNode: React.PropTypes.string,
-    open: React.PropTypes.bool
+    open: React.PropTypes.bool,
+    value: React.PropTypes.func,
+    text: React.PropTypes.func,
+    children :React.PropTypes.func,
+    isNode: React.PropTypes.func,
 };
 
 export default TreeView;

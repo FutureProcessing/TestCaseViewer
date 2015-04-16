@@ -69,7 +69,13 @@ class LeftMenu extends React.Component{
                         parentNode={this.state.queriesParentNode}
                         onLeafClick={this.handleQueryClick.bind(this)}
                         selectedNode={this.state.selectedQueryPath}
-                        open={true}/>
+                        open={true}
+                        test={'lll'}
+                        value={x => x.path}
+                        text={x => x.name}
+                        children={x => x.children}
+                        isNode={x=>x.type === 'folder'}
+                        />
                 </LeftMenuExtension>
             </div>
         );
