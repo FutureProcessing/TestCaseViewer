@@ -77,7 +77,7 @@ class LeftMenu extends React.Component{
 
     initializeTestCases (){
         setTimeout(() => {
-            ViewActionCreators.getTestCases('Development/Shared Queries/Current Sprint/Test Cases', 'Default');
+            ViewActionCreators.getDefaultTestCases();
         },1); //FIXME: it is just wrong
     }
 

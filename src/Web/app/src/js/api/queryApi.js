@@ -7,7 +7,19 @@ import api from './api.js';
 var queryApi = {
     getTestCases(path){
         return api.get(`query/list/${encodeURIComponent(path)}`).then((data) => {
-            ApiActionCreators.recievedTestCases(mapTestCases(data));
+            ApiActionCreators.recievedTestCases(mapTestCases(data), path);
+        }).catch(error => {
+            ApiActionCreators.getTestCasesFailed(error);
+        });
+    },
+
+    getDefaultTestCases(){
+        var path;
+        return api.get(`config`).then((data) => {
+            path = data.defaultQuery;
+            return api.get(`query/list/${encodeURIComponent(path)}`)
+        }).then((data) => {
+            ApiActionCreators.recievedTestCases(mapTestCases(data), path);
         }).catch(error => {
             ApiActionCreators.getTestCasesFailed(error);
         });

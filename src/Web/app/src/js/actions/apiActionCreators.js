@@ -92,10 +92,11 @@ var ApiActionCreators = {
         });
     },
 
-    recievedTestCases: function(data){
+    recievedTestCases: function(data, path){
         AppDispatcher.handleApiAction({
             type: ActionTypes.GET_TEST_CASES_SUCCESS,
-            testCases: data
+            testCases: data,
+            path: path
         });
     },
 

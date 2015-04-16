@@ -57,9 +57,12 @@ class QueryStore extends EventEmitter{
         this.state.inProgress = false;
     }
 
-    handleRecievedTestCases(testCases){
+    handleRecievedTestCases(testCases, path){
         this.state.inProgress = false;
         this.state.testCases = testCases;
+        var splittedPath = path.split('/');
+        this.state.selectedQueryName  = this.state.selectedQueryName || splittedPath[splittedPath.length -1];
+        this.state.selectedQueryPath  = this.state.selectedQueryName || path;
     }
 
     handleGetQueries(){
@@ -95,7 +98,7 @@ function register(payload){
             this.emitChange();
             break;
         case actionTypes.GET_TEST_CASES_SUCCESS:
-            this.handleRecievedTestCases(action.testCases);
+            this.handleRecievedTestCases(action.testCases, action.path);
             this.emitChange();
             break;
         case actionTypes.GET_TEST_CASES_FAIL:

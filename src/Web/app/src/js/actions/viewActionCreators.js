@@ -77,6 +77,13 @@ var ViewActionCreators = {
         queryApi.getTestCases(path);
     },
 
+    getDefaultTestCases: function(){
+        AppDispatcher.handleViewAction({
+            type: ActionTypes.GET_TEST_CASES
+        });
+        queryApi.getDefaultTestCases();
+    },
+
     getQueries: function(){
         AppDispatcher.handleViewAction({
             type: ActionTypes.GET_QUERIES
