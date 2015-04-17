@@ -10,16 +10,16 @@ class ScrollArea extends React.Component{
             scrollable: false
         };
 
-        this.setHeights = this.setHeightsToState.bind(this);
+        this.bindedHandleWindowResize = this.handleWindowResize.bind(this);
     }
 
     componentDidMount(){
-        window.addEventListener("resize", this.setHeights);
+        window.addEventListener("resize", this.bindedHandleWindowResize);
         this.setHeightsToState();
     }
 
     componentWillUnmount(){
-        window.removeEventListener("resize", this.setHeights);
+        window.removeEventListener("resize", this.bindedHandleWindowResize);
     }
 
     componentWillReceiveProps(newProps){
@@ -51,21 +51,20 @@ class ScrollArea extends React.Component{
     }
 
     handleMove(deltaY){
-        var heights = this.computeHeights();
-        this.setState(heights);
-        if(heights.scrollable){
-            var newTopPosition = this.computeTopPosition(deltaY);
-            this.setState({topPosition: newTopPosition});
+        var newState = this.computeHeights();
+        if(newState.scrollable){
+            newState.topPosition = this.computeTopPosition(deltaY)
         }
+        this.setState(newState);
     }
 
     handleWheel(x){
-        var heights = this.computeHeights();
-        this.setState(heights);
-        if(heights.scrollable){
-            var newTopPosition = this.computeTopPosition(-x.deltaY);
-            this.setState({topPosition: newTopPosition});
+        var newState = this.computeHeights();
+        var deltaY = x.deltaY * this.props.speed;
+        if(newState.scrollable){
+            newState.topPosition = this.computeTopPosition(-deltaY);
         }
+        this.setState(newState);
     }
 
     computeTopPosition(deltaY){
@@ -79,19 +78,39 @@ class ScrollArea extends React.Component{
         return newTopPosition;
     }
 
+    handleWindowResize(){
+        var newState = this.computeHeights();
+        var bottomPosition = newState.realHeight - newState.containerHeight;
+        if(-this.state.topPosition >= bottomPosition){
+            newState.topPosition = newState.scrollable? -bottomPosition: 0;
+        }
+
+        this.setState(newState);
+    }
+
     computeHeights(){
-        var content = React.findDOMNode(this.refs.content);
-        var container = React.findDOMNode(this);
+        var realHeight = React.findDOMNode(this.refs.content).offsetHeight;
+        var containerHeight = React.findDOMNode(this).offsetHeight;
+        var scrollable = realHeight > containerHeight;
+
         return {
-            realHeight: content.offsetHeight,
-            containerHeight: container.offsetHeight,
-            scrollable: content.offsetHeight > container.offsetHeight
+            realHeight: realHeight,
+            containerHeight: containerHeight,
+            scrollable: scrollable
         };
     }
 
     setHeightsToState(){
         var heights = this.computeHeights();
         this.setState(heights);
+    }
+
+    scrollTop(){
+        this.setState({topPosition: 0});
+    }
+
+    scrollBottom(){
+        this.setState({topPosition: -(this.state.realHeight - this.state.containerHeight)});
     }
 }
 

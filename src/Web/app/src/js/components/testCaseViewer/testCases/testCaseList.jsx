@@ -7,15 +7,6 @@ import StatusIcon from '../../common/statusIcon.jsx';
 import ScrollArea from '../../common/scrollArea/scrollArea.jsx';
 
 class TestCaseList extends React.Component{
-    componentDidMount(){
-        var component = React.findDOMNode(this);
-        // perfectScrollbar.initialize(component, {
-        //     wheelSpeed: 1,
-        //     wheelPropagation: true,
-        //     minScrollbarLength: 20
-        // });
-    };
-
     render(){
         var activeTestCaseId = this.props.activeTestCaseId;
         var testCases = this.props.testCases.map((testCase) => {
@@ -41,7 +32,7 @@ class TestCaseList extends React.Component{
         );
 
         return (
-            <ScrollArea className="test-case-list">
+            <ScrollArea className="test-case-list"  speed={0.5}>
                 {content}
             </ScrollArea>
         );

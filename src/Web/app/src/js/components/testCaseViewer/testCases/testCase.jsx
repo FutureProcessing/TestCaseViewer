@@ -31,13 +31,6 @@ class TestCase extends React.Component{
         if(this.state.id) {
             this.initializeTestCaseData(this.state.id);
         }
-
-        //var component = React.findDOMNode(this);
-        // perfectScrollbar.initialize(component, {
-        //     wheelSpeed: 1,
-        //     wheelPropagation: true,
-        //     minScrollbarLength: 20
-        // });
     }
 
     componentWillUnmount(){
@@ -60,7 +53,7 @@ class TestCase extends React.Component{
 
     render(){
         var content = this.state.inProgress? <Swirl className="test-case-swirl"/>: (
-            <ScrollArea className="test-case">
+            <ScrollArea className="test-case"  speed={0.5}>
                 <TestCaseInfo
                     title={this.state.title}
                     createdBy={this.state.createdBy}
