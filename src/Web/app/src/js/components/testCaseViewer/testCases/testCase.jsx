@@ -2,13 +2,14 @@ import React from 'react';
 import TestCaseStore from '../../../stores/testCaseStore.js';
 import RouterContainer from '../../../routerContainer.js';
 import ViewActionCreators from '../../../actions/viewActionCreators.js';
-import perfectScrollbar from 'perfect-scrollbar';
+// import perfectScrollbar from 'perfect-scrollbar';
 
 import Swirl from '../../common/swirl.jsx';
 import StepsTable from './stepsTable.jsx';
 import TestCaseInfo from './testCaseInfo.jsx';
 import ProgressButton from '../../common/progressButton.jsx';
 import ButtonGroup from '../../common/buttonGroup.jsx';
+import ScrollArea from '../../common/scrollArea/scrollArea.jsx';
 
 
 class TestCase extends React.Component{
@@ -31,12 +32,12 @@ class TestCase extends React.Component{
             this.initializeTestCaseData(this.state.id);
         }
 
-        var component = React.findDOMNode(this);
-        perfectScrollbar.initialize(component, {
-            wheelSpeed: 1,
-            wheelPropagation: true,
-            minScrollbarLength: 20
-        });
+        //var component = React.findDOMNode(this);
+        // perfectScrollbar.initialize(component, {
+        //     wheelSpeed: 1,
+        //     wheelPropagation: true,
+        //     minScrollbarLength: 20
+        // });
     }
 
     componentWillUnmount(){
@@ -59,7 +60,7 @@ class TestCase extends React.Component{
 
     render(){
         var content = this.state.inProgress? <Swirl className="test-case-swirl"/>: (
-            <div className="test-case">
+            <ScrollArea className="test-case">
                 <TestCaseInfo
                     title={this.state.title}
                     createdBy={this.state.createdBy}
@@ -82,7 +83,7 @@ class TestCase extends React.Component{
                         Reject
                     </ProgressButton>
                 </ButtonGroup>
-            </div>
+            </ScrollArea>
         );
 
         return (

@@ -1,18 +1,19 @@
 import React from 'react';
 import classNames from 'classnames';
-import perfectScrollbar from 'perfect-scrollbar';
+// import perfectScrollbar from 'perfect-scrollbar';
 
 import Swirl from '../../common/swirl.jsx';
 import StatusIcon from '../../common/statusIcon.jsx';
+import ScrollArea from '../../common/scrollArea/scrollArea.jsx';
 
 class TestCaseList extends React.Component{
     componentDidMount(){
         var component = React.findDOMNode(this);
-        perfectScrollbar.initialize(component, {
-            wheelSpeed: 1,
-            wheelPropagation: true,
-            minScrollbarLength: 20
-        });
+        // perfectScrollbar.initialize(component, {
+        //     wheelSpeed: 1,
+        //     wheelPropagation: true,
+        //     minScrollbarLength: 20
+        // });
     };
 
     render(){
@@ -21,7 +22,7 @@ class TestCaseList extends React.Component{
             var classes = classNames('left-menu-item', {
                 'active': testCase.id == activeTestCaseId
             });
-            
+
             return (
                 <li key={testCase.id}
                     className={classes}
@@ -40,9 +41,9 @@ class TestCaseList extends React.Component{
         );
 
         return (
-            <div className="test-case-list">
+            <ScrollArea className="test-case-list">
                 {content}
-            </div>
+            </ScrollArea>
         );
     }
 }

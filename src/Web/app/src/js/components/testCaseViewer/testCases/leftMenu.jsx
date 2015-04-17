@@ -107,12 +107,6 @@ class LeftMenu extends React.Component{
             selectedQueryName: data.selectedQueryName,
             selectedQueryPath: data.selectedQueryPath
         });
-
-        if(data.outOfDate){
-            console.log('out of date');
-            ViewActionCreators.getTestCases('Development/Shared Queries/Current Sprint/Test Cases', 'Default');
-            console.log('out of date 2');
-        }
     }
 
     handleTestCaseClick(id){
@@ -124,9 +118,7 @@ class LeftMenu extends React.Component{
     }
 
     handleInputChange(e){
-        console.log(Number(e.target.value));
         if(!isNaN(Number(e.target.value))){
-            console.log("HMM");
             this.setState({testCaseId: e.target.value});
         }
     }
