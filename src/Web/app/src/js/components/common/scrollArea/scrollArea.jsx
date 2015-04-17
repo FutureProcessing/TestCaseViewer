@@ -119,4 +119,8 @@ ScrollArea.propTypes = {
     speed: React.PropTypes.number
 };
 
+ScrollArea.defaultProps = {
+    speed: 1
+};
+
 export default ScrollArea;

@@ -7,11 +7,7 @@ class QueryButton extends React.Component{
         var classes = classNames('query-button', this.props.className, {
             'active': this.props.isActive
         });
-
-        if(this.props.inProgress || !this.props.value){
-            return null;
-        }
-
+        
         return(
             <div
                 className={classes}>
