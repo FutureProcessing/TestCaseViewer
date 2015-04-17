@@ -1,5 +1,4 @@
 import React from 'react';
-// import perfectScrollbar from 'perfect-scrollbar';
 import ScrollArea from '../../common/scrollArea/scrollArea.jsx';
 
 class LeftMenuExtensionContent extends React.Component{

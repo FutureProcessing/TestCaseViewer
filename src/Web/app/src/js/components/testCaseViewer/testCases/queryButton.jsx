@@ -8,6 +8,10 @@ class QueryButton extends React.Component{
             'active': this.props.isActive
         });
 
+        if(this.props.inProgress || !this.props.value){
+            return null;
+        }
+
         return(
             <div
                 className={classes}>
@@ -28,7 +32,8 @@ QueryButton.propTypes = {
     isActive: React.PropTypes.bool,
     className: React.PropTypes.string,
     value: React.PropTypes.string,
-    onClick: React.PropTypes.func
+    onClick: React.PropTypes.func,
+    inProgress: React.PropTypes.bool
 }
 
 export default QueryButton;

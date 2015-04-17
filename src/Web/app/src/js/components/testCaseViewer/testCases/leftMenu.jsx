@@ -16,7 +16,7 @@ class LeftMenu extends React.Component{
         super(props);
         this.state = {
             testCaseId: context.router.getCurrentParams().id || '',
-            getTestCasesInProgress: false,
+            getTestCasesInProgress: true,
             inProgress: false,
             isExtensionOpen: false,
             testCases: [],
@@ -56,7 +56,8 @@ class LeftMenu extends React.Component{
                 <QueryButton
                     onClick={this.handleChooseQueryClick.bind(this)}
                     value={this.state.selectedQueryName}
-                    isActive={this.state.isExtensionOpen} />
+                    isActive={this.state.isExtensionOpen}
+                    inProgress={this.state.getTestCasesInProgress}/>
 
                 <TestCaseList
                     testCases={this.state.testCases}

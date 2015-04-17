@@ -2,7 +2,6 @@ import React from 'react';
 import TestCaseStore from '../../../stores/testCaseStore.js';
 import RouterContainer from '../../../routerContainer.js';
 import ViewActionCreators from '../../../actions/viewActionCreators.js';
-// import perfectScrollbar from 'perfect-scrollbar';
 
 import Swirl from '../../common/swirl.jsx';
 import StepsTable from './stepsTable.jsx';

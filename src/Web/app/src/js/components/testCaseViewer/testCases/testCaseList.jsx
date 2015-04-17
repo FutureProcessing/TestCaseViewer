@@ -1,6 +1,5 @@
 import React from 'react';
 import classNames from 'classnames';
-// import perfectScrollbar from 'perfect-scrollbar';
 
 import Swirl from '../../common/swirl.jsx';
 import StatusIcon from '../../common/statusIcon.jsx';
@@ -32,7 +31,7 @@ class TestCaseList extends React.Component{
         );
 
         return (
-            <ScrollArea className="test-case-list"  speed={0.5}>
+            <ScrollArea className="test-case-list" speed={0.5}>
                 {content}
             </ScrollArea>
         );
