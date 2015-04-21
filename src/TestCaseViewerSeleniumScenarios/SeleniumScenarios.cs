@@ -31,7 +31,7 @@ namespace TestCaseViewerSeleniumScenarios
         {
             string login = "Koizee";
             string password = "Dupa1234";
-            var wait = new WebDriverWait(MyDriver.Driver, TimeSpan.FromSeconds(5));
+            var wait = new WebDriverWait(MyDriver.Driver, TimeSpan.FromSeconds(10));
             try
             {
                 LoginPage.LoginWithCredentials(login, password);
@@ -67,7 +67,7 @@ namespace TestCaseViewerSeleniumScenarios
         {
             string login = "Koizee";
             string password = "MileHaslo";
-            var wait = new WebDriverWait(MyDriver.Driver, TimeSpan.FromSeconds(5));
+            var wait = new WebDriverWait(MyDriver.Driver, TimeSpan.FromSeconds(10));
             try
             {
                 LoginPage.LoginWithCredentials(login, password);
@@ -90,7 +90,7 @@ namespace TestCaseViewerSeleniumScenarios
         {
             string login = "Koizee";
             string password = "Dupa1234";
-            var wait = new WebDriverWait(MyDriver.Driver, TimeSpan.FromSeconds(5));
+            var wait = new WebDriverWait(MyDriver.Driver, TimeSpan.FromSeconds(10));
             try
             {
                 LoginPage.LoginWithCredentials(login, password);
