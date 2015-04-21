@@ -34,7 +34,7 @@ namespace TestCaseViewerSeleniumScenarios
             var wait = new WebDriverWait(MyDriver.Driver, TimeSpan.FromSeconds(10));
             try
             {
-                LoginPage.LoginWithCredentials(login, password);
+                LoginPage.LoginWithCredentials(LoginCredentials.UserName, LoginCredentials.Password);
                 // waiting for loading Main Page
                 wait.Until(browser => browser.FindElement(By.CssSelector(MainPage.LogOutButtonCss)));
                 Assert.AreEqual(MainPage.MainPageUrl, MyDriver.Driver.Url, "Main page url is incorrect.");
@@ -70,7 +70,7 @@ namespace TestCaseViewerSeleniumScenarios
             var wait = new WebDriverWait(MyDriver.Driver, TimeSpan.FromSeconds(10));
             try
             {
-                LoginPage.LoginWithCredentials(login, password);
+                LoginPage.LoginWithCredentials(LoginCredentials.UserName, LoginCredentials.IncorrectPassword);
                 // waiting for loading Main Page
                 wait.Until(browser => browser.FindElement(By.XPath("//div[@class='login-error']")));
                 Assert.AreEqual(LoginPage.LoginPageUrl, MyDriver.Driver.Url, "Login page url is incorrect.");
@@ -93,7 +93,7 @@ namespace TestCaseViewerSeleniumScenarios
             var wait = new WebDriverWait(MyDriver.Driver, TimeSpan.FromSeconds(10));
             try
             {
-                LoginPage.LoginWithCredentials(login, password);
+                LoginPage.LoginWithCredentials(LoginCredentials.UserName, LoginCredentials.Password);
                 // waiting for loading Main Page
                 wait.Until(browser => browser.FindElement(By.CssSelector(MainPage.LogOutButtonCss)));
                 Assert.AreEqual(MainPage.MainPageUrl, MyDriver.Driver.Url, "Main page url is incorrect.");

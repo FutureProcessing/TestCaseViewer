@@ -62,6 +62,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="AppUrls.cs" />
+    <Compile Include="LoginCredentials.cs" />
     <Compile Include="LoginPage.cs" />
     <Compile Include="MainPage.cs" />
     <Compile Include="MyDriver.cs" />
