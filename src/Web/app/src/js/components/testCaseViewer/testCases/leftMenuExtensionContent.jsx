@@ -1,5 +1,7 @@
 import React from 'react';
-import ScrollArea from '../../common/scrollArea/scrollArea.jsx';
+import ScrollArea from 'react-scrollbar';
+
+var scrollAreaCss = require('style!css!react-scrollbar/dist/css/scrollbar.css');
 
 class LeftMenuExtensionContent extends React.Component{
     render(){

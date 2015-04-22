@@ -8,8 +8,9 @@ import StepsTable from './stepsTable.jsx';
 import TestCaseInfo from './testCaseInfo.jsx';
 import ProgressButton from '../../common/progressButton.jsx';
 import ButtonGroup from '../../common/buttonGroup.jsx';
-import ScrollArea from '../../common/scrollArea/scrollArea.jsx';
+import ScrollArea from 'react-scrollbar';
 
+var scrollAreaCss = require('style!css!react-scrollbar/dist/css/scrollbar.css');
 
 class TestCase extends React.Component{
     constructor(props, context){

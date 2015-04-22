@@ -3,7 +3,9 @@ import classNames from 'classnames';
 
 import Swirl from '../../common/swirl.jsx';
 import StatusIcon from '../../common/statusIcon.jsx';
-import ScrollArea from '../../common/scrollArea/scrollArea.jsx';
+import ScrollArea from 'react-scrollbar';
+
+var scrollAreaCss = require('style!css!react-scrollbar/dist/css/scrollbar.css');
 
 class TestCaseList extends React.Component{
     render(){
