@@ -11,7 +11,7 @@ namespace Tfs.Matching
     {
         public IDictionary<string, FieldSpec> Fields { get; set; }
 
-        public bool IsMatching(WorkItem workItem)
+        public bool IsMatching(Revision workItem)
         {
             foreach (var fieldSpec in this.Fields)
             {
