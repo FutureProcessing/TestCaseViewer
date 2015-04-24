@@ -24,7 +24,12 @@ namespace Web.Modules.TestCases
             Post["testcase/{id}/reject"] = _ =>
             {
                 testCases.Reject(_.id); return Ok;
-            };           
+            };
+
+            Get["testcase/{id}/resolve"] = _ =>
+            {
+                return testCases.Dupa(_.id);
+            };
         }
     }
 }

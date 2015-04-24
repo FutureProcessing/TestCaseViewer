@@ -74,7 +74,7 @@ namespace Tfs
             var query = new Query(store, queryDef.QueryText, context);            
 
             var workItems = query.RunQuery();
-
+            
             var q = from WorkItem workItem in workItems
                     where options.LimitToTypes.Contains(workItem.Type.Name)
                     select BuildResultItem(workItem, query.DisplayFieldList, options.AdditionalFields);
@@ -82,7 +82,7 @@ namespace Tfs
             return q.ToList();
         }
 
-        private IDictionary<string, object> BuildResultItem(WorkItem workItem, DisplayFieldList displayFieldList, Dictionary<string, Func<WorkItem, object>> additionalFields)
+        private IDictionary<string, object> BuildResultItem(WorkItem workItem, DisplayFieldList displayFieldList, Dictionary<string, Func<Revision, object>> additionalFields)
         {
             var dict = new Dictionary<string, object>();
 
@@ -96,7 +96,7 @@ namespace Tfs
 
             foreach (var additionalField in additionalFields)
             {
-                dict[additionalField.Key] = additionalField.Value(workItem);
+                dict[additionalField.Key] = additionalField.Value(workItem.LastRevision());
             }
 
             return dict;
@@ -106,6 +106,6 @@ namespace Tfs
     public class QueryOptions
     {
         public string[] LimitToTypes { get; set; }
-        public Dictionary<string, Func<WorkItem, object>> AdditionalFields { get; set; }
+        public Dictionary<string, Func<Revision, object>> AdditionalFields { get; set; }
     }
 }

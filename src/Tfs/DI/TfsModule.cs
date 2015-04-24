@@ -1,4 +1,6 @@
 ﻿using Microsoft.TeamFoundation.WorkItemTracking.Client;
+using Tfs.Model;
+using Tfs.TransitionSpecs;
 
 namespace Tfs.DI
 {
@@ -15,7 +17,10 @@ namespace Tfs.DI
             builder.RegisterType<ProfileService>().AsSelf();
             builder.RegisterType<TestCaseService>().AsSelf();
             builder.RegisterType<QueriesService>().AsSelf();
-            
+
+            builder.RegisterType<EvaluationContext>().AsSelf();
+            builder.RegisterType<WorkItemTransition>().AsSelf();
+
             RegisterTfsService<IIdentityManagementService2>(builder);
             RegisterTfsService<ITestManagementService2>(builder);
             RegisterTfsService<WorkItemStore>(builder);

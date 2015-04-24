@@ -5,25 +5,25 @@
         "defaultQuery":  "Development/Shared Queries/Current Sprint/Test Cases",
         "transitions": {
         "accept": {
-            "State": "Ready",
-            "Assigned To": null
+                "State": "'Ready'",
+                "Assigned To": "null"
         },
         "reject": {
-            "State": "Design",
-            "Assigned To": "@Previous"
-            }
+                "State": "'Design'",
+                "Assigned To": "@Changed By(#Status:'Design'->'WaitingForApproval')"
+        }
         },
         "status": {
             "design": {
                 "State": "Design",
-                "Assigned To":  ["Person1", "Łukasz Kojzar"]
+                "Assigned To": [ "Person1", "Łukasz Kojzar" ]
             },
             "waitingForApproval": {
                 "State": "Design",
-                "Assigned To":  ["Maciej Nowak", "Jakub Kłobus"]
+                "Assigned To": [ "Maciej Nowak", "Jakub Kłobus" ]
             },
             "ready": { 
-                "State": "Ready"
+                "State": [ "Ready", "Closed" ]
             }
         }
     }
