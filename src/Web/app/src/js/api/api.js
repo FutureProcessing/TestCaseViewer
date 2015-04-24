@@ -20,14 +20,14 @@ function makeRequest(method, xhttpParams, customErrors){
     if(typeof xhttpParams === 'string'){
         params = {
             method: method,
-            url: composeAbsoluteUrl(xhttpParams)//,
-            // timeout: 20000
+            url: composeAbsoluteUrl(xhttpParams),
+            timeout: 30000
         };
     } else {
         xhttpParams.url = composeAbsoluteUrl(xhttpParams.url);
         params = objectAssign({
-            method: method//,
-            // timeout: 20000
+            method: method,
+            timeout: 30000
         }, xhttpParams);
     }
 

@@ -18,6 +18,15 @@ namespace Web.Modules.Queries
                     {"Status", testCases.DetermineStatus}
                 }
             });
+
+            Get["query/link/{path*}"] = _ => queries.ExecuteLinkQuery(_.path, new QueryOptions()
+            {
+                LimitToTypes = testCases.TestCaseTypeNames(),
+                AdditionalFields = new Dictionary<string, Func<WorkItem, object>>
+                {
+                    {"Status", testCases.DetermineStatus}
+                }
+            });
         }
     }
 }

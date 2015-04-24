@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Sockets;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using Common;
 using Microsoft.TeamFoundation.WorkItemTracking.Client;
 
@@ -71,13 +73,39 @@ namespace Tfs
                 {"project", this.config.ProjectName}
             };
             
-            var query = new Query(store, queryDef.QueryText, context);            
+            var query = new Query(store, queryDef.QueryText, context);
 
             var workItems = query.RunQuery();
 
             var q = from WorkItem workItem in workItems
                     where options.LimitToTypes.Contains(workItem.Type.Name)
                     select BuildResultItem(workItem, query.DisplayFieldList, options.AdditionalFields);
+            return q.ToList();
+        }
+
+        public IEnumerable<QueryGroup> ExecuteLinkQuery(string queryPath, QueryOptions options)
+        {
+            var store = this.storeFactory();
+
+            var queryDef = (QueryDefinition)store.Projects[this.config.ProjectName].QueryHierarchy.ByPath(queryPath);
+
+            var context = new Dictionary<string, object>()
+            {
+                {"project", this.config.ProjectName}
+            };
+            
+            var query = new Query(store, queryDef.QueryText, context);
+
+            var workItems = query.RunLinkQuery();
+
+            var q = from item in workItems
+                where item.SourceId != 0
+                let parent = store.GetWorkItem(item.TargetId)
+                    group BuildResultItem(parent, query.DisplayFieldList, options.AdditionalFields)
+                    by item.SourceId
+                    into g
+                let groupName = store.GetWorkItem(g.Key).Title
+                select new QueryGroup(){Id = g.Key, Name = groupName, WorkItems = g.ToList()};
 
             return q.ToList();
         }
@@ -101,6 +129,14 @@ namespace Tfs
 
             return dict;
         }
+
+    }
+
+    public class QueryGroup
+    {
+        public IList<IDictionary<string, object>> WorkItems { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
     }
 
     public class QueryOptions
