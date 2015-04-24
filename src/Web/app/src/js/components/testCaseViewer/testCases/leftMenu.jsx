@@ -3,12 +3,17 @@ import ActionInput from '../../common/actionInput.jsx';
 import TestCaseStore from '../../../stores/testCaseStore.js';
 import QueryStore from '../../../stores/queryStore.js';
 import ViewActionCreators from '../../../actions/viewActionCreators.js';
+import QueryTypes from '../../../constants/queryTypes.js';
 
 import TestCaseList from './testCaseList.jsx';
+import OneHopTestCaseList from './oneHopTestCaseList.jsx';
 import ProgressButton from '../../common/progressButton.jsx';
 import LeftMenuExtension from './leftMenuExtenstion.jsx';
 import TreeView from '../../common/treeView.jsx';
 import QueryButton from './queryButton.jsx';
+import ScrollArea from 'react-scrollbar';
+
+var scrollAreaCss = require('style!css!react-scrollbar/dist/css/scrollbar.css');
 
 class LeftMenu extends React.Component{
     constructor(props, context){
@@ -42,6 +47,8 @@ class LeftMenu extends React.Component{
     }
 
     render(){
+        var TestCaseListHandler = this.state.selectedQueryType === QueryTypes.ONE_HOP? OneHopTestCaseList : TestCaseList;
+        
         return (
             <div className="left-menu">
                 <ActionInput
@@ -58,11 +65,13 @@ class LeftMenu extends React.Component{
                     isActive={this.state.isExtensionOpen}
                     inProgress={this.state.getTestCasesInProgress}/>
 
-                <TestCaseList
-                    testCases={this.state.testCases}
-                    inProgress={this.state.getTestCasesInProgress}
-                    activeTestCaseId={this.state.testCaseId}
-                    onTestCaseClick={this.handleTestCaseClick.bind(this)}/>
+                <ScrollArea className="test-case-list" speed={0.5}>
+                    <TestCaseListHandler
+                        testCases={this.state.testCases}
+                        inProgress={this.state.getTestCasesInProgress}
+                        activeTestCaseId={this.state.testCaseId}
+                        onTestCaseClick={this.handleTestCaseClick.bind(this)}/>
+                </ScrollArea>
 
                 <LeftMenuExtension isOpen={this.state.isExtensionOpen}>
                     <TreeView
@@ -70,11 +79,13 @@ class LeftMenu extends React.Component{
                         onLeafClick={this.handleQueryClick.bind(this)}
                         selectedNode={this.state.selectedQueryPath}
                         open={true}
-                        test={'lll'}
-                        value={x => x.path}
+                        value={x => {
+                            return {path : x.path, type : x.queryType};
+                            }}
                         text={x => x.name}
                         children={x => x.children}
-                        isNode={x=>x.type === 'folder'}
+                        isNode={x => x.type === 'folder'}
+                        isLeafDisabled={ x => x.queryType !== QueryTypes.LIST && x.queryType !== QueryTypes.ONE_HOP}
                         />
                 </LeftMenuExtension>
             </div>
@@ -105,7 +116,8 @@ class LeftMenu extends React.Component{
             testCases: data.testCases,
             queriesParentNode: data.queriesParentNode,
             selectedQueryName: data.selectedQueryName,
-            selectedQueryPath: data.selectedQueryPath
+            selectedQueryPath: data.selectedQueryPath,
+            selectedQueryType: data.selectedQueryType
         });
     }
 
@@ -127,9 +139,9 @@ class LeftMenu extends React.Component{
         this.setState({isExtensionOpen: !this.state.isExtensionOpen});
     }
 
-    handleQueryClick(path, name){
+    handleQueryClick(value, name){
         this.setState({isExtensionOpen: false});
-        ViewActionCreators.getTestCases(path, name);
+        ViewActionCreators.getTestCases(value.path, name, value.type);
     }
 }
 

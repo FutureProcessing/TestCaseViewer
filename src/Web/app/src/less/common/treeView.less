@@ -44,5 +44,14 @@ ul.tree-view{
         &.active{
             border: solid 1px @CBase;
         }
+
+        &.disabled{
+            color: gray;
+            cursor: not-allowed;;
+
+            &:hover {
+                border-color: transparent;
+            }
+        }
     }
 }

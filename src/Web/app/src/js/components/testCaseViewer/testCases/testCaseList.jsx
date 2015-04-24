@@ -3,9 +3,7 @@ import classNames from 'classnames';
 
 import Swirl from '../../common/swirl.jsx';
 import StatusIcon from '../../common/statusIcon.jsx';
-import ScrollArea from 'react-scrollbar';
 
-var scrollAreaCss = require('style!css!react-scrollbar/dist/css/scrollbar.css');
 
 class TestCaseList extends React.Component{
     render(){
@@ -32,11 +30,7 @@ class TestCaseList extends React.Component{
             </ul>
         );
 
-        return (
-            <ScrollArea className="test-case-list" speed={0.5}>
-                {content}
-            </ScrollArea>
-        );
+        return content;
     }
 }
 

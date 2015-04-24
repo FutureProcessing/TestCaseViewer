@@ -1,6 +1,7 @@
 import AppDispatcher from '../dispatchers/appDispatcher.js';
 import ActionTypes from '../constants/actionTypes.js';
 import RouterContainer from '../routerContainer.js';
+import QueryTypes from '../constants/queryTypes.js';
 
 import logInApi from '../api/logInApi.js';
 import testCaseApi from '../api/testCaseApi.js';
@@ -67,14 +68,18 @@ var ViewActionCreators = {
         });
     },
 
-    getTestCases: function(path, name){
+    getTestCases: function(path, name, type){
         AppDispatcher.handleViewAction({
             type: ActionTypes.GET_TEST_CASES,
             queryPath: path,
             queryName: name
         });
 
-        queryApi.getTestCases(path);
+        if(type === QueryTypes.LIST){
+            queryApi.getTestCases(path);
+        } else if(type === QueryTypes.ONE_HOP) {
+            queryApi.getLinkTestCases(path);
+        }
     },
 
     getDefaultTestCases: function(){

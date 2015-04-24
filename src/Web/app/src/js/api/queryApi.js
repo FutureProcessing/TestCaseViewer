@@ -3,11 +3,20 @@ import ApiActionCreators from '../actions/apiActionCreators.js';
 import AjaxError from '../utils/ajaxError.js';
 import ToastTypes from '../constants/toastTypes.js';
 import api from './api.js';
+import QueryTypes from '../constants/queryTypes.js';
 
 var queryApi = {
     getTestCases(path){
         return api.get(`query/list/${encodeURIComponent(path)}`).then((data) => {
-            ApiActionCreators.recievedTestCases(mapTestCases(data), path);
+            ApiActionCreators.recievedTestCases(mapTestCases(data), path, QueryTypes.LIST);
+        }).catch(error => {
+            ApiActionCreators.getTestCasesFailed(error);
+        });
+    },
+
+    getLinkTestCases(path){
+        return api.get(`query/link/${encodeURIComponent(path)}`).then((data) => {
+            ApiActionCreators.recievedTestCases(mapLinkTestCases(data), path, QueryTypes.ONE_HOP);
         }).catch(error => {
             ApiActionCreators.getTestCasesFailed(error);
         });
@@ -34,6 +43,16 @@ var queryApi = {
     }
 }
 
+function mapLinkTestCases(data){
+    return data.map((item) => {
+        return {
+            id: item.id,
+            name: item.name,
+            workItems: mapTestCases(item.workItems)
+        };
+    });
+}
+
 function mapTestCases(data){
     return data.map((testCase) => {
         return {
@@ -58,6 +77,7 @@ function mapQueries(data){
 
     return {
         type: data.type,
+        queryType: data.queryType,
         path: data.path,
         name: data.name,
         children: children
