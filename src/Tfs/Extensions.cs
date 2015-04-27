@@ -17,5 +17,10 @@ namespace Tfs
 
             return item;
         }
+
+        public static Revision LastRevision(this WorkItem @this)
+        {
+            return @this.Revisions[@this.Revisions.Count - 1];            
+        }
     }
 }

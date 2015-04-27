@@ -9,8 +9,8 @@ namespace Tfs
         Uri TfsServer { get; }
         string ProjectName { get; }
 
-        IDictionary<string, object> AcceptTransition { get; }
-        IDictionary<string, object> RejectTransition { get; }
+        IDictionary<string, string> AcceptTransition { get; }
+        IDictionary<string, string> RejectTransition { get; }
         MatchingSpec DesignStatus { get; }
         MatchingSpec WaitingForApprovalStatus { get; }
         MatchingSpec ReadyStatus { get; }

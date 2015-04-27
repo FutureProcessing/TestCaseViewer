@@ -1,20 +1,25 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Common;
 using Microsoft.TeamFoundation.TestManagement.Client;
 using Microsoft.TeamFoundation.TestManagement.Common;
 using Microsoft.TeamFoundation.WorkItemTracking.Client;
+using Sprache;
 using Tfs.Model;
+using Tfs.TransitionSpecs;
 
 namespace Tfs
 {
     public class TestCaseService
     {
+        private readonly Func<IDictionary<string, string>, WorkItemTransition> transitionFactory;
         private readonly Func<ITestManagementService2> testManagementFactory;
         private readonly IConfiguration config;
 
-        public TestCaseService(Func<ITestManagementService2> testManagementFactory, IConfiguration config)
+        public TestCaseService(Func<IDictionary<string, string>,  WorkItemTransition> transitionFactory, Func<ITestManagementService2> testManagementFactory, IConfiguration config)
         {
+            this.transitionFactory = transitionFactory;
             this.testManagementFactory = testManagementFactory;
             this.config = config;
         }
@@ -26,7 +31,7 @@ namespace Tfs
 
             var testCase = teamProject.TestCases.Find(id);
 
-            var transition = new WorkItemTransition(this.config.AcceptTransition);
+            var transition = this.transitionFactory(this.config.AcceptTransition);
 
             transition.Transit(testCase.WorkItem);
 
@@ -40,7 +45,7 @@ namespace Tfs
 
             var testCase = teamProject.TestCases.Find(id);
 
-            var transition = new WorkItemTransition(this.config.RejectTransition);
+            var transition = this.transitionFactory(this.config.RejectTransition);
 
             transition.Transit(testCase.WorkItem);
 
@@ -72,8 +77,9 @@ namespace Tfs
                     State = tc.State,
                     AssignedTo = (string)tc.WorkItem.Fields[CoreField.AssignedTo].Value,
                     CreatedBy = tc.WorkItem.CreatedBy,
+                    LastChangedDate = tc.WorkItem.ChangedDate,
                     Steps = steps.ToList(),
-                    Status = this.DetermineStatus(tc.WorkItem)
+                    Status = this.DetermineStatus(tc.WorkItem.LastRevision())
                 };
             }
             catch (DeniedOrNotExistException)
@@ -123,7 +129,7 @@ namespace Tfs
             return t.ToArray();
         }
 
-        public string DetermineStatus(WorkItem workItem)
+        public string DetermineStatus(Revision workItem)
         {
             var statuses = new[]
             {
@@ -139,6 +145,19 @@ namespace Tfs
             }
 
             return matchingStatus.Name;
+        }
+
+        public object Dupa(int id)
+        {
+            var service = this.testManagementFactory();
+
+            var teamProject = service.GetTeamProject(this.config.ProjectName);
+
+            var tc = teamProject.TestCases.Find(id);
+
+            var transition = this.transitionFactory(this.config.RejectTransition);
+
+            return transition.Preview(tc.WorkItem);
         }
     }
 }

@@ -1,49 +1,52 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using Microsoft.TeamFoundation.WorkItemTracking.Client;
+using Sprache;
+using Tfs.TransitionSpecs;
 
 namespace Tfs.Model
 {
     public class WorkItemTransition
     {
-        private readonly IDictionary<string, object> description;
+        private readonly Func<WorkItem, Revision, EvaluationContext> contextFactory;
+        private readonly IDictionary<string, string> description;
 
-        public WorkItemTransition(IDictionary<string, object> description)
+        public WorkItemTransition(Func<WorkItem, Revision, EvaluationContext> contextFactory, IDictionary<string, string> description)
         {
+            this.contextFactory = contextFactory;
             this.description = description;
         }
 
+        public IDictionary<string, object> Preview(WorkItem workItem)
+        {
+            var changes = new Dictionary<string, object>();
+
+            foreach (var change in this.description)
+            {
+                var newValue = ResolveValue(workItem, change.Value);
+
+                changes[change.Key] = newValue;
+            }
+
+            return changes;
+        }
 
         public void Transit(WorkItem workItem)
         {
-            foreach (var fieldChange in this.description)
-            {
-                var newValue = ResolveValue(workItem, fieldChange.Key, fieldChange.Value);
+            var preview = this.Preview(workItem);
 
-                workItem.Fields[fieldChange.Key].Value = newValue;
+            foreach (var fieldChange in preview)
+            {             
+                workItem.Fields[fieldChange.Key].Value = fieldChange.Value;
             }
         }
 
-        private static object ResolveValue(WorkItem workItem, string fieldName, object newValue)
+        private object ResolveValue(WorkItem workItem, string newValue)
         {
-            if (newValue is string && newValue.Equals("@Previous"))
-            {
-                return ResolvePreviousValue(workItem, fieldName);
-            }
+            var expression = ExpressionParsers.ParseInput(new Input(newValue));
 
-            return newValue;
-        }
-
-        private static object ResolvePreviousValue(WorkItem workItem, string fieldName)
-        {
-            var currentValue = workItem.Fields[fieldName].Value;
-
-            var previousValue = workItem.Revisions.OfType<Revision>()
-                .OrderByDescending(x => x.Index)
-                .Select(x => x.Fields[fieldName].Value)
-                .FirstOrDefault(x => x != currentValue);
-
-            return previousValue;
+            return expression.Value.Evalute(this.contextFactory(workItem, workItem.LastRevision()));
         }
     }
 }

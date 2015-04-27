@@ -13,7 +13,8 @@ class TestCaseStore extends EventEmitter{
             acceptInProgress: false,
             inProgress: false,
             title: '',
-            steps: []
+            steps: [],
+            lastChangedDate: 'aaa'
         };
 
         this.lastProperState = {};
@@ -66,6 +67,7 @@ class TestCaseStore extends EventEmitter{
         this.state.status = testCase.status;
         this.state.assignedTo = testCase.assignedTo;
         this.state.steps = testCase.steps;
+        this.state.lastChangedDate = testCase.lastChangedDate;        
         this.state.canReject = canReject(testCase.status);
         this.state.canAccept = canAccept(testCase.status);
     }

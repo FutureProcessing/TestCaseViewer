@@ -39,14 +39,14 @@ namespace Web
             get { return this.config.tfs.project; }
         }
 
-        public IDictionary<string, object> AcceptTransition
+        public IDictionary<string, string> AcceptTransition
         {
-            get { return ((JObject) this.config.tfs.transitions.accept).Properties().ToDictionary(x => x.Name, x => ((JValue) x.Value).Value); }
+            get { return ((JObject) this.config.tfs.transitions.accept).Properties().ToDictionary(x => x.Name, x => ((JValue) x.Value).Value.ToString()); }
         }
 
-        public IDictionary<string, object> RejectTransition
+        public IDictionary<string, string> RejectTransition
         {
-            get { return ((JObject)this.config.tfs.transitions.reject).Properties().ToDictionary(x => x.Name, x => ((JValue)x.Value).Value); }
+            get { return ((JObject)this.config.tfs.transitions.reject).Properties().ToDictionary(x => x.Name, x => ((JValue)x.Value).Value.ToString()); }
         }
 
         public MatchingSpec DesignStatus
