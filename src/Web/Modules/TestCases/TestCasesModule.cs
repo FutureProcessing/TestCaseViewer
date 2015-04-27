@@ -25,11 +25,6 @@ namespace Web.Modules.TestCases
             {
                 testCases.Reject(_.id); return Ok;
             };
-
-            Get["testcase/{id}/resolve"] = _ =>
-            {
-                return testCases.Dupa(_.id);
-            };
         }
     }
 }

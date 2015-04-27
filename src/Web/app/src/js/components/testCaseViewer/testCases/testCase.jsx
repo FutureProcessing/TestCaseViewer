@@ -9,7 +9,7 @@ import TestCaseInfo from './testCaseInfo.jsx';
 import ProgressButton from '../../common/progressButton.jsx';
 import ButtonGroup from '../../common/buttonGroup.jsx';
 import ScrollArea from '../../common/scrollArea/scrollArea.jsx';
-
+import moment from 'moment';
 
 class TestCase extends React.Component{
     constructor(props, context){
@@ -19,7 +19,8 @@ class TestCase extends React.Component{
             steps: [],
             inProgress: false,
             createdBy: '',
-            title: ''
+            title: '',
+            lastChangedDate: moment()
         };
         this.storeChangeHandler = this.handleStoreChange.bind(this);
     }
@@ -58,7 +59,8 @@ class TestCase extends React.Component{
                     createdBy={this.state.createdBy}
                     assignedTo={this.state.assignedTo}
                     status={this.state.status}
-                    tfsState={this.state.state} />
+                    tfsState={this.state.state}
+                    lastChangedDate={this.state.lastChangedDate}/>
                 <StepsTable
                     steps={this.state.steps} />
                 <ButtonGroup>

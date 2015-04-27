@@ -3,6 +3,7 @@ import ApiActionCreators from '../actions/apiActionCreators.js';
 import AjaxError from '../utils/ajaxError.js';
 import ToastTypes from '../constants/toastTypes.js';
 import api from './api.js';
+import moment from 'moment';
 
 var testCaseApi = {
     getTestCaseData(id){
@@ -39,6 +40,7 @@ function mapTestCase(serverData){
         title: serverData.title,
         state: serverData.state,
         status: serverData.status,
+        lastChangedDate: moment(serverData.lastChangedDate),
         steps: mapSteps(serverData.steps)
     }
 }

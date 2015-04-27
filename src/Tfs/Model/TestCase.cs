@@ -1,3 +1,5 @@
+using System;
+
 namespace Tfs.Model
 {
     using System.Collections.Generic;
@@ -11,5 +13,6 @@ namespace Tfs.Model
         public List<TestStepInfo> Steps { get; set; }
         public string Status { get; set; }
         public string AssignedTo { get; set; }
+        public DateTime LastChangedDate { get; set; }
     }
 }

@@ -77,6 +77,7 @@ namespace Tfs
                     State = tc.State,
                     AssignedTo = (string)tc.WorkItem.Fields[CoreField.AssignedTo].Value,
                     CreatedBy = tc.WorkItem.CreatedBy,
+                    LastChangedDate = tc.WorkItem.ChangedDate,
                     Steps = steps.ToList(),
                     Status = this.DetermineStatus(tc.WorkItem.LastRevision())
                 };
