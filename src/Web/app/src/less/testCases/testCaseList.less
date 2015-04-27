@@ -1,6 +1,24 @@
 @import '../variables/colors';
 @import '../mixins/lessPrefixer.less';
 
+.one-hop-list{
+    .toggle-header{
+        padding-top: .5em;
+        display: block;
+        font-weight: 600;
+        cursor: pointer;
+
+        svg {
+            width: 1em !important;
+            .transition(all .3s);
+        }
+    }
+
+    .closed svg{
+        .transform(rotate(-0.25turn));
+    }
+}
+
 .test-case-list{
     flex: 1;
     position: relative;

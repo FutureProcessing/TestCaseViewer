@@ -9,8 +9,9 @@ class OneHopTestCaseList extends React.Component{
         var nodes = this.props.testCases.map(x => {
             return (
                 <Toggle
+                    open = {true}
                     header={(
-                        <span >
+                        <span className="toggle-header">
                             <Icon icon="arrow-down" className="folder-icon"/>
                             {x.name}
                         </span>
@@ -25,7 +26,7 @@ class OneHopTestCaseList extends React.Component{
         });
 
         return (
-            <ul>
+            <ul className="one-hop-list">
                 {nodes}
             </ul>
         );

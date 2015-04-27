@@ -59,7 +59,6 @@ class TreeView extends React.Component{
     handleLeafClick(node){
         if(!this.props.isLeafDisabled(node) && typeof this.props.onLeafClick === 'function'){
             this.props.onLeafClick.call(this, this.props.value(node), this.props.text(node));
-            console.log("clicked")
         }
     }
 

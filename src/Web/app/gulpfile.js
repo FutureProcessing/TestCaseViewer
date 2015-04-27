@@ -3,6 +3,7 @@ var webpack = require('gulp-webpack');
 var concat = require('gulp-concat');
 var less = require('gulp-less');
 var webpackConf = require('./webpack.config.js');
+var gutil = require('gulp-util');
 var livereload = require('gulp-livereload');
 
 gulp.task("webpack", function() {
@@ -15,7 +16,7 @@ gulp.task("webpack", function() {
 
 gulp.task('build-less', function(){
     return gulp.src('./src/less/**/*.less')
-        .pipe(less())
+        .pipe(less().on('error', gutil.log))
         .pipe(gulp.dest('./dist/css'))
         .pipe(livereload());
 });
