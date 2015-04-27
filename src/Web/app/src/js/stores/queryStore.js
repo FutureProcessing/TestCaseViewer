@@ -9,7 +9,8 @@ var CHANGE_EVENT = 'changeQueryStore';
 class QueryStore extends EventEmitter{
     constructor(){
         this.state = {
-            inProgress: false,
+            getTestCasesInProgress: false,
+            getQueriesInProgress: false,
             testCases: [],
             queriesParentNode: {},
             selectedQueryName: '',
@@ -47,18 +48,18 @@ class QueryStore extends EventEmitter{
 
     handleGetTestCases(queryName, queryPath){
         this.saveState();
-        this.state.inProgress = true;
+        this.state.getTestCasesInProgress = true;
         this.state.selectedQueryName = queryName;
         this.state.selectedQueryPath = queryPath;
     }
 
     handleGetTestCasesFail(){
         this.restoreState();
-        this.state.inProgress = false;
+        this.state.getTestCasesInProgress = false;
     }
 
     handleRecievedTestCases(testCases, path, queryType){
-        this.state.inProgress = false;
+        this.state.getTestCasesInProgress = false;
         this.state.testCases = testCases;
 
         var splittedPath = path.split('/');
@@ -68,15 +69,15 @@ class QueryStore extends EventEmitter{
     }
 
     handleGetQueries(){
-        this.state.inProgress = true;
+        this.state.getQueriesInProgress = true;
     }
 
     handleGetQueriesFail(){
-        this.state.inProgress = false;
+        this.state.getQueriesInProgress = false;
     }
 
     handleRecievedQueries(queriesParentNode){
-        this.state.inProgress = false;
+        this.state.getQueriesInProgress = false;
         this.state.queriesParentNode = queriesParentNode;
     }
 

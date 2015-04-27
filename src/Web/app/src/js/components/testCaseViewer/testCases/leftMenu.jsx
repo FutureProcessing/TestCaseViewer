@@ -21,7 +21,7 @@ class LeftMenu extends React.Component{
         this.state = {
             testCaseId: context.router.getCurrentParams().id || '',
             getTestCasesInProgress: true,
-            inProgress: false,
+            inProgress: true,
             isExtensionOpen: false,
             testCases: [],
             queriesParentNode: {},
@@ -48,7 +48,8 @@ class LeftMenu extends React.Component{
 
     render(){
         var TestCaseListHandler = this.state.selectedQueryType === QueryTypes.ONE_HOP? OneHopTestCaseList : TestCaseList;
-        
+        var emptyTestCaseList = this.state.getTestCasesInProgress || this.state.testCases && this.state.testCases.length > 0 ? null :  <span className="empty-list">Query result contains no test cases</span>;
+
         return (
             <div className="left-menu">
                 <ActionInput
@@ -65,6 +66,7 @@ class LeftMenu extends React.Component{
                     isActive={this.state.isExtensionOpen}
                     inProgress={this.state.getTestCasesInProgress}/>
 
+                {emptyTestCaseList}
                 <ScrollArea className="test-case-list" speed={0.5}>
                     <TestCaseListHandler
                         testCases={this.state.testCases}
@@ -112,7 +114,8 @@ class LeftMenu extends React.Component{
     handleQueryStoreChange (){
         var data = QueryStore.getData();
         this.setState({
-            getTestCasesInProgress: data.inProgress,
+            getTestCasesInProgress: data.getTestCasesInProgress,
+            getQueriesInProgress: data.getQueriesInProgress,
             testCases: data.testCases,
             queriesParentNode: data.queriesParentNode,
             selectedQueryName: data.selectedQueryName,
