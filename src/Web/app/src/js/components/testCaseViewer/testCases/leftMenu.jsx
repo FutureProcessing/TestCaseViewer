@@ -21,7 +21,8 @@ class LeftMenu extends React.Component{
         this.state = {
             testCaseId: context.router.getCurrentParams().id || '',
             getTestCasesInProgress: true,
-            inProgress: true,
+            getQueriesInProgress: true,
+            inProgress: false,
             isExtensionOpen: false,
             testCases: [],
             queriesParentNode: {},
