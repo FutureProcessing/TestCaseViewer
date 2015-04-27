@@ -22,9 +22,13 @@ namespace TestCaseViewerSeleniumScenarios
             }
         }
 
+        #region private values
+
         private static string _MainPageUrl;
 
         private static string _logOutButtonCss = "div[data-logout='Log Out']";
+
+        private static string _TCFromListCss = "li[data-reactid='.0.0.1.0.2.0.0.$NUM']";
 
         private static string _leftMenuXPath = "//div[@class='left-menu']";
 
@@ -38,14 +42,23 @@ namespace TestCaseViewerSeleniumScenarios
 
         private static string _logOutButtonXPath = "//div[@data-logout='Log Out']";
 
-        private static string _testCaseDropdownXPath = "//div[@class='query-button']";
+        private static string _testCaseDropdownActiveXPath = "//div[@class='query-button active']";
+
+        private static string _testCaseDropdownButtonXPath = "//div[@class='query-button-icon']";
 
         private static string _testCaseDropdownValueXPath = "//div[@class='query-button-value']";
 
-        public static string LogOutButtonCss
-        {
-            get { return MainPage._logOutButtonCss; }
-        }
+        private static string _testCaseListXPath = "//div[@class='scrollarea test-case-list']";
+
+        private static string _testCaseListInactiveXPath = "//div[@class='scrollarea test-case-list']/div/div[@class='swirl test-case-list-swirl']";
+
+        //private static string _testCaseListActiveXPath = "//div[@class='scrollarea test-case-list']/div/ul]";
+
+        private static string _leftMenuExtensionXPath = "//div[@class='scrollarea left-menu-extension']";
+
+        #endregion
+
+        #region bool functions
 
         public static bool LeftMenuIsVisible()
         {
@@ -79,7 +92,58 @@ namespace TestCaseViewerSeleniumScenarios
 
         public static bool TestCaseDropdownIsVisible()
         {
-            return isVisible(_testCaseDropdownXPath);
+            return isVisible(_testCaseDropdownButtonXPath) && isVisible(_testCaseDropdownValueXPath);
+        }
+
+        public static bool TestCaseListIsVisible()
+        {
+            return isVisible(_testCaseListXPath);
+        }
+
+        public static bool TestCaseListContainsAllDefaultTC()
+        {
+            return
+                isVisible(_testCaseListXPath + "/div/ul/li[. ='Sample test case 1']") &&
+                isVisible(_testCaseListXPath + "/div/ul/li[. ='Approval test']") &&
+                isVisible(_testCaseListXPath + "/div/ul/li[. ='TC with shared steps']") &&
+                isVisible(_testCaseListXPath + "/div/ul/li[. ='TC rejection']") &&
+                isVisible(_testCaseListXPath + "/div/ul/li[. ='Do something']") &&
+                isVisible(_testCaseListXPath + "/div/ul/li[. ='Developers work']") &&
+                isVisible(_testCaseListXPath + "/div/ul/li[. ='Transition test']");
+        }
+
+        public static bool TestCaseIsVisible(string tcName)
+        {
+            return isVisible(_testCaseListXPath + "/div/ul/li[. ='" + tcName + "']");
+        }
+
+        public static bool ExtendedMenuIsVisible()
+        {
+            return isVisible(_leftMenuExtensionXPath);
+        }
+
+        #endregion
+
+        #region string parameters
+
+        public static string LogOutButtonCss
+        {
+            get { return MainPage._logOutButtonCss; }
+        }
+
+        public static string TCFromListCss(int tcNumber)
+        {
+            return MainPage._TCFromListCss.Replace("$NUM", "$" + tcNumber);
+        }
+
+        public static string TestCaseListInactiveXPath
+        {
+            get { return MainPage._testCaseListInactiveXPath; }
+        }
+
+        public static string ExtendedMenuXPath
+        {
+            get { return _leftMenuExtensionXPath; }
         }
 
         public static string TestCaseDropdownValue
@@ -98,10 +162,32 @@ namespace TestCaseViewerSeleniumScenarios
             }
         }
 
+        public static string TestCaseDropdownActiveXPath
+        {
+            get { return MainPage._testCaseDropdownActiveXPath; }
+        }
+
+        #endregion
+
+        #region gui functions
+
         public static void LogOut()
         {
             MyDriver.Driver.FindElement(By.XPath(_logOutButtonXPath)).Click();
         }
+
+        public static void ClickDropdownButton()
+        {
+            MyDriver.Driver.FindElement(By.XPath(_testCaseDropdownButtonXPath)).Click();
+        }
+
+        public static void ClickExtendedMenuElement(string elementName)
+        {
+            string xPath = "//li[. = '" + elementName + "']";
+            MyDriver.Driver.FindElement(By.XPath(xPath)).Click();
+        }
+
+        #endregion
 
         public static string MainPageUrl
         {

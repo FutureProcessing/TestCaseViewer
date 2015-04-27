@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
-
+using Microsoft.CSharp;
 
 namespace TestCaseViewerSeleniumScenarios
 {
@@ -29,16 +29,18 @@ namespace TestCaseViewerSeleniumScenarios
         [TestMethod]
         public void MainPageIsDisplayedProperly()
         {
-            string login = "Koizee";
-            string password = "Dupa1234";
+            
             var wait = new WebDriverWait(MyDriver.Driver, TimeSpan.FromSeconds(10));
+
+
             try
             {
                 LoginPage.LoginWithCredentials(LoginCredentials.UserName, LoginCredentials.Password);
                 // waiting for loading Main Page
-                wait.Until(browser => browser.FindElement(By.CssSelector(MainPage.LogOutButtonCss)));
+                wait.Until(browser => browser.FindElement(By.CssSelector(MainPage.TCFromListCss(13))));
                 Assert.AreEqual(MainPage.MainPageUrl, MyDriver.Driver.Url, "Main page url is incorrect.");
             }
+            catch (AssertFailedException) { }
             catch (Exception ex)
             {
                 Assert.Fail("Could not log in.\n Inner exception: " + ex.Message);
@@ -53,9 +55,12 @@ namespace TestCaseViewerSeleniumScenarios
                 Assert.IsTrue(MainPage.TopBarIsVisible(), "Top Bar on the Main page could not be found!");
                 Assert.IsTrue(MainPage.TestCaseDropdownIsVisible(), "Test Case dropdown on the Main page could not be found!");
                 Assert.IsTrue(MainPage.RightContentIsVisible(), "Right Content on the Main page could not be found!");
-                Assert.AreEqual("Default", MainPage.TestCaseDropdownValue,"Wrong default value selected in test case dropdown on the Main page!");
+                Assert.IsTrue(MainPage.TestCaseListIsVisible(), "Test Case list on the Main page could not be found!");
+                Assert.IsTrue(MainPage.TestCaseListContainsAllDefaultTC(), "Not all test cases are displayed on the Main page!");
+                Assert.AreEqual(WebConfigInfo.DefaultQuery, MainPage.TestCaseDropdownValue,"Wrong default value selected in test case dropdown on the Main page!");
                 Assert.AreEqual("Choose test case.", MainPage.RightContentValue, "Wrong right content text on the Main page");
             }
+            catch (AssertFailedException) { }
             catch (Exception ex)
             {
                 Assert.Fail("The Main page is not displayed properly.\n Inner exception: " + ex.Message);
@@ -65,8 +70,6 @@ namespace TestCaseViewerSeleniumScenarios
         [TestMethod]
         public void IncorrectLogIn()
         {
-            string login = "Koizee";
-            string password = "MileHaslo";
             var wait = new WebDriverWait(MyDriver.Driver, TimeSpan.FromSeconds(10));
             try
             {
@@ -75,6 +78,7 @@ namespace TestCaseViewerSeleniumScenarios
                 wait.Until(browser => browser.FindElement(By.XPath("//div[@class='login-error']")));
                 Assert.AreEqual(LoginPage.LoginPageUrl, MyDriver.Driver.Url, "Login page url is incorrect.");
             }
+            catch (AssertFailedException) { }
             catch (WebDriverTimeoutException ex)
             {
                 Assert.Fail("Can not find error message.\n Inner exception: " + ex.Message);
@@ -88,8 +92,6 @@ namespace TestCaseViewerSeleniumScenarios
         [TestMethod]
         public void CorrectLogOut()
         {
-            string login = "Koizee";
-            string password = "Dupa1234";
             var wait = new WebDriverWait(MyDriver.Driver, TimeSpan.FromSeconds(10));
             try
             {
@@ -98,6 +100,7 @@ namespace TestCaseViewerSeleniumScenarios
                 wait.Until(browser => browser.FindElement(By.CssSelector(MainPage.LogOutButtonCss)));
                 Assert.AreEqual(MainPage.MainPageUrl, MyDriver.Driver.Url, "Main page url is incorrect.");
             }
+            catch (AssertFailedException) { }
             catch (Exception ex)
             {
                 Assert.Fail("Could not log in.\n Inner exception: " + ex.Message);
@@ -110,10 +113,45 @@ namespace TestCaseViewerSeleniumScenarios
                 wait.Until(browser => browser.FindElement(By.CssSelector(LoginPage.LoginButtonCss)));
                 Assert.AreEqual(LoginPage.LoginPageUrl, MyDriver.Driver.Url, "Login page url is incorrect.");
             }
+            catch (AssertFailedException) { }
             catch (Exception ex)
             {
                 Assert.Fail("Can not log out.\n Inner exception: " + ex.Message);
             }
+        }
+
+        [TestMethod]
+        public void ChangeQuery()
+        {
+            var wait = new WebDriverWait(MyDriver.Driver, TimeSpan.FromSeconds(2));
+
+            LoginPage.LoginWithCredentials(LoginCredentials.UserName, LoginCredentials.Password);
+
+            //tak wiem bardzo profesjonalne obejście problemu... ale lepszego nie znalazlem w czasie jaki mialem
+            try
+            {
+                while(true)
+                wait.Until(browser => browser.FindElement(By.XPath(MainPage.TestCaseListInactiveXPath)));
+            }
+            catch { }
+            Assert.AreEqual(MainPage.MainPageUrl, MyDriver.Driver.Url, "Main page url is incorrect.");
+
+            MainPage.ClickDropdownButton();
+            wait.Until(browser => browser.FindElement(By.XPath(MainPage.ExtendedMenuXPath)));
+            Assert.IsTrue(MainPage.ExtendedMenuIsVisible(), "Extended manu on the Main page could not be found!");
+            MainPage.ClickExtendedMenuElement("Assign to Kojzi");
+
+            //tak wiem bardzo profesjonalne obejście problemu... ale lepszego nie znalazlem w czasie jaki mialem
+            try
+            {
+                while(true)
+                wait.Until(browser => browser.FindElement(By.XPath(MainPage.TestCaseListInactiveXPath)));
+            }
+            catch { }
+            Assert.IsTrue(MainPage.TestCaseIsVisible("Developers work"), "On the Main page correct test case is not visible!");
+            Assert.IsFalse(MainPage.TestCaseIsVisible("Sample test case 1"), "On the Main page invalid test case is visible!");
+            Assert.IsFalse(MainPage.TestCaseIsVisible("TC rejection"), "On the Main page invalid test case is visible!");
+
         }
 
         [TestCleanup]
