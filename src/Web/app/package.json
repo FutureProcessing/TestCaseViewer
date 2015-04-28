@@ -36,6 +36,7 @@
   "devDependencies": {
     "css-loader": "^0.10.1",
     "gulp-livereload": "^3.8.0",
-    "style-loader": "^0.10.2"
+    "style-loader": "^0.10.2",
+    "yargs": "^3.8.0"
   }
 }
