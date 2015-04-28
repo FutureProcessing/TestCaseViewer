@@ -55,7 +55,7 @@ var ViewActionCreators = {
         });
 
         testCaseApi.getTestCaseData(id).catch(error => {
-            RouterContainer.get().GoBack();
+            RouterContainer.get().goBack();
         });
     },
 
