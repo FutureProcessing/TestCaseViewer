@@ -39,7 +39,6 @@ class TestCaseViewer extends React.Component {
     }
 
     render(){
-        // var loadingPage = !this.state.isLoggedIn? <LoadingPage /> : null;
         if(this.state.isLoggedIn){
             return (
                 <div className="test-case-viewer">

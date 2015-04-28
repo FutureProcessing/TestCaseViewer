@@ -2,7 +2,7 @@ import xhttp from 'xhttp';
 import AjaxError from '../utils/ajaxError.js';
 import ApiActionCreators from '../actions/apiActionCreators.js';
 import ToastTypes from '../constants/toastTypes.js';
-import {Promise} from 'es6-promise';
+// import {Promise} from 'es6-promise'; //TODO: use some perfet promise library
 
 import objectAssign from 'object-assign';
 

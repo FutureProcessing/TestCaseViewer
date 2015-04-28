@@ -58,7 +58,7 @@ class LeftMenu extends React.Component{
                     actionName="Go"
                     onActionClick={this.handleGoActionClick.bind(this)}
                     onChange={this.handleInputChange.bind(this)}
-                    value={this.state.testCaseId}
+                    value={this.state.inProgress? this.state.inProgressTestCaseId : this.state.testCaseId}
                     inProgress={this.state.inProgress}/>
 
                 <QueryButton
@@ -109,7 +109,7 @@ class LeftMenu extends React.Component{
 
     handleStoreChange (){
         var data = TestCaseStore.getData();
-        this.setState({inProgress: data.inProgress, testCaseId: data.id});
+        this.setState({inProgress: data.inProgress, testCaseId: data.id, inProgressTestCaseId: data.inProgressId});
     }
 
     handleQueryStoreChange (){
@@ -130,7 +130,9 @@ class LeftMenu extends React.Component{
     }
 
     handleGoActionClick(){
-        this.context.router.transitionTo('tc', {id: encodeURIComponent(this.state.testCaseId)});
+        if(this.state.testCaseId){
+            this.context.router.transitionTo('tc', {id: encodeURIComponent(this.state.testCaseId)});
+        }
     }
 
     handleInputChange(e){

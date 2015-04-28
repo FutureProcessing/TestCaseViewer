@@ -41,7 +41,8 @@ class TestCase extends React.Component{
 
     componentWillReceiveProps (){
         var id = this.context.router.getCurrentParams().id;
-        if(this.state.id !== id){
+        var storeData = TestCaseStore.getData();
+        if(this.state.id !== id && storeData.id !== id){
             this.initializeTestCaseData(id);
         }
         this.setState({id});
@@ -49,7 +50,7 @@ class TestCase extends React.Component{
 
     initializeTestCaseData (id){
         setTimeout(() => {
-            ViewActionCreators.getTestCaseData(id);
+            ViewActionCreators.transitionToTestCaseData(id);
         }, 1); //FIXME: it is just wrong
     }
 

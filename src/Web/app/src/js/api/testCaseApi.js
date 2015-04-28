@@ -7,10 +7,14 @@ import moment from 'moment';
 
 var testCaseApi = {
     getTestCaseData(id){
-        return api.get(`testcase/${id}`).then((data) => {
-            ApiActionCreators.recievedTestCaseData(mapTestCase(data));
-        }).catch(error => {
-            ApiActionCreators.getTestCaseDataFailed(error);
+        return new Promise((resolve, reject) => {
+            api.get(`testcase/${id}`).then((data) => {
+                ApiActionCreators.recievedTestCaseData(mapTestCase(data));
+                resolve(data);
+            }).catch(error => {
+                ApiActionCreators.getTestCaseDataFailed(error);
+                reject(error);
+            });
         });
     },
 
