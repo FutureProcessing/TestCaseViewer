@@ -6,24 +6,29 @@ var webpackConf = require('./webpack.config.js');
 var gutil = require('gulp-util');
 var livereload = require('gulp-livereload');
 var notifier = require('node-notifier');
+var argv = require('yargs').argv;
 
-var plumber = require('gulp-plumber'); 
+var plumber = require('gulp-plumber');
 
 var gulpNotifier = {
     error: function(errorMessage){
-        notifier.notify({
-          title: 'GULP - ERROR',
-          message: errorMessage,
-          sound: true
-        });
+        if(showToasts()){
+            notifier.notify({
+              title: 'GULP - ERROR',
+              message: errorMessage,
+              sound: true
+            });
+        }
     },
 
     success: function(message){
-        notifier.notify({
-          title: 'GULP - SUCCESS',
-          message: message,
-          sound: true
-        });
+        if(showToasts()){
+            notifier.notify({
+              title: 'GULP - SUCCESS',
+              message: message,
+              sound: true
+            });
+        }
     }
 };
 
@@ -103,8 +108,10 @@ gulp.task('default', ['build-less', 'webpack', 'copy']);
 
 gulp.task('watch', function() {
     livereload.listen();
-    gulp.watch('src/**/*.less', ['build-less']).on('end', function() {
-        gutil.log("PLPLPLPLPLPL");
-    });;
+    gulp.watch('src/**/*.less', ['build-less']);
     gulp.watch(['src/**/*.js', 'src/**/*.jsx'], ['webpack']);
 });
+
+function showToasts(){
+    return !argv.noToasts;
+}

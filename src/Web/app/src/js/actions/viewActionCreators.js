@@ -48,6 +48,17 @@ var ViewActionCreators = {
         testCaseApi.getTestCaseData(id);
     },
 
+    transitionToTestCaseData(id){
+        AppDispatcher.handleViewAction({
+            type: ActionTypes.GET_TC,
+            id: id
+        });
+
+        testCaseApi.getTestCaseData(id).catch(error => {
+            RouterContainer.get().goBack();
+        });
+    },
+
     acceptTestCase: function(id){
         AppDispatcher.handleViewAction({
             type: ActionTypes.ACCEPT_TC

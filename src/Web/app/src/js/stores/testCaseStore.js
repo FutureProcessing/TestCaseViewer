@@ -48,28 +48,34 @@ class TestCaseStore extends EventEmitter{
 
     handleRecieveTC(id){
         if(this.state.id !== id){
-            this.saveState();
-            this.state.id = id;
+            // this.saveState();
+            this.state.inProgressId = id;
             this.state.inProgress = true;
         }
     }
 
     handleGetTCFail(){
-        this.restoreState();
+        // this.restoreState();
         this.state.inProgress = false;
     }
 
     handleRecievedTC(testCase){
-        this.state.inProgress = false;
-        this.state.title = testCase.title;
-        this.state.createdBy = testCase.createdBy;
-        this.state.state = testCase.state;
-        this.state.status = testCase.status;
-        this.state.assignedTo = testCase.assignedTo;
-        this.state.steps = testCase.steps;
-        this.state.lastChangedDate = testCase.lastChangedDate;
-        this.state.canReject = canReject(testCase.status);
-        this.state.canAccept = canAccept(testCase.status);
+        var newState = {
+            id : this.state.inProgressId,
+            inProgressId : null,
+            inProgress : false,
+            title : testCase.title,
+            createdBy : testCase.createdBy,
+            state : testCase.state,
+            status : testCase.status,
+            assignedTo : testCase.assignedTo,
+            steps : testCase.steps,
+            lastChangedDate : testCase.lastChangedDate,
+            canReject : canReject(testCase.status),
+            canAccept : canAccept(testCase.status),
+        };
+
+        objectAssign(this.state, newState);
     }
 
     handleAcceptTCStart(){

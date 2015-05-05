@@ -12,7 +12,7 @@ export default (
     <Route handler={App}>
         <Route path="/" handler={TestCaseViewer} >
             <DefaultRoute handler={Home} />
-            <Route name="testcases" handler={TestCases} >
+            <Route name="testcases" handler={TestCases}>
                 <DefaultRoute handler={EmptyTestCase} />
                 <Route name="tc" path="tc/:id" handler={TestCase} />
             </Route>
