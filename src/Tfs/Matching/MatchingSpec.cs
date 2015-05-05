@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.TeamFoundation.WorkItemTracking.Client;
+using Tfs.Model;
 
 namespace Tfs.Matching
 {
@@ -11,7 +12,7 @@ namespace Tfs.Matching
     {
         public IDictionary<string, FieldSpec> Fields { get; set; }
 
-        public bool IsMatching(Revision workItem)
+        public bool IsMatching(IWorkItemRevision workItem)
         {
             foreach (var fieldSpec in this.Fields)
             {

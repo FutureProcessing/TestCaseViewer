@@ -1,5 +1,6 @@
 using Autofac;
 using Microsoft.TeamFoundation.WorkItemTracking.Client;
+using Tfs.Model;
 
 namespace Tfs.TransitionSpecs
 {
@@ -8,9 +9,9 @@ namespace Tfs.TransitionSpecs
         private readonly ILifetimeScope lifetimeScope;
 
         public WorkItem WorkItem { get; private set; }
-        public Revision Revision { get; private set; }
+        public IWorkItemRevision Revision { get; private set; }
 
-        public EvaluationContext(ILifetimeScope lifetimeScope, WorkItem workItem, Revision revision)
+        public EvaluationContext(ILifetimeScope lifetimeScope, WorkItem workItem, IWorkItemRevision revision)
         {
             this.lifetimeScope = lifetimeScope;
             WorkItem = workItem;
@@ -22,7 +23,7 @@ namespace Tfs.TransitionSpecs
             return this.lifetimeScope.Resolve<T>();
         }
 
-        public EvaluationContext AsOfRevision(Revision revision)
+        public EvaluationContext AsOfRevision(IWorkItemRevision revision)
         {
             return new EvaluationContext(this.lifetimeScope, this.WorkItem, revision);
         }

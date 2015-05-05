@@ -129,7 +129,7 @@ namespace Tfs
             return t.ToArray();
         }
 
-        public string DetermineStatus(Revision workItem)
+        public string DetermineStatus(IWorkItemRevision workItem)
         {
             var statuses = new[]
             {

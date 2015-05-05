@@ -1,4 +1,7 @@
 ﻿using Microsoft.TeamFoundation.WorkItemTracking.Client;
+using Tfs.Model;
+using QueryFolder = Microsoft.TeamFoundation.WorkItemTracking.Client.QueryFolder;
+using QueryItem = Microsoft.TeamFoundation.WorkItemTracking.Client.QueryItem;
 
 namespace Tfs
 {
@@ -18,9 +21,34 @@ namespace Tfs
             return item;
         }
 
-        public static Revision LastRevision(this WorkItem @this)
+        public static IWorkItemRevision LastRevision(this WorkItem @this)
         {
-            return @this.Revisions[@this.Revisions.Count - 1];            
+            return new WorkItemAccesor(@this);            
+        }
+
+        public static IWorkItemRevision Wrap(this Revision @this)
+        {
+            return new RevisionAccessor(@this);
+        }
+    }
+
+    public class RevisionAccessor : IWorkItemRevision
+    {
+        public RevisionAccessor(Revision revision)
+        {
+            this.Fields = revision.Fields;
+        }
+
+        public FieldCollection Fields { get; private set; }
+    }
+
+    public class WorkItemAccesor : IWorkItemRevision
+    {
+        public FieldCollection Fields { get; private set; }
+
+        public WorkItemAccesor(WorkItem workItem)
+        {
+            this.Fields = workItem.Fields;
         }
     }
 }

@@ -61,6 +61,7 @@
     <Compile Include="ImageData.cs" />
     <Compile Include="Matching\ExactValue.cs" />
     <Compile Include="Matching\MatchingSpec.cs" />
+    <Compile Include="Model\IWorkItemRevision.cs" />
     <Compile Include="Model\QueryFolder.cs" />
     <Compile Include="Model\SharedStep.cs" />
     <Compile Include="Model\SimpleTestStep.cs" />

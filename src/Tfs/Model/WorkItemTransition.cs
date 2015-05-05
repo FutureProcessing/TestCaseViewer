@@ -9,10 +9,10 @@ namespace Tfs.Model
 {
     public class WorkItemTransition
     {
-        private readonly Func<WorkItem, Revision, EvaluationContext> contextFactory;
+        private readonly Func<WorkItem, IWorkItemRevision, EvaluationContext> contextFactory;
         private readonly IDictionary<string, string> description;
 
-        public WorkItemTransition(Func<WorkItem, Revision, EvaluationContext> contextFactory, IDictionary<string, string> description)
+        public WorkItemTransition(Func<WorkItem, IWorkItemRevision, EvaluationContext> contextFactory, IDictionary<string, string> description)
         {
             this.contextFactory = contextFactory;
             this.description = description;

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.TeamFoundation.WorkItemTracking.Client;
+using Tfs.Model;
 
 namespace Tfs.TransitionSpecs
 {
@@ -31,19 +32,19 @@ namespace Tfs.TransitionSpecs
             return string.Format("FieldRef = {0} Old = {1} New = {2}", this.FieldRef, this.OldValue, this.NewValue);
         }
 
-        public Revision Resolve(EvaluationContext context)
+        public IWorkItemRevision Resolve(EvaluationContext context)
         {
             for (int i = context.WorkItem.Revisions.Count - 1; i >= 1; i--)
             {
-                var old = context.WorkItem.Revisions[i - 1];
-                var @new = context.WorkItem.Revisions[i];
+                var old = context.WorkItem.Revisions[i - 1].Wrap();
+                var @new = context.WorkItem.Revisions[i].Wrap();
 
                 var oldValue = this.FieldRef.Evalute(context.AsOfRevision(old));
                 var newValue = this.FieldRef.Evalute(context.AsOfRevision(@new));
 
                 if (Equals(oldValue, this.OldValue) && Equals(newValue, this.NewValue))
                 {
-                    return context.WorkItem.Revisions[i];
+                    return @new;
                 }
             }
 
