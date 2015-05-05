@@ -21,9 +21,11 @@ namespace Web.Modules.Queries
             Get["query/link/{path*}"] = _ => queries.ExecuteLinkQuery(_.path, new QueryOptions()
             {
                 LimitToTypes = testCases.TestCaseTypeNames(),
-                AdditionalFields = new Dictionary<string, Func<WorkItem, object>>
+                AdditionalFields = new Dictionary<string, Func<Revision, object>>
                 {
-                    {"Status", testCases.DetermineStatus}
+                    {
+                        "Status", testCases.DetermineStatus
+                    }
                 }
             });
         }
