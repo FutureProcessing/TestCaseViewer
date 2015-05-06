@@ -70,18 +70,18 @@ namespace Tfs
         public IEnumerable<IDictionary<string, object>> ExecuteListQuery(string queryPath, QueryOptions options)
         {
             var store = this.storeFactory();
-           
+
             var queryDef = (QueryDefinition)store.Projects[this.config.ProjectName].QueryHierarchy.ByPath(queryPath);
 
             var context = new Dictionary<string, object>()
             {
                 {"project", this.config.ProjectName}
             };
-            
+
             var query = new Query(store, queryDef.QueryText, context);
 
             var workItems = query.RunQuery();
-          
+
             var q = from WorkItem workItem in workItems
                     where options.LimitToTypes.Contains(workItem.Type.Name)
                     select BuildResultItem(workItem, query.DisplayFieldList, options.AdditionalFields);
@@ -99,19 +99,19 @@ namespace Tfs
             {
                 {"project", this.config.ProjectName}
             };
-            
+
             var query = new Query(store, queryDef.QueryText, context);
 
             var workItems = query.RunLinkQuery();
 
             var q = from item in workItems
-                where item.SourceId != 0
-                let parent = store.GetWorkItem(item.TargetId)
+                    where item.SourceId != 0
+                    let parent = store.GetWorkItem(item.TargetId)
                     group BuildResultItem(parent, query.DisplayFieldList, options.AdditionalFields)
                     by item.SourceId
-                    into g
-                let groupName = store.GetWorkItem(g.Key).Title
-                select new QueryGroup(){Id = g.Key, Name = groupName, WorkItems = g.ToList()};
+                        into g
+                        let groupName = store.GetWorkItem(g.Key).Title
+                        select new QueryGroup() { Id = g.Key, Name = groupName, WorkItems = g.ToList() };
 
             return q.ToList();
         }
@@ -125,7 +125,10 @@ namespace Tfs
 
             foreach (FieldDefinition field in displayFieldList)
             {
-                dict["field_" + field.Name] = workItem[field.Name];
+                if (workItem.Fields.Contains(field.Name))
+                {
+                    dict["field_" + field.Name] = workItem[field.Name];
+                }
             }
 
             foreach (var additionalField in additionalFields)
