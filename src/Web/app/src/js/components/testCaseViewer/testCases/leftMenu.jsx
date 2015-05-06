@@ -82,7 +82,7 @@ class LeftMenu extends React.Component{
                         parentNode={this.state.queriesParentNode}
                         onLeafClick={this.handleQueryClick.bind(this)}
                         selectedNode={this.state.selectedQueryPath}
-                        open={true}
+                        open={false}
                         value={x => {
                             return {path : x.path, type : x.queryType};
                             }}

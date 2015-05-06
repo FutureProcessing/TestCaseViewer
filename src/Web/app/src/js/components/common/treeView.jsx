@@ -16,7 +16,7 @@ class TreeView extends React.Component{
                 element = (
                     <li>
                         <Toggle
-                            open={this.props.open}
+                            open={this.isNodeOpen(node)}
                             header={(
                                 <span className={this.classesForNode(node)} >
                                     <Icon icon="arrow-down" className="folder-icon"/>
@@ -26,8 +26,7 @@ class TreeView extends React.Component{
                             <TreeView
                                 onLeafClick={this.props.onLeafClick}
                                 parentNode={node}
-                                selectedNode={this.props.selectedNode}
-                                open={this.props.open}
+                                selectedNode={this.props.selectedNode}                            
                                 value={this.props.value}
                                 text={this.props.text}
                                 children={this.props.children}
@@ -68,11 +67,17 @@ class TreeView extends React.Component{
         });
     }
 
-    classesForLeaf(node){        
+    classesForLeaf(node){
         return classNames('leaf', {
             'active': this.props.selectedNode === this.props.value(node).path,
             'disabled': this.props.isLeafDisabled(node)
         });
+    }
+
+    isNodeOpen(node) {
+      var nodePath = this.props.value(node).path;
+
+      return this.props.selectedNode.startsWith(nodePath);
     }
 }
 
@@ -80,7 +85,6 @@ TreeView.propTypes = {
     parentNode: React.PropTypes.object,
     onLeafClick: React.PropTypes.func,
     selectedNode: React.PropTypes.string,
-    open: React.PropTypes.bool,
     value: React.PropTypes.func,
     text: React.PropTypes.func,
     children :React.PropTypes.func,
