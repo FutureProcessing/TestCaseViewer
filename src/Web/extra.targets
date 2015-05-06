@@ -2,10 +2,33 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <CopyAllFilesToSingleFolderForMsdeployDependsOn>
-      AddJSFilesToPackage;
+      AddJSFilesToPackage;      
       $(CopyAllFilesToSingleFolderForMsdeployDependsOn);
     </CopyAllFilesToSingleFolderForMsdeployDependsOn>
+
+    <AfterAddIisSettingAndFileContentsToSourceManifest>
+      $(AfterAddIisSettingAndFileContentsToSourceManifest);
+      AddCustomSkipRules;
+    </AfterAddIisSettingAndFileContentsToSourceManifest>
   </PropertyGroup>
+
+  <Target Name="AddCustomSkipRules">
+    <ItemGroup>
+      <MsDeploySkipRules Include="DoNotDeleteConfigFile">
+        <SkipAction>Delete</SkipAction>
+        <ObjectName>filePath</ObjectName>
+        <AbsolutePath>config.json</AbsolutePath>
+        <XPath></XPath>
+      </MsDeploySkipRules>
+
+      <MsDeploySkipRules Include="DoNotUpdateConfigFile">
+      <SkipAction>Update</SkipAction>
+      <ObjectName>filePath</ObjectName>
+      <AbsolutePath>config.json</AbsolutePath>
+      <XPath></XPath>
+      </MsDeploySkipRules>
+    </ItemGroup>
+  </Target>
 
   <Target Name="AddJSFilesToPackage">
     <ItemGroup>
@@ -14,9 +37,7 @@
       <FilesForPackagingFromProject  Include="%(_CustomFiles.Identity)">
         <DestinationRelativePath>app\dist\%(RecursiveDir)%(Filename)%(Extension)</DestinationRelativePath>
       </FilesForPackagingFromProject>
-    </ItemGroup>
-    
-    <Message Importance="High" Text="ADDING JS FILES!!!!!"/>
-  </Target>
+    </ItemGroup>       
+  </Target> 
 
 </Project>
