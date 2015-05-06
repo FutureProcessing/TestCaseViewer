@@ -68,9 +68,9 @@ class TreeView extends React.Component{
         });
     }
 
-    classesForLeaf(node){
+    classesForLeaf(node){        
         return classNames('leaf', {
-            'active': this.props.selectedNode === this.props.text(node),
+            'active': this.props.selectedNode === this.props.value(node).path,
             'disabled': this.props.isLeafDisabled(node)
         });
     }

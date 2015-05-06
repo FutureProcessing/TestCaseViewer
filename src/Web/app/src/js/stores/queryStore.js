@@ -64,7 +64,7 @@ class QueryStore extends EventEmitter{
 
         var splittedPath = path.split('/');
         this.state.selectedQueryName  = this.state.selectedQueryName || splittedPath[splittedPath.length -1];
-        this.state.selectedQueryPath  = this.state.selectedQueryName || path;
+        this.state.selectedQueryPath  = path || this.state.selectedQueryName;
         this.state.selectedQueryType = queryType;
     }
 
