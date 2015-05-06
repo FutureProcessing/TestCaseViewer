@@ -22,13 +22,19 @@ function makeRequest(method, xhttpParams, customErrors){
         params = {
             method: method,
             url: composeAbsoluteUrl(xhttpParams),
-            timeout: 30000
+            timeout: 30000,
+            headers: {
+              'Accept': 'application/json'
+            }
         };
     } else {
         xhttpParams.url = composeAbsoluteUrl(xhttpParams.url);
         params = objectAssign({
             method: method,
-            timeout: 30000
+            timeout: 30000,
+            headers: {
+              'Accept': 'application/json'
+            }
         }, xhttpParams);
     }
 

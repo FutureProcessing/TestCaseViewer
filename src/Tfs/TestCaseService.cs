@@ -146,18 +146,5 @@ namespace Tfs
 
             return matchingStatus.Name;
         }
-
-        public object Dupa(int id)
-        {
-            var service = this.testManagementFactory();
-
-            var teamProject = service.GetTeamProject(this.config.ProjectName);
-
-            var tc = teamProject.TestCases.Find(id);
-
-            var transition = this.transitionFactory(this.config.RejectTransition);
-
-            return transition.Preview(tc.WorkItem);
-        }
     }
 }
