@@ -8,6 +8,7 @@ import tcStatuses from '../constants/tcStatuses.js';
 var CHANGE_EVENT = 'changeQueryStore';
 class QueryStore extends EventEmitter{
     constructor(){
+        super();
         this.state = {
             getTestCasesInProgress: false,
             getQueriesInProgress: false,

@@ -10,6 +10,7 @@ import LoadingPage from '../common/loadingPage.jsx';
 
 class LogIn extends React.Component{
     constructor(props){
+        super(props);
         this.state = {
             identifying: true,
             user: '',

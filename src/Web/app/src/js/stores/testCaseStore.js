@@ -8,6 +8,7 @@ import tcStatuses from '../constants/tcStatuses.js';
 var CHANGE_EVENT = 'change';
 class TestCaseStore extends EventEmitter{
     constructor(){
+        super();
         this.state = {
             rejectInProgress: false,
             acceptInProgress: false,

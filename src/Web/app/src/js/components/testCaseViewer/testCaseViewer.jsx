@@ -6,7 +6,8 @@ import TopBar from './topBar.jsx';
 import LoadingPage from '../common/loadingPage.jsx';
 
 class TestCaseViewer extends React.Component {
-    constructor(){
+    constructor(props){
+        super(props);
         this.state = {
             isLoggedIn : UserStore.getData().isLoggedIn
         };

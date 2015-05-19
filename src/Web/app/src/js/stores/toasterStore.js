@@ -17,6 +17,7 @@ class Toast{
 
 class ToasterStore extends EventEmitter{
     constructor(){
+        super();
         this.state = {
             toasts: []
         };

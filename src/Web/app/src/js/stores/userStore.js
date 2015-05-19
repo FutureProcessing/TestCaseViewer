@@ -6,6 +6,7 @@ import AjaxError from '../utils/ajaxError.js';
 var CHANGE_EVENT = 'userStoreChange';
 class userStore extends EventEmitter{
     constructor(){
+        super();
         this.state = {
             username: '',
             displayName: '',

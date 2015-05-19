@@ -4,7 +4,7 @@ module.exports = {
     },
     module: {
         loaders: [
-            { test: /\.js|\.jsx$/, exclude: /node_modules/, loader: 'babel-loader'}
+            { test: /\.js|\.jsx$/, exclude: /node_modules/, loader: 'babel'            }
         ]
     },
     devtool: "inline-source-map"
