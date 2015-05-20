@@ -7,8 +7,8 @@ class TestCaseInfo extends React.Component{
         return(
             <div>
                 <h1>
-                    {this.props.title}
-                    <StatusIcon className="status-icon" status={this.props.status} enableColors={true} />
+                    <StatusIcon className="status-icon" status={this.props.status} enableColors={false} />
+                    {this.props.title}                    
                 </h1>
                 <div className="test-case-props">
                     <div className="created-by-field"> <label>created by:</label> {this.props.createdBy || 'nobody'} </div>
