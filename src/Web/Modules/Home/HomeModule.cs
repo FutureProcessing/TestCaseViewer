@@ -1,15 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Reflection;
+using Nancy;
 
 namespace Web.Modules.Home {
-    using Nancy;
-
     public class HomeModule : NancyModule {
         public HomeModule()
         {
-            Get["/"] = _ => View["index.sshtml"];            
+            Get["/"] = _ => View["index.sshtml", new
+            {
+                Version = AppVersion()
+            }];            
+        }
+
+        private static string AppVersion()
+        {
+            var attribute = typeof (HomeModule).Assembly.GetCustomAttribute<AssemblyFileVersionAttribute>();
+
+            if (attribute != null)
+            {
+                return attribute.Version;
+            }
+
+            return "dev";
         }
     }
 }

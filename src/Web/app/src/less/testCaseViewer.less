@@ -24,7 +24,37 @@
         color: @CLight;
         height: @topbarHeight;
 
-        .user-button{            
+        .app-header {
+            float:left;
+            height: 100%;
+            padding-left: 5px;
+            display: flex;
+            justify-content: center;
+
+            .app-name {
+                align-self: center;
+
+                color: @CLight;
+                overflow: hidden;
+                box-sizing: border-box;
+
+                margin:0;
+                padding:0;
+
+                .name {
+                    font-size: 2em;
+                    line-height: 1em;
+                    margin-right: 5px;
+                }
+
+                .version{
+                    color: @CLight2;
+                    font-size: 0.85em;
+                }
+            }
+        }
+
+        .user-button{
             float: right;
             overflow: hidden;
             position: relative;
@@ -64,19 +94,19 @@
             &:after {
                 content: attr(data-logout);
                 position: absolute;
-            	z-index: 1;
-            	.transition(all 0.3s);
+                z-index: 1;
+                .transition(all 0.3s);
 
                 padding-top: 2em;
                 margin: auto;
 
-            	width: 0;
-            	height: 103%;
-            	top: 50%;
-            	left: 50%;
-            	background: @CBase2;
-            	opacity: 0;
-            	.transform(translateX(-50%) translateY(-50%));
+                width: 0;
+                height: 103%;
+                top: 50%;
+                left: 50%;
+                background: @CBase2;
+                opacity: 0;
+                .transform(translateX(-50%) translateY(-50%));
             }
 
             &:active, &:hover {

@@ -13,6 +13,7 @@
     <div id="main" class="container"></div>
     <script>
         window.baseUrl = "@Path['~/']";
+        window.version = '@Model.Version';
     </script>
     <script src="@Path['~/js/main.js']"></script>
 </body>

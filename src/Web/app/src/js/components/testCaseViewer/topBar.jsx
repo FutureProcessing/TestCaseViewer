@@ -2,6 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import UserStore from '../../stores/userStore.js';
 import UserButton from './userButton.jsx';
+import AppHeader from './appHeader.jsx'
 
 class TopBar extends React.Component{
     constructor(props){
@@ -31,6 +32,7 @@ class TopBar extends React.Component{
     render(){
         return (
             <div className="top-bar">
+                <AppHeader />
                 <UserButton
                     onLogoutClick={this.props.onLogOffClick.bind(this)}
                     displayName={this.state.displayName}
