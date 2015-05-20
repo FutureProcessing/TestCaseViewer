@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectAssemblyInfo>$(SolutionDir)ProjectAssemblyInfo.cs</ProjectAssemblyInfo>
+  </PropertyGroup>
+  
+  <Target Name="IncludeProjectAssemblyInfo" BeforeTargets="CoreCompile">
+    <ItemGroup>
+      <Compile Include="$(ProjectAssemblyInfo)" Condition="Exists('$(ProjectAssemblyInfo)')"/>
+    </ItemGroup>
+    
+    <Message Importance="High" Text="Project Assembly Info: $(ProjectAssemblyInfo)" Condition="Exists('$(ProjectAssemblyInfo)')"/>
+  </Target>
+</Project>
