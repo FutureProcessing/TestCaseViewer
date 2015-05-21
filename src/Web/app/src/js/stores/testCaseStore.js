@@ -62,7 +62,7 @@ class TestCaseStore extends EventEmitter{
 
     handleRecievedTC(testCase){
         var newState = {
-            id : this.state.inProgressId,
+            id : testCase.id,
             inProgressId : null,
             inProgress : false,
             title : testCase.title,
