@@ -22,10 +22,10 @@ var ViewActionCreators = {
 
             logInApi.identify().then((data) => {
                 if(data && !data.isAuthenticated){
-                    RouterContainer.get().transitionTo('/login');
+                    RouterContainer.get().replaceWith('/login');
                 }
             }).catch(err => {
-                RouterContainer.get().transitionTo('/login');
+                RouterContainer.get().replaceWith('/login');
             });
         }
     },
@@ -35,7 +35,7 @@ var ViewActionCreators = {
             type: ActionTypes.LOG_OFF
         })
         logInApi.logOut().then(() => {
-            RouterContainer.get().transitionTo('/login');
+            RouterContainer.get().replaceWith('/login');
         });
     },
 

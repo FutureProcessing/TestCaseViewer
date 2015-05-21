@@ -38,7 +38,7 @@ class LogIn extends React.Component{
     handleStoreChange(){
         var data = UserStore.getData();
         if(data.isLoggedIn) {
-            this.context.router.transitionTo('/');
+            this.context.router.replaceWith('/');
         }else{
             this.setState({
                 inProgress: data.inProgress,
