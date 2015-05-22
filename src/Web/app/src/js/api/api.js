@@ -18,6 +18,7 @@ class Api {
 
 function makeRequest(method, xhttpParams, customErrors){
     var params;
+
     if(typeof xhttpParams === 'string'){
         params = {
             method: method,

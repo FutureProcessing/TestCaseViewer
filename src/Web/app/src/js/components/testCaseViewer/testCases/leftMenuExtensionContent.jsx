@@ -10,7 +10,6 @@ class LeftMenuExtensionContent extends React.Component{
                 <div ref="treeView">
                     {this.props.children}
                 </div>
-
             </ScrollArea>
         );
     }
