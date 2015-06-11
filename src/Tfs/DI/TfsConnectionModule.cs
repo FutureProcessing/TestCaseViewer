@@ -12,11 +12,19 @@
         {
             builder.Register(ctx =>
             {
-                var config = ctx.Resolve<IConfiguration>();
-
                 var identity = ctx.Resolve<ClaimsIdentity>();
                 var password = identity.FindFirst(LocalClaims.PasswordType).Value;
-                var credentials = new NetworkCredential(identity.Name, password);
+
+                return new NetworkCredential(identity.Name, password);
+
+            })
+            .AsSelf()
+            .SingleInstance();
+
+            builder.Register(ctx =>
+            {
+                var config = ctx.Resolve<IConfiguration>();
+                var credentials = ctx.Resolve<NetworkCredential>();
 
                 return new TfsTeamProjectCollection(config.TfsServer, credentials);
             })

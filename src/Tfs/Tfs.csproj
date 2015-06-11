@@ -46,6 +46,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -56,6 +57,7 @@
     <Compile Include="AuthenticationService.cs" />
     <Compile Include="DI\TfsConnectionModule.cs" />
     <Compile Include="DI\TfsModule.cs" />
+    <Compile Include="DownloadSpec.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="IConfiguration.cs" />
     <Compile Include="ImageData.cs" />

@@ -1,5 +1,7 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
+using Nancy;
 using Nancy.ModelBinding;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -25,6 +27,8 @@ namespace Web.Modules.TestCases
             {
                 testCases.Reject(_.id); return Ok;
             };
+
+            Get["testcase/{id}/attachment/{fileId}/{name}"] = _ => testCases.DownloadAttachment((int) _.id, (int) _.fileId, (string) _.name) ?? NotFound("Attachment not found");
         }
     }
 }

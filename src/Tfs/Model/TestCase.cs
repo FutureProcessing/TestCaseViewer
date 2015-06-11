@@ -14,5 +14,6 @@ namespace Tfs.Model
         public string Status { get; set; }
         public string AssignedTo { get; set; }
         public DateTime LastChangedDate { get; set; }
+        public object[] Attachments { get; set; }
     }
 }
