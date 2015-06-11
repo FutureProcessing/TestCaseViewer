@@ -24,7 +24,7 @@ namespace Tfs.TransitionSpecs
                                                               Value = null
                                                           };
 
-        public static readonly Parser<DirectValue> DirectValue = StringValue.Or(Null); 
+        public static readonly Parser<DirectValue> DirectValue = StringValue.Or(Null);
 
         public static readonly Parser<WorkItemFieldReference> WorkItemFieldReference = from _ in Parse.Char('@')
                                                                                        from f in FieldName
@@ -67,8 +67,19 @@ namespace Tfs.TransitionSpecs
                                                                                    from __ in Parse.Char(')')
                                                                                    select new ExpressionWithAsOfSpec { Expression = expression, AsOf = asOf };
 
-        public static readonly Parser<Expression> ParseInput = ExpressionWithAsOf
-                                                           .Or(Expression)
-                                                           ;
+        public static readonly Parser<Expression> AnyExpression = ExpressionWithAsOf.Or(Expression);
+
+        public static readonly Parser<Expression> Coalesce = from left in AnyExpression
+                                                             from _ in Parse.WhiteSpace.Many()
+                                                             from op in Parse.String("??")
+                                                             from __ in Parse.WhiteSpace.Many()
+                                                             from right in Parse.Ref(() => Coalesce).Or(AnyExpression)
+                                                             select new Coalesce
+                                                             {
+                                                                 Left = left,
+                                                                 Right = right
+                                                             };
+
+        public static readonly Parser<Expression> ParseInput = Coalesce.Or(AnyExpression);
     }
 }

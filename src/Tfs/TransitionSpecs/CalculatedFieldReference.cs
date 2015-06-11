@@ -22,5 +22,10 @@ namespace Tfs.TransitionSpecs
         {
             return other.FieldName == this.FieldName;
         }
+
+        public override string ToString()
+        {
+            return "#" + this.FieldName;
+        }
     }
 }

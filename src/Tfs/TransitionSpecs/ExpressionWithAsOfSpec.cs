@@ -29,12 +29,17 @@ namespace Tfs.TransitionSpecs
 
         public override string ToString()
         {
-            return string.Format("FieldRef = {0} AsOfSpec = {1}", this.Expression, this.AsOf);
+            return string.Format("({0})({1})", this.Expression, this.AsOf);
         }
 
         public override object Evalute(EvaluationContext context)
         {
             var revision = this.AsOf.Resolve(context);
+
+            if (revision == null)
+            {
+                return NotFound.Value;
+            }
 
             return this.Expression.Evalute(context.AsOfRevision(revision));
         }

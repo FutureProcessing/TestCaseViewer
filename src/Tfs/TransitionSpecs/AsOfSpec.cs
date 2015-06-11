@@ -29,7 +29,7 @@ namespace Tfs.TransitionSpecs
 
         public override string ToString()
         {
-            return string.Format("FieldRef = {0} Old = {1} New = {2}", this.FieldRef, this.OldValue, this.NewValue);
+            return string.Format("{0}: {1} -> {2}", this.FieldRef, this.OldValue, this.NewValue);
         }
 
         public IWorkItemRevision Resolve(EvaluationContext context)
@@ -48,7 +48,7 @@ namespace Tfs.TransitionSpecs
                 }
             }
 
-            throw new InvalidOperationException("No matching revision found");
+            return null;
         }
     }
 }

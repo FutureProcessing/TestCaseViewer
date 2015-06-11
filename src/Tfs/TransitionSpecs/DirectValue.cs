@@ -13,7 +13,7 @@ namespace Tfs.TransitionSpecs
 
         public override string ToString()
         {
-            return this.Value;
+            return "'" + this.Value + "'";
         }
 
         public override bool Equals(Expression other)
