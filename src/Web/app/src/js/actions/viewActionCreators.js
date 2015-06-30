@@ -79,18 +79,12 @@ var ViewActionCreators = {
         });
     },
 
-    getTestCases: function(path, name, type){
+    getTestCases: function(path){
         AppDispatcher.handleViewAction({
             type: ActionTypes.GET_TEST_CASES,
-            queryPath: path,
-            queryName: name
+            queryPath: path
         });
-
-        if(type === QueryTypes.LIST){
-            queryApi.getTestCases(path);
-        } else if(type === QueryTypes.ONE_HOP) {
-            queryApi.getLinkTestCases(path);
-        }
+        queryApi.getTestCases(path);
     },
 
     getDefaultTestCases: function(){
@@ -98,6 +92,13 @@ var ViewActionCreators = {
             type: ActionTypes.GET_TEST_CASES
         });
         queryApi.getDefaultTestCases();
+    },
+
+    chooseQuery: function(name){
+        AppDispatcher.handleViewAction({
+            type: ActionTypes.CHOOSE_QUERY,
+            queryName: name
+        });
     },
 
     getQueries: function(){

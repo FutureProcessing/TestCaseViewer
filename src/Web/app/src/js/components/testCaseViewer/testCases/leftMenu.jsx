@@ -18,6 +18,7 @@ var scrollAreaCss = require('style!css!react-scrollbar/dist/css/scrollbar.css');
 class LeftMenu extends React.Component{
     constructor(props, context){
         super(props);
+        var selectedQueryPath = context.router.getCurrentQuery();
         this.state = {
             testCaseId: context.router.getCurrentParams().id || '',
             selectedTestCaseId: null,
@@ -48,8 +49,13 @@ class LeftMenu extends React.Component{
         QueryStore.removeEventListener(this.queryStoreChangeHandler);
     }
 
+    componentWillReceiveProps(){
+        var queryPath = this.context.router.getCurrentQuery().queryPath;
+        if(queryPath && queryPath !== this.state.selectedQueryPath) this.getTestCases(queryPath);
+    }
+
     render(){
-        var TestCaseListHandler = this.state.selectedQueryType === QueryTypes.ONE_HOP? OneHopTestCaseList : TestCaseList;
+        var TestCaseListHandler = this.state.selectedQueryType === QueryTypes.ONE_HOP? OneHopTestCaseList : TestCaseList; //FIXME: use proper type
         var emptyTestCaseList = this.state.getTestCasesInProgress || this.state.testCases && this.state.testCases.length > 0 ? null :  <span className="empty-list">Query result contains no test cases</span>;
 
         return (
@@ -97,8 +103,10 @@ class LeftMenu extends React.Component{
     }
 
     initializeTestCases (){
+        var curr = this;
         setTimeout(() => {
-            ViewActionCreators.getDefaultTestCases();
+            var queryPath = curr.context.router.getCurrentQuery().queryPath;
+            curr.getTestCases(queryPath);
         },1); //FIXME: it is just wrong
     }
 
@@ -106,6 +114,14 @@ class LeftMenu extends React.Component{
         setTimeout(() => {
             ViewActionCreators.getQueries();
         },1); //FIXME: it is just wrong
+    }
+
+    getTestCases (queryPath){
+        if(queryPath){
+            ViewActionCreators.getTestCases(queryPath);
+        }else{
+            ViewActionCreators.getDefaultTestCases();
+        }
     }
 
     handleStoreChange (){
@@ -118,21 +134,21 @@ class LeftMenu extends React.Component{
         this.setState({
             getTestCasesInProgress: data.getTestCasesInProgress,
             getQueriesInProgress: data.getQueriesInProgress,
-            testCases: data.testCases,
+            testCases: data.queryResult.testCases,
             queriesParentNode: data.queriesParentNode,
             selectedQueryName: data.selectedQueryName,
             selectedQueryPath: data.selectedQueryPath,
-            selectedQueryType: data.selectedQueryType
+            selectedQueryType: data.queryResult.queryType
         });
     }
 
     handleTestCaseClick(id){
-        this.context.router.transitionTo('tc', {id: id});
+        this.context.router.transitionTo('tc', {id: id}, this.context.router.getCurrentQuery());
     }
 
     handleGoActionClick(){
         if(this.state.testCaseId){
-            this.context.router.transitionTo('tc', {id: encodeURIComponent(this.state.testCaseId)});
+            this.context.router.transitionTo('tc', {id: encodeURIComponent(this.state.testCaseId)}, this.context.router.getCurrentQuery());
         }
     }
 
@@ -148,7 +164,9 @@ class LeftMenu extends React.Component{
 
     handleQueryClick(value, name){
         this.setState({isExtensionOpen: false});
-        ViewActionCreators.getTestCases(value.path, name, value.type);
+        ViewActionCreators.chooseQuery(name, value.path);
+        var currentLocation = this.context.router.getCurrentPathname();
+        this.context.router.transitionTo(currentLocation, {}, {queryPath: value.path} )
     }
 }
 

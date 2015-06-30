@@ -67,7 +67,7 @@ namespace Tfs
             return null;
         }
 
-        public IEnumerable<IDictionary<string, object>> ExecuteListQuery(string queryPath, QueryOptions options)
+        public QueryResult ExecuteGetQueryResult(string queryPath, QueryOptions options)
         {
             var store = this.storeFactory();
 
@@ -80,40 +80,28 @@ namespace Tfs
 
             var query = new Query(store, queryDef.QueryText, context);
 
-            var workItems = query.RunQuery();
-
-            var q = from WorkItem workItem in workItems
-                    where options.LimitToTypes.Contains(workItem.Type.Name)
-                    select BuildResultItem(workItem, query.DisplayFieldList, options.AdditionalFields);
-
-            return q.ToList();
-        }
-
-        public IEnumerable<QueryGroup> ExecuteLinkQuery(string queryPath, QueryOptions options)
-        {
-            var store = this.storeFactory();
-
-            var queryDef = (QueryDefinition)store.Projects[this.config.ProjectName].QueryHierarchy.ByPath(queryPath);
-
-            var context = new Dictionary<string, object>()
+            QueryResult queryResult = new QueryResult() {Name = queryDef.Name, QueryType = queryDef.QueryType};
+            if (queryDef.QueryType == QueryType.List)
             {
-                {"project", this.config.ProjectName}
-            };
-
-            var query = new Query(store, queryDef.QueryText, context);
-
-            var workItems = query.RunLinkQuery();
-
-            var q = from item in workItems
+                var workItems = query.RunQuery();
+                queryResult.TestCases = (from WorkItem workItem in workItems
+                        where options.LimitToTypes.Contains(workItem.Type.Name)
+                        select BuildResultItem(workItem, query.DisplayFieldList, options.AdditionalFields)).ToList();
+            }
+            else if (queryDef.QueryType == QueryType.OneHop)
+            {
+                var workItems = query.RunLinkQuery();
+                queryResult.TestCases = (from item in workItems
                     where item.SourceId != 0
                     let parent = store.GetWorkItem(item.TargetId)
                     group BuildResultItem(parent, query.DisplayFieldList, options.AdditionalFields)
                     by item.SourceId
                         into g
                         let groupName = store.GetWorkItem(g.Key).Title
-                        select new QueryGroup() { Id = g.Key, Name = groupName, WorkItems = g.ToList() };
+                        select new QueryGroup() { Id = g.Key, Name = groupName, WorkItems = g.ToList() }).ToList();
+            }
 
-            return q.ToList();
+            return queryResult;
         }
 
         private IDictionary<string, object> BuildResultItem(WorkItem workItem, DisplayFieldList displayFieldList, Dictionary<string, Func<IWorkItemRevision, object>> additionalFields)
@@ -152,5 +140,12 @@ namespace Tfs
     {
         public string[] LimitToTypes { get; set; }
         public Dictionary<string, Func<IWorkItemRevision, object>> AdditionalFields { get; set; }
+    }
+
+    public class QueryResult
+    {
+        public string Name { get; set; }
+        public QueryType QueryType { get; set; }
+        public IEnumerable<object> TestCases { get; set; }
     }
 }

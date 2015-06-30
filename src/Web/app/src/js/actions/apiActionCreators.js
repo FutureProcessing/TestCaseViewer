@@ -2,7 +2,7 @@ import AppDispatcher from '../dispatchers/appDispatcher.js';
 import ActionTypes from '../constants/actionTypes.js';
 
 var ApiActionCreators = {
-    loggedIn: function(username, displayName){
+    loggedIn: function(username, displayName){//TODO: refactor to loggedIn(username, displayName){}
         AppDispatcher.handleApiAction({
             type: ActionTypes.LOG_IN_SUCCESS,
             username: username,
@@ -92,12 +92,13 @@ var ApiActionCreators = {
         });
     },
 
-    recievedTestCases: function(data, path, type){
+    recievedTestCases: function(data, path, type, name){
         AppDispatcher.handleApiAction({
             type: ActionTypes.GET_TEST_CASES_SUCCESS,
             testCases: data,
             path: path,
-            queryType: type
+            queryType: type,
+            queryName: name
         });
     },
 

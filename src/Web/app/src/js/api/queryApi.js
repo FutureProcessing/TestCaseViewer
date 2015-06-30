@@ -7,16 +7,8 @@ import QueryTypes from '../constants/queryTypes.js';
 
 var queryApi = {
     getTestCases(path){
-        return api.get(`query/list/${encodeURIComponent(path)}`).then((data) => {
-            ApiActionCreators.recievedTestCases(mapTestCases(data), path, QueryTypes.LIST);
-        }).catch(error => {
-            ApiActionCreators.getTestCasesFailed(error);
-        });
-    },
-
-    getLinkTestCases(path){
-        return api.get(`query/link/${encodeURIComponent(path)}`).then((data) => {
-            ApiActionCreators.recievedTestCases(mapLinkTestCases(data), path, QueryTypes.ONE_HOP);
+        return api.get(`query/result/${encodeURIComponent(path)}`).then((data) => {
+            ApiActionCreators.recievedTestCases(mapTestCases(data.testCases), path, data.queryType, data.name);
         }).catch(error => {
             ApiActionCreators.getTestCasesFailed(error);
         });
@@ -26,9 +18,9 @@ var queryApi = {
         var path;
         return api.get(`config`).then((data) => {
             path = data.defaultQuery;
-            return api.get(`query/list/${encodeURIComponent(path)}`)
+            return api.get(`query/result/${encodeURIComponent(path)}`)
         }).then((data) => {
-            ApiActionCreators.recievedTestCases(mapTestCases(data), path);
+            ApiActionCreators.recievedTestCases(mapTestCases(data.testCases), path, data.queryType, data.name);
         }).catch(error => {
             ApiActionCreators.getTestCasesFailed(error);
         });

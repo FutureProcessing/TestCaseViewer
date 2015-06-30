@@ -11,22 +11,12 @@ namespace Web.Modules.Queries
         public QueriesModule(QueriesService queries, TestCaseService testCases)
         {
             Get["queries"] = _ => queries.GetQueriesTree();
-            Get["query/list/{path*}"] = _ => queries.ExecuteListQuery(_.path, new QueryOptions()
+            Get["query/result/{path*}"] = _ => queries.ExecuteGetQueryResult(_.path, new QueryOptions()
             {
                 LimitToTypes = testCases.TestCaseTypeNames(),
                 AdditionalFields = new Dictionary<string, Func<IWorkItemRevision, object>>
                 {
                     {"Status", testCases.DetermineStatus}
-                }
-            });
-            Get["query/link/{path*}"] = _ => queries.ExecuteLinkQuery(_.path, new QueryOptions()
-            {
-                LimitToTypes = testCases.TestCaseTypeNames(),
-                AdditionalFields = new Dictionary<string, Func<IWorkItemRevision, object>>
-                {
-                    {
-                        "Status", testCases.DetermineStatus
-                    }
                 }
             });
         }

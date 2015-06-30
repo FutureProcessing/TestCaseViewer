@@ -12,7 +12,10 @@ class QueryStore extends EventEmitter{
         this.state = {
             getTestCasesInProgress: false,
             getQueriesInProgress: false,
-            testCases: [],
+            queryResult: {
+                testCases: [],
+                queryType: ''
+            },
             queriesParentNode: {},
             selectedQueryName: '',
             selectedQueryPath: ''
@@ -47,10 +50,9 @@ class QueryStore extends EventEmitter{
         return this.state;
     }
 
-    handleGetTestCases(queryName, queryPath){
+    handleGetTestCases(queryPath){
         this.saveState();
         this.state.getTestCasesInProgress = true;
-        this.state.selectedQueryName = queryName;
         this.state.selectedQueryPath = queryPath;
     }
 
@@ -61,12 +63,19 @@ class QueryStore extends EventEmitter{
 
     handleRecievedTestCases(testCases, path, queryType){
         this.state.getTestCasesInProgress = false;
-        this.state.testCases = testCases;
 
+        this.state.queryResult = {
+            testCases,
+            queryType
+        };
         var splittedPath = path.split('/');
         this.state.selectedQueryName  = this.state.selectedQueryName || splittedPath[splittedPath.length -1];
-        this.state.selectedQueryPath  = path || this.state.selectedQueryName;
-        this.state.selectedQueryType = queryType;
+        this.state.selectedQueryPath  = path;
+    }
+
+    handleChoosedQuery(queryName, queryPath){
+        this.state.selectedQueryName  = queryName;
+        this.state.selectedQueryPath  = queryPath;
     }
 
     handleGetQueries(){
@@ -83,12 +92,12 @@ class QueryStore extends EventEmitter{
     }
 
     handleAcceptedTc(id){
-        var tc = this.state.testCases.filter(x => x.id == id)[0];
+        var tc = this.state.queryResult.testCases.filter(x => x.id == id)[0];
         tc.status = tcStatuses.ready;
     }
 
     handleRejectedTc(id){
-        var tc = this.state.testCases.filter(x => x.id == id)[0];
+        var tc = this.state.queryResult.testCases.filter(x => x.id == id)[0];
         tc.status = tcStatuses.design;
     }
 }
@@ -98,7 +107,7 @@ function register(payload){
 
     switch(action.type){
         case actionTypes.GET_TEST_CASES:
-            this.handleGetTestCases(action.queryName, action.queryPath);
+            this.handleGetTestCases(action.queryPath);
             this.emitChange();
             break;
         case actionTypes.GET_TEST_CASES_SUCCESS:
@@ -108,6 +117,10 @@ function register(payload){
         case actionTypes.GET_TEST_CASES_FAIL:
             this.handleGetTestCasesFail();
             this.emitChange();
+            break;
+
+        case actionTypes.CHOOSE_QUERY:
+            this.handleChoosedQuery(action.queryName)
             break;
 
         case actionTypes.GET_QUERIES:
