@@ -88,12 +88,10 @@ namespace Tfs
                     Attachments = tc.WorkItem.Attachments.OfType<Attachment>().Select(x => new
                     {
                         Name = x.Name,
-                        Comment = x.Comment,
-                        Uri = x.Uri,
+                        Comment = x.Comment,                        
                         Size = x.Length,
                         Type = x.Extension,
-                        Id = x.Id,
-                        Guid = x.FileGuid,                        
+                        Id = x.Id,                                        
                     }).ToArray()
                 };
             }
