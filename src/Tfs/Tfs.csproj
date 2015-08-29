@@ -75,12 +75,14 @@
     <Compile Include="TestCaseService.cs" />
     <Compile Include="TransitionSpecs\AsOfSpec.cs" />
     <Compile Include="TransitionSpecs\CalculatedFieldReference.cs" />
+    <Compile Include="TransitionSpecs\Coalesce.cs" />
     <Compile Include="TransitionSpecs\DirectValue.cs" />
     <Compile Include="TransitionSpecs\EvaluationContext.cs" />
     <Compile Include="TransitionSpecs\Expression.cs" />
     <Compile Include="TransitionSpecs\ExpressionParsers.cs" />
     <Compile Include="TransitionSpecs\ExpressionWithAsOfSpec.cs" />
     <Compile Include="TransitionSpecs\FieldReference.cs" />
+    <Compile Include="TransitionSpecs\NotFound.cs" />
     <Compile Include="TransitionSpecs\WorkItemFieldReference.cs" />
   </ItemGroup>
   <ItemGroup>

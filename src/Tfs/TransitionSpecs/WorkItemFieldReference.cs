@@ -21,5 +21,10 @@ namespace Tfs.TransitionSpecs
         {
             return context.Revision.Fields[this.FieldName].Value;
         }
+
+        public override string ToString()
+        {
+            return "@" + this.FieldName;
+        }
     }
 }

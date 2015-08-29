@@ -10,7 +10,7 @@
         },
         "reject": {
                 "State": "'Design'",
-                "Assigned To": "@Changed By(#Status:'Design'->'WaitingForApproval')"
+                "Assigned To": "@Changed By(#Status:'Design'->'WaitingForApproval') ?? @Created By"
         }
         },
         "status": {
