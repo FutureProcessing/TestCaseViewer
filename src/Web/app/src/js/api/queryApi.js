@@ -8,7 +8,7 @@ import QueryTypes from '../constants/queryTypes.js';
 var queryApi = {
     getTestCases(path){
         return api.get(`query/result/${encodeURIComponent(path)}`).then((data) => {
-            ApiActionCreators.recievedTestCases(mapTestCases(data.testCases), path, data.queryType, data.name);
+            ApiActionCreators.recievedTestCases(mapTestCases(data.testCases, data.queryType), path, data.queryType, data.name);
         }).catch(error => {
             ApiActionCreators.getTestCasesFailed(error);
         });
@@ -35,7 +35,15 @@ var queryApi = {
     }
 }
 
-function mapLinkTestCases(data){
+function mapTestCases(data, type){
+    if(type === 2){ //FIXME: Change to proper type
+        return mapOneHopQueryTestCases(data);
+    }else{
+        return mapListQueryTestCases(data);
+    }
+}
+
+function mapOneHopQueryTestCases(data){
     return data.map((item) => {
         return {
             id: item.id,
@@ -45,7 +53,7 @@ function mapLinkTestCases(data){
     });
 }
 
-function mapTestCases(data){
+function mapListQueryTestCases(data){
     return data.map((testCase) => {
         return {
             id: testCase.field_ID,

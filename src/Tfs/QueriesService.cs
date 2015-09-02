@@ -142,10 +142,14 @@ namespace Tfs
         public Dictionary<string, Func<IWorkItemRevision, object>> AdditionalFields { get; set; }
     }
 
-    public class QueryResult
+    public  class QueryResult
     {
         public string Name { get; set; }
         public QueryType QueryType { get; set; }
         public IEnumerable<object> TestCases { get; set; }
     }
+
+    //public class ListQueryResult : QueryResult { }
+
+    //public class OneHopQueryResult : QueryResult {}
 }

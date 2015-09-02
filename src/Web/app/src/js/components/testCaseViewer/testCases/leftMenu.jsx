@@ -18,7 +18,7 @@ var scrollAreaCss = require('style!css!react-scrollbar/dist/css/scrollbar.css');
 class LeftMenu extends React.Component{
     constructor(props, context){
         super(props);
-        var selectedQueryPath = context.router.getCurrentQuery();
+        // var selectedQueryPath = context.router.getCurrentQuery();
         this.state = {
             testCaseId: context.router.getCurrentParams().id || '',
             selectedTestCaseId: null,
@@ -55,7 +55,7 @@ class LeftMenu extends React.Component{
     }
 
     render(){
-        var TestCaseListHandler = this.state.selectedQueryType === QueryTypes.ONE_HOP? OneHopTestCaseList : TestCaseList; //FIXME: use proper type
+        var TestCaseListHandler = this.state.selectedQueryType === 2? OneHopTestCaseList : TestCaseList; //FIXME: use proper type
         var emptyTestCaseList = this.state.getTestCasesInProgress || this.state.testCases && this.state.testCases.length > 0 ? null :  <span className="empty-list">Query result contains no test cases</span>;
 
         return (
