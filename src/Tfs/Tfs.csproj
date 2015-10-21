@@ -63,6 +63,9 @@
     <Compile Include="Matching\MatchingSpec.cs" />
     <Compile Include="Model\IWorkItemRevision.cs" />
     <Compile Include="Model\QueryFolder.cs" />
+    <Compile Include="Model\QueryGroup.cs" />
+    <Compile Include="Model\QueryOptions.cs" />
+    <Compile Include="Model\QueryResult.cs" />
     <Compile Include="Model\SharedStep.cs" />
     <Compile Include="Model\SimpleTestStep.cs" />
     <Compile Include="Model\TestCase.cs" />

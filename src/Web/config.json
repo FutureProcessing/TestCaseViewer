@@ -1,6 +1,6 @@
 ﻿{
     "tfs": {
-        "url": "http://novakov-tfs.cloudapp.net:8080/tfs/DefaultCollection",
+        "url": "http://novakov-tfs.westeurope.cloudapp.azure.com:8080/tfs/DefaultCollection",
         "project": "Development",
         "defaultQuery":  "Development/Shared Queries/Current Sprint/Test Cases",
         "transitions": {

@@ -18,7 +18,7 @@
 
         public bool ValidateCredentials(string userName, string password)
         {
-            TfsRequestSettings.Default.SendTimeout = TimeSpan.FromSeconds(5);
+            TfsRequestSettings.Default.SendTimeout = TimeSpan.FromSeconds(50);
 
             var credentials = new NetworkCredential(userName, password);
 
